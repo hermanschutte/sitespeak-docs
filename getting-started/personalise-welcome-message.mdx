@@ -1,0 +1,49 @@
+---
+title: "Personalise your welcome message"
+sidebarTitle: "Welcome message"
+description: "Use template tags to personalise your chatbot's welcome message with visitor information"
+icon: "message-smile"
+---
+
+If you'd like to personalise your chatbot's welcome message with information from your visitor like name, surname or any other custom information you've collected using the lead capture form, you can easily do this using template tags in the welcome message.
+
+## How to add template tags
+
+<Steps>
+  <Step title="Go to Appearance settings">
+    Head over to **Appearance → Welcome Message(s)** in your chatbot settings.
+  </Step>
+  <Step title="Add template tags">
+    Update your welcome message to include template tags where you'd like to insert visitor information.
+  </Step>
+</Steps>
+
+## Template tag format
+
+Template tags use the following format:
+
+```
+{{ field_name | fallback }}
+```
+
+- `field_name` is the name of the field from your lead capture form
+- `fallback` is the text to display if the visitor's information is not known
+
+## Example
+
+```
+Hello {{ first_name | there }}! How can I help you today?
+```
+
+This would display:
+- `Hello John! How can I help you today?` if the visitor's name is known
+- `Hello there! How can I help you today?` if the visitor's name is not known
+
+<Frame>
+  <img src="/images/getting-started/welcome-message-template-tags.png" alt="Welcome message with template tags" />
+</Frame>
+
+<Note>
+  Template tags work with any field you've added to your lead capture form, not just `first_name`.
+</Note>
+
