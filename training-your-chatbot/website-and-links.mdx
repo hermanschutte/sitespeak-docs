@@ -1,0 +1,177 @@
+---
+title: "Train Your Chatbot on Website Content"
+sidebarTitle: "Website & Links"
+description: "Add your website URL or specific page links to train your chatbot on your existing web content."
+icon: "globe"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Frame, Note, Tip, Card, CardGroup } from '@mintlify/components';
+
+Training your chatbot on your website content is the most common way to get started with SiteSpeakAI. You can either crawl an entire website or add specific page URLs.
+
+---
+
+## Website Source
+
+Use the Website option to automatically crawl and discover pages from your website.
+
+<Steps>
+  <Step title="Go to Training & Content">
+    In your chatbot dashboard, click **Training & Content** in the sidebar.
+  </Step>
+  <Step title="Select Sources">
+    Click on **Sources**.
+  </Step>
+  <Step title="Click Add Sources">
+    Click the **+ Add Sources** button.
+  </Step>
+  <Step title="Select Website">
+    From the source type dropdown, select **Website**.
+  </Step>
+  <Step title="Enter your website URL">
+    Enter your website URL in the **Website URL** field.
+  </Step>
+  <Step title="Crawl Website">
+    Click the **Crawl Website** button. SiteSpeakAI will scan your website and discover available pages. This may take a minute or two depending on the size of your website.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/training-your-chatbot/website-source.png" alt="Website source input" />
+</Frame>
+
+### Selecting Pages to Train
+
+After crawling, you'll see a list of discovered pages with their URLs and content sizes.
+
+<Steps>
+  <Step title="Review discovered pages">
+    Browse the list of pages found on your website.
+  </Step>
+  <Step title="Select pages">
+    Use the checkboxes to select which pages you want to train your chatbot on. You can select all or choose specific pages.
+  </Step>
+  <Step title="Add Selected">
+    Click the **Add Selected** button to add the chosen pages as training sources.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/training-your-chatbot/website-pages-list.png" alt="List of discovered website pages" />
+</Frame>
+
+<Tip>
+  Focus on pages with valuable content like product pages, FAQs, help articles, and documentation. Skip pages with minimal content like login pages or utility pages.
+</Tip>
+
+---
+
+## Link Sources
+
+Use the Links option to add specific page URLs directly, without crawling an entire website.
+
+<Steps>
+  <Step title="Go to Training & Content">
+    In your chatbot dashboard, click **Training & Content** in the sidebar.
+  </Step>
+  <Step title="Select Sources">
+    Click on **Sources**.
+  </Step>
+  <Step title="Click Add Sources">
+    Click the **+ Add Sources** button.
+  </Step>
+  <Step title="Select Links">
+    From the source type dropdown, select **Links**.
+  </Step>
+  <Step title="Enter your URLs">
+    Enter the page URLs you want to train on in the **Link URLs** field. Separate each link by a new line.
+  </Step>
+  <Step title="Fetch Links">
+    Click the **Fetch Links** button to retrieve the content from each URL.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/training-your-chatbot/link-source.png" alt="Link source input" />
+</Frame>
+
+### Selecting Links to Train
+
+After fetching, you'll see each URL with its content size.
+
+<Steps>
+  <Step title="Review fetched links">
+    Check the list of URLs and their content sizes.
+  </Step>
+  <Step title="Select links">
+    Use the checkboxes to select which links you want to train on.
+  </Step>
+  <Step title="Add Selected">
+    Click the **Add Selected** button to add the chosen links as training sources.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/training-your-chatbot/link-pages-list.png" alt="List of fetched link pages" />
+</Frame>
+
+---
+
+## Website vs Links: When to Use Each
+
+| Use Case | Recommended Option |
+|----------|-------------------|
+| Train on your entire website | **Website** |
+| Train on specific pages only | **Links** |
+| Add pages from multiple different websites | **Links** |
+| Discover pages you might have missed | **Website** |
+| Add a single blog post or article | **Links** |
+
+---
+
+## Managing Your Trained Sources
+
+After adding sources, they'll appear in your Sources list with their training status.
+
+<Frame>
+  <img src="/images/training-your-chatbot/trained-sources.png" alt="Trained sources list" />
+</Frame>
+
+Each source shows:
+- **Name**: The page title
+- **URL**: The source URL
+- **Type**: Link icon for web sources
+- **Size**: Content size (e.g., 5.8 KB)
+- **Status**: Training status (Trained, Training, Pending, Error)
+- **Auto**: Whether auto-sync is enabled
+- **Last Trained**: When it was last processed
+
+### Keeping Content Updated
+
+To update your trained content when your website changes:
+
+<Steps>
+  <Step title="Select sources">
+    Use the checkboxes to select the sources you want to update.
+  </Step>
+  <Step title="Click Retrain">
+    Click the **Retrain** button to re-fetch and retrain on the latest content.
+  </Step>
+</Steps>
+
+<Tip>
+  Enable **Auto Sync** on important sources to automatically keep them updated.
+</Tip>
+
+---
+
+## Best Practices
+
+- **Start with key pages**: Train on your most important content first (FAQs, product pages, documentation)
+- **Review content quality**: Ensure pages have meaningful text content, not just images or videos
+- **Remove duplicates**: Avoid training on multiple pages with the same content
+- **Update regularly**: Retrain sources when your website content changes significantly
+
+<Cta />
+

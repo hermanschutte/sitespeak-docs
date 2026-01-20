@@ -63,10 +63,15 @@ Track which articles have been migrated from the help center to the new docs sit
 
 | Status | Original Article | New Location |
 |--------|-----------------|--------------|
-| ⏳ | How do I train my chatbot? | |
-| ⏳ | How do I add more content to my chatbot? | |
-| ⏳ | How do I retrain my chatbot? | |
-| ⏳ | ... | |
+| ✅ | How do I train my chatbot? | `training-your-chatbot/overview.mdx` |
+| ✅ | Website & Links (NEW) | `training-your-chatbot/website-and-links.mdx` |
+| ✅ | Train on BookStack wiki 🔥 TOP PAGE | `training-your-chatbot/bookstack.mdx` |
+| ✅ | Can I use PDFs to train my chatbot? | `training-your-chatbot/pdfs.mdx` |
+| ✅ | What sources can I use? | `training-your-chatbot/overview.mdx` (merged) |
+| ✅ | App Integrations (Notion, Google Drive, etc.) | `training-your-chatbot/app-integrations.mdx` |
+| ✅ | How do I fine-tune my chatbot? | `training-your-chatbot/fine-tuning.mdx` |
+| ⏳ | Enable API as a source | (Moved to Tools & Actions) |
+| ⏳ | Chat to SQL database | (Moved to Tools & Actions) |
 
 ---
 
@@ -108,4 +113,10 @@ Track which articles have been migrated from the help center to the new docs sit
 | `managing-your-chatbot/voice-and-tts.mdx` | `voice-settings.png` |
 | `managing-your-chatbot/languages.mdx` | `localization-settings.png` |
 | `managing-your-chatbot/settings.mdx` | `settings-basic.png`, `settings-ai-model.png`, `settings-notice.png`, `settings-advanced.png`, `settings-danger-zone.png` |
+| `training-your-chatbot/overview.mdx` | `sources-list.png` |
+| `training-your-chatbot/bookstack.mdx` | `bookstack-sources.png`, `bookstack-modal.png`, `bookstack-trained.png` |
+| `training-your-chatbot/pdfs.mdx` | `pdf-upload.png` |
+| `training-your-chatbot/app-integrations.mdx` | `app-integrations.png`, `notion-oauth.png`, `onenote-oauth.png`, `google-drive-oauth.png`, `discord-channels.png`, `discord-install.png` |
+| `training-your-chatbot/fine-tuning.mdx` | `updated-answers.png` |
+| `training-your-chatbot/website-and-links.mdx` | `website-source.png`, `website-pages-list.png`, `link-source.png`, `link-pages-list.png`, `trained-sources.png` |
 

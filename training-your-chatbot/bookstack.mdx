@@ -1,0 +1,207 @@
+---
+title: "Train Your Chatbot on BookStack Wiki Content"
+sidebarTitle: "BookStack"
+description: "Learn how to connect your BookStack wiki to SiteSpeakAI and train your chatbot to answer questions using your knowledge base content."
+icon: "book-open"
+---
+
+import Cta from '/snippets/cta.mdx';
+
+Connect your BookStack wiki to SiteSpeakAI to create an AI chatbot that can answer questions using your existing knowledge base. Your chatbot will automatically pull content from your BookStack pages, books, and shelves to provide accurate, contextual responses to your visitors.
+
+## Why Use BookStack with SiteSpeakAI?
+
+BookStack is a popular open-source wiki platform used by thousands of organizations for documentation and knowledge management. By connecting it to SiteSpeakAI, you can:
+
+- **Instant answers**: Let visitors ask questions in natural language instead of searching
+- **24/7 availability**: Provide support even when your team is offline
+- **Reduced support load**: Automate responses to common questions
+- **Always up-to-date**: SiteSpeakAI automatically checks for new and updated content every hour
+
+---
+
+## Prerequisites
+
+Before connecting BookStack to SiteSpeakAI, you'll need:
+
+1. A BookStack installation with API access enabled
+2. A BookStack API token and secret
+3. A SiteSpeakAI account ([sign up free](https://sitespeak.ai/register))
+
+---
+
+## How to Get Your BookStack API Credentials
+
+<Steps>
+  <Step title="Log in to BookStack">
+    Access your BookStack installation as an administrator.
+  </Step>
+  <Step title="Go to your profile">
+    Click on your profile icon and select **Edit Profile**.
+  </Step>
+  <Step title="Create an API token">
+    Scroll down to the **API Tokens** section and click **Create Token**.
+  </Step>
+  <Step title="Copy your credentials">
+    Copy both the **Token ID** and **Token Secret**. Store these securely as the secret won't be shown again.
+  </Step>
+</Steps>
+
+<Note>
+  Make sure your API token has read access to the content you want your chatbot to use. Check your BookStack role permissions if needed.
+</Note>
+
+---
+
+## Connect BookStack to SiteSpeakAI
+
+<Steps>
+  <Step title="Open your chatbot dashboard">
+    Log in to [SiteSpeakAI](https://sitespeak.ai/login) and select your chatbot.
+  </Step>
+  <Step title="Go to Training & Content">
+    Click **Training & Content** in the sidebar, then select **Sources**.
+  </Step>
+  <Step title="Click Add Sources">
+    Click the **+ Add Sources** button in the top right corner.
+  </Step>
+  <Step title="Select Apps">
+    In the source type dropdown, select **Apps** to see available integrations.
+  </Step>
+  <Step title="Choose BookStack">
+    Click on the **BookStack** integration option.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/training-your-chatbot/bookstack-sources.png" alt="Add Sources page showing BookStack integration" />
+</Frame>
+
+### Enter Your BookStack Details
+
+In the **Add Bookstack Integration** modal:
+
+<Steps>
+  <Step title="Enter your Wiki URL">
+    Enter the base URL of your BookStack installation (e.g., `https://wiki.mywebsite.com`).
+  </Step>
+  <Step title="Add your Access Token">
+    Paste the API Token ID you copied from BookStack.
+  </Step>
+  <Step title="Add your Token Secret">
+    Paste the API Token Secret.
+  </Step>
+  <Step title="Save the integration">
+    Click **Save** to connect your BookStack wiki.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/training-your-chatbot/bookstack-modal.png" alt="BookStack integration modal with Wiki URL, Access Token, and Token Secret fields" />
+</Frame>
+
+---
+
+## Select Content to Train On
+
+Once connected, SiteSpeakAI will fetch your BookStack content. You can then:
+
+1. **Select specific pages**: Choose which pages, chapters, or books to include
+2. **Train your chatbot**: Click **Train** to process the selected content
+3. **Monitor status**: Watch the training progress in the Sources list
+
+Your sources will show a **Trained** status with a green checkmark when ready.
+
+---
+
+## How Your Chatbot Uses BookStack Content
+
+After training, your chatbot will:
+
+- Search your BookStack content when visitors ask questions
+- Provide answers based on relevant wiki pages
+- Cite sources so visitors know where the information comes from
+- Handle follow-up questions with context awareness
+
+### Example Interaction
+
+**Visitor**: "How do I reset my password?"
+
+**Chatbot**: "To reset your password, go to the login page and click 'Forgot Password'. Enter your email address and you'll receive a reset link within a few minutes. If you don't see the email, check your spam folder."
+
+*Source: Password Reset Guide (BookStack)*
+
+---
+
+## Keeping Content Updated
+
+Once connected, SiteSpeakAI automatically keeps your chatbot in sync with your BookStack wiki:
+
+- **Automatic sync**: SiteSpeakAI checks BookStack for new and updated pages every hour
+- **No manual action required**: Your chatbot automatically trains on any content changes
+
+This means you can update your BookStack wiki and your chatbot will have the latest information within an hour.
+
+---
+
+## Troubleshooting
+
+### Connection Failed
+
+If you can't connect to BookStack:
+- Verify your Wiki URL is correct and accessible
+- Check that API access is enabled in BookStack settings
+- Ensure your token hasn't expired or been revoked
+- Confirm your token has read permissions
+
+### Content Not Appearing
+
+If your content isn't being fetched:
+- Check your BookStack role permissions
+- Verify the pages aren't restricted to specific roles
+- Try creating a new API token with broader permissions
+
+### Chatbot Giving Wrong Answers
+
+If responses aren't accurate:
+- Review and update your BookStack content
+- Add more detailed information to relevant pages
+- Use [fine-tuning](/training-your-chatbot/fine-tuning) to improve specific responses
+
+---
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="Can I use multiple BookStack instances?">
+    Yes, you can connect multiple BookStack installations to a single chatbot by adding each as a separate source.
+  </Accordion>
+  <Accordion title="How often does SiteSpeakAI sync with BookStack?">
+    SiteSpeakAI automatically checks your BookStack wiki for new and updated content every hour. No manual action is required.
+  </Accordion>
+  <Accordion title="What do I need from BookStack to connect?">
+    You need your BookStack Wiki URL, an API Access Token, and the Token Secret. You can create these in your BookStack profile under API Tokens.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Fine-tune responses" icon="sliders-horizontal" href="/training-your-chatbot/fine-tuning">
+    Improve your chatbot's answers with custom training.
+  </Card>
+  <Card title="Install on your site" icon="code" href="/managing-your-chatbot/deploy-and-install">
+    Add your trained chatbot to your website.
+  </Card>
+  <Card title="Add more sources" icon="plus" href="/training-your-chatbot/overview">
+    Combine BookStack with other content sources.
+  </Card>
+  <Card title="Customize appearance" icon="paintbrush" href="/managing-your-chatbot/appearance">
+    Match your chatbot to your brand.
+  </Card>
+</CardGroup>
+
+<Cta />
+

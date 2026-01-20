@@ -27,3 +27,16 @@ Use these redirects in Cloudflare Bulk Redirects to map old help center URLs to 
 |------------|-----------------|
 | `/help-center/getting-started/how-do-i-install-sitespeakai-on-my-website` | `/docs/managing-your-chatbot/deploy-and-install` |
 
+## Training Your Chatbot
+
+| Source URL | Destination URL |
+|------------|-----------------|
+| `/help-center/training-your-chatbot` | `/docs/training-your-chatbot/overview` |
+| `/help-center/training-your-chatbot/training-your-custom-gpt-on-bookstack-wiki` | `/docs/training-your-chatbot/bookstack` |
+| `/help-center/training-your-chatbot/can-i-use-pdfs-to-train-my-chatbot` | `/docs/training-your-chatbot/pdfs` |
+| `/help-center/training-your-chatbot/what-sources-can-i-use-to-custom-train-my-chatgpt-chatbot` | `/docs/training-your-chatbot/overview` |
+| `/help-center/training-your-chatbot/how-do-i-enable-my-api-as-a-source-for-my-chatbot` | `/docs/training-your-chatbot/api-source` |
+| `/help-center/training-your-chatbot/how-do-i-fine-tune-my-chatbot` | `/docs/training-your-chatbot/fine-tuning` |
+| `/help-center/training-your-chatbot/how-do-i-train-my-custom-chatbot` | `/docs/training-your-chatbot/overview` |
+| `/help-center/training-your-chatbot/how-do-i-enable-my-chatbot-to-chat-to-my-sql-database` | `/docs/training-your-chatbot/sql-database` |
+

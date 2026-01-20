@@ -40,6 +40,17 @@
               "managing-your-chatbot/deploy-and-install",
               "managing-your-chatbot/settings"
             ]
+          },
+          {
+            "group": "Training Your Chatbot",
+            "pages": [
+              "training-your-chatbot/overview",
+              "training-your-chatbot/website-and-links",
+              "training-your-chatbot/bookstack",
+              "training-your-chatbot/pdfs",
+              "training-your-chatbot/app-integrations",
+              "training-your-chatbot/fine-tuning"
+            ]
           }
         ]
       },

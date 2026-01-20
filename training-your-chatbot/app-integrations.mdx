@@ -1,0 +1,153 @@
+---
+title: "Connect App Integrations"
+sidebarTitle: "App Integrations"
+description: "Connect Notion, OneNote, Google Drive, Discord, and other services to train your chatbot."
+icon: "plug"
+---
+
+import Cta from '/snippets/cta.mdx';
+
+Connect your chatbot to third-party services like Notion, OneNote, Google Drive, and Discord to use their content for training. This allows your chatbot to answer questions based on your existing documentation and knowledge bases.
+
+## Available Integrations
+
+From the **Apps** source type, you can connect:
+
+- **Notion** - Connect your Notion workspace
+- **Bookstack** - Connect your BookStack wiki ([detailed guide](/training-your-chatbot/bookstack))
+- **OneNote** - Connect your Microsoft OneNote notebooks
+- **Google Drive** - Connect your Google Drive documents
+- **Discord** - Select Discord channels to train on
+
+<Note>
+  Intercom and Google Docs integrations are coming soon.
+</Note>
+
+<Frame>
+  <img src="/images/training-your-chatbot/app-integrations.png" alt="App Integrations showing available connections" />
+</Frame>
+
+---
+
+## Connecting an App Integration
+
+<Steps>
+  <Step title="Go to Training & Content">
+    In your chatbot dashboard, click **Training & Content** in the sidebar.
+  </Step>
+  <Step title="Select Sources">
+    Click on **Sources**.
+  </Step>
+  <Step title="Click Add Sources">
+    Click the **+ Add Sources** button.
+  </Step>
+  <Step title="Select Apps">
+    Select **Apps** from the source type dropdown.
+  </Step>
+  <Step title="Choose your integration">
+    Click on the integration you want to connect (e.g., Connect Notion, Connect OneNote).
+  </Step>
+  <Step title="Authorize access">
+    Follow the OAuth prompts to authorize SiteSpeakAI to access your content.
+  </Step>
+</Steps>
+
+---
+
+## Notion
+
+Click **Connect Notion** to link your Notion workspace. You'll be redirected to Notion to log in and authorize access. Once connected, SiteSpeakAI can access your Notion pages to use for training.
+
+<Frame>
+  <img src="/images/training-your-chatbot/notion-oauth.png" alt="Notion login screen" />
+</Frame>
+
+---
+
+## OneNote
+
+Click **Connect OneNote** to link your Microsoft OneNote notebooks. You'll be prompted to sign in with your Microsoft account and grant permission.
+
+SiteSpeakAI will be able to:
+- View the titles of your OneNote notebooks and sections
+- Read all pages in your notebooks
+
+<Note>
+  Password-protected sections cannot be accessed.
+</Note>
+
+<Frame>
+  <img src="/images/training-your-chatbot/onenote-oauth.png" alt="OneNote permission request" />
+</Frame>
+
+---
+
+## Google Drive
+
+Click **Connect Google Drive** to link your Google account. You'll be redirected to Google to choose an account and authorize access to your Drive documents.
+
+<Frame>
+  <img src="/images/training-your-chatbot/google-drive-oauth.png" alt="Google account chooser" />
+</Frame>
+
+---
+
+## Discord
+
+To train your chatbot on Discord channel content, you first need to install the chatbot in your Discord server.
+
+### Step 1: Install to Discord
+
+<Steps>
+  <Step title="Go to Install Agent">
+    In your chatbot dashboard, click **Install Agent** in the sidebar.
+  </Step>
+  <Step title="Select the Discord tab">
+    Click on the **Discord** tab.
+  </Step>
+  <Step title="Connect to Discord">
+    Click the **Connect to Discord** button.
+  </Step>
+  <Step title="Authorize access">
+    Log in to Discord and authorize SiteSpeakAI to access your server.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/training-your-chatbot/discord-install.png" alt="Deploy & Install Discord tab" />
+</Frame>
+
+### Step 2: Select Channels for Training
+
+Once Discord is connected, you can select which channels to train on:
+
+<Steps>
+  <Step title="Go to Training & Content">
+    Click **Training & Content → Sources**.
+  </Step>
+  <Step title="Click Add Sources">
+    Click **+ Add Sources** and select **Apps**.
+  </Step>
+  <Step title="Click Connect Discord Channels">
+    Click **Connect Discord Channels**.
+  </Step>
+  <Step title="Select channels">
+    Check the boxes next to the channels you want to train on (e.g., general, support, feature-requests).
+  </Step>
+  <Step title="Save">
+    Click **Save** to confirm your selection.
+  </Step>
+</Steps>
+
+<Note>
+  If you see "No channels found", make sure you have [installed the chatbot in your Discord server](#step-1-install-to-discord) first.
+</Note>
+
+---
+
+## BookStack
+
+For BookStack, you'll need to enter your Wiki URL and API credentials instead of using OAuth. See the [detailed BookStack guide](/training-your-chatbot/bookstack) for step-by-step instructions.
+
+<Cta />
+
