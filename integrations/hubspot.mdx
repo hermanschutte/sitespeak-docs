@@ -1,0 +1,76 @@
+---
+title: "Connect SiteSpeakAI to HubSpot"
+sidebarTitle: "HubSpot"
+description: "Automatically sync leads and contacts captured by your chatbot to HubSpot CRM."
+icon: "hubspot"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Frame, Note, Tip } from '@mintlify/components';
+
+SiteSpeakAI integrates with HubSpot to automatically create and update contacts in HubSpot when leads are captured by your chatbot. This keeps all your contacts in sync and up to date.
+
+## Connect HubSpot
+
+<Steps>
+  <Step title="Go to Integrations">
+    In your chatbot dashboard, go to **Configuration > Settings** and click the **Integrations** tab.
+  </Step>
+  <Step title="Find HubSpot">
+    Locate the **HubSpot** integration card.
+  </Step>
+  <Step title="Click Connect">
+    Click the **Connect** button.
+  </Step>
+  <Step title="Authorize">
+    A popup will appear asking you to connect your SiteSpeakAI account to HubSpot. You can either:
+    - **Create a new HubSpot account** if you don't have one
+    - **Sign in to your HubSpot account** if you already have one
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/integrations/hubspot-connect.png" alt="HubSpot integration card" />
+</Frame>
+
+<Frame>
+  <img src="/images/integrations/hubspot-oauth.png" alt="HubSpot OAuth authorization" />
+</Frame>
+
+## Connected State
+
+Once connected, you'll see:
+- A green **Connected** badge
+- Your HubSpot **Account** email
+- Your HubSpot **Portal ID**
+
+All newly captured leads will now automatically be added to your HubSpot contacts with a note containing the context of their conversation.
+
+<Frame>
+  <img src="/images/integrations/hubspot-connected.png" alt="HubSpot connected state" />
+</Frame>
+
+## Enable Automatic Support Tickets
+
+You can optionally enable automatic ticket creation:
+
+<Steps>
+  <Step title="Find Create Tickets">
+    In the connected HubSpot card, locate the **Create Tickets** section.
+  </Step>
+  <Step title="Toggle On">
+    Enable the toggle to automatically create a support ticket in HubSpot when a lead is captured.
+  </Step>
+</Steps>
+
+When enabled, each captured lead will also create a support ticket containing the chat history as context, so your support team can easily follow up.
+
+<Frame>
+  <img src="/images/integrations/hubspot-tickets.png" alt="HubSpot Create Tickets option enabled" />
+</Frame>
+
+## Disconnect HubSpot
+
+To disconnect the integration, click the **Disconnect** button in the HubSpot card. You can also use the main toggle at the bottom of the card to temporarily disable syncing without disconnecting.
+
+<Cta />

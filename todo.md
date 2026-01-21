@@ -71,8 +71,18 @@ Track which articles have been migrated from the help center to the new docs sit
 | ✅ | What sources can I use? | `training-your-chatbot/overview.mdx` (merged) |
 | ✅ | App Integrations (Notion, Google Drive, etc.) | `training-your-chatbot/app-integrations.mdx` |
 | ✅ | How do I fine-tune my chatbot? | `training-your-chatbot/fine-tuning.mdx` |
-| ⏳ | Enable API as a source | (Moved to Tools & Actions) |
-| ⏳ | Chat to SQL database | (Moved to Tools & Actions) |
+| ✅ | Enable API as a source | `tools-and-actions/custom-api-action.mdx` |
+| ✅ | Chat to SQL database | `tools-and-actions/sqlite-database.mdx` |
+
+---
+
+## Integrations
+
+| Status | Original Article | New Location |
+|--------|-----------------|--------------|
+| ✅ | Integrations Overview (NEW) | `integrations/overview.mdx` |
+| ✅ | HubSpot Integration (NEW) | `integrations/hubspot.mdx` |
+| ✅ | Zapier Integration | `integrations/zapier.mdx` |
 
 ---
 
@@ -80,7 +90,9 @@ Track which articles have been migrated from the help center to the new docs sit
 
 | Status | Original Article | New Location |
 |--------|-----------------|--------------|
-| ⏳ | ... | |
+| ✅ | Identifying users and customizing responses | `advanced/identify-users.mdx` |
+| ✅ | Converting CSV to SQLite | `advanced/csv-to-sqlite.mdx` |
+| ⏳ | Connect to MCP server | Skip (duplicate of Tools & Actions)
 
 ---
 
@@ -115,37 +127,7 @@ Track which articles have been migrated from the help center to the new docs sit
 
 ---
 
-## Images Needed
+## Images
 
-| Page | Images Required |
-|------|----------------|
-| `managing-your-chatbot/appearance.mdx` | `appearance-settings.png` |
-| `managing-your-chatbot/lead-capture.mdx` | `lead-capture-settings.png`, `lead-capture-custom-fields.png`, `lead-capture-localization.png`, `lead-capture-preview.png` |
-| `managing-your-chatbot/personalise-welcome-message.mdx` | `welcome-message-template-tags.png` |
-| `getting-started/create-your-chatbot.mdx` | `create-chatbot-get-started.png`, `create-chatbot-complete.png` |
-| `managing-your-chatbot/sharing.mdx` | `sharing-link.png` |
-| `managing-your-chatbot/human-handoff.mdx` | `human-handoff-settings.png` |
-| `managing-your-chatbot/voice-and-tts.mdx` | `voice-settings.png` |
-| `managing-your-chatbot/languages.mdx` | `localization-settings.png` |
-| `managing-your-chatbot/settings.mdx` | `settings-basic.png`, `settings-ai-model.png`, `settings-notice.png`, `settings-advanced.png`, `settings-danger-zone.png` |
-| `training-your-chatbot/overview.mdx` | `sources-list.png` |
-| `training-your-chatbot/bookstack.mdx` | `bookstack-sources.png`, `bookstack-modal.png`, `bookstack-trained.png` |
-| `training-your-chatbot/pdfs.mdx` | `pdf-upload.png` |
-| `training-your-chatbot/app-integrations.mdx` | `app-integrations.png`, `notion-oauth.png`, `onenote-oauth.png`, `google-drive-oauth.png`, `discord-channels.png`, `discord-install.png` |
-| `training-your-chatbot/fine-tuning.mdx` | `updated-answers.png` |
-| `training-your-chatbot/website-and-links.mdx` | `website-source.png`, `website-pages-list.png`, `link-source.png`, `link-pages-list.png`, `trained-sources.png` |
-| `training-your-chatbot/audio.mdx` | `audio-upload.png` |
-| `tools-and-actions/overview.mdx` | `tools-overview.png` |
-| `tools-and-actions/custom-api-action.mdx` | `custom-api-action.png`, `custom-api-action-config.png` |
-| `tools-and-actions/sqlite-database.mdx` | `sqlite-database.png`, `sqlite-database-config.png` |
-| `tools-and-actions/polar.mdx` | `polar-actions.png`, `polar-config.png` |
-| `tools-and-actions/paddle.mdx` | `paddle-action.png`, `paddle-config.png` |
-| `tools-and-actions/suggested-messages.mdx` | `suggested-messages.png`, `suggested-messages-config.png` |
-| `tools-and-actions/shopify.mdx` | `shopify-actions.png`, `shopify-config.png` |
-| `tools-and-actions/calcom.mdx` | `calcom-action.png`, `calcom-config.png` |
-| `tools-and-actions/mcp-server.mdx` | `mcp-action.png`, `mcp-config.png` |
-| `tools-and-actions/bookstack-search.mdx` | `bookstack-search-action.png`, `bookstack-search-config.png` |
-| `tools-and-actions/brave-search.mdx` | `brave-search-action.png`, `brave-search-config.png` |
-| `tools-and-actions/firecrawl-search.mdx` | `firecrawl-action.png`, `firecrawl-config.png` |
-| `tools-and-actions/capture-leads.mdx` | `capture-leads-action.png`, `capture-leads-config.png`, `capture-leads-contacts.png` |
+✅ All screenshots have been added.
 

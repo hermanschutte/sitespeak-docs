@@ -54,3 +54,18 @@ Use these redirects in Cloudflare Bulk Redirects to map old help center URLs to 
 | `/help-center/tools-and-actions/model-context-protocol` | `/docs/tools-and-actions/mcp-server` |
 | `/help-center/tools-and-actions/bookstack` | `/docs/tools-and-actions/bookstack-search` |
 
+## Integrations
+
+| Source URL | Destination URL |
+|------------|-----------------|
+| `/help-center/advanced/export-sitespeak-ai-lead-captures-to-hubspot` | `/docs/integrations/zapier` |
+
+## Advanced
+
+| Source URL | Destination URL |
+|------------|-----------------|
+| `/help-center/advanced` | `/docs/advanced/identify-users` |
+| `/help-center/advanced/identifying-your-users-and-customizing-responses` | `/docs/advanced/identify-users` |
+| `/help-center/advanced/convert-csv-to-sqlite-table-for-custom-gpt-chatbot` | `/docs/advanced/csv-to-sqlite` |
+| `/help-center/advanced/connect-chatbot-to-mcp-server` | `/docs/tools-and-actions/mcp-server` |
+

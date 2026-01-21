@@ -1,0 +1,179 @@
+---
+title: "Connect SiteSpeakAI to Zapier"
+sidebarTitle: "Zapier"
+description: "Automate workflows by connecting SiteSpeakAI to 5,000+ apps with Zapier."
+icon: "zap"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Frame, Note, Tip } from '@mintlify/components';
+
+Zapier allows you to connect SiteSpeakAI to over 5,000 apps and automate workflows without writing code. You can automatically send captured leads to your CRM, notify your team in Slack, add contacts to email lists, and much more.
+
+## Prerequisites
+
+- A SiteSpeakAI account with a chatbot configured
+- A [Zapier account](https://zapier.com) (free tier available)
+
+## Step 1: Create a SiteSpeakAI API Token
+
+<Steps>
+  <Step title="Go to API Tokens">
+    In your SiteSpeakAI account, click on your profile and select **API Tokens**.
+  </Step>
+  <Step title="Create New Token">
+    Click **Create Token** and give it a descriptive name (e.g., "Zapier Integration").
+  </Step>
+  <Step title="Copy the Token">
+    Copy the newly created API token. You'll need this to connect Zapier to your account.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/integrations/zapier-api-token.png" alt="Creating a SiteSpeakAI API token" />
+</Frame>
+
+<Note>
+  Store your API token securely. You won't be able to see it again after leaving this page.
+</Note>
+
+## Step 2: Create a New Zap
+
+<Steps>
+  <Step title="Open Zapier">
+    Log in to your Zapier account and click **Create Zap**.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/integrations/zapier-create-zap.png" alt="Create a new Zap in Zapier" />
+</Frame>
+
+## Step 3: Configure the Trigger
+
+<Steps>
+  <Step title="Select SiteSpeakAI">
+    In the Trigger section, search for and select **SiteSpeakAI**.
+  </Step>
+  <Step title="Choose Trigger Event">
+    Select **New Lead** as the trigger event. This fires whenever a visitor submits a lead capture form.
+  </Step>
+  <Step title="Connect Your Account">
+    Click **Sign in** and enter the API token you created earlier.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/integrations/zapier-sitespeak-trigger.png" alt="SiteSpeakAI trigger configuration" />
+</Frame>
+
+<Steps>
+  <Step title="Enter Chatbot ID">
+    Enter your chatbot's ID. You can find this in **Configuration > Settings** in your SiteSpeakAI dashboard. The Agent ID is displayed at the top.
+  </Step>
+  <Step title="Test the Trigger">
+    Click **Test trigger** to verify the connection is working.
+  </Step>
+</Steps>
+
+## Step 4: Add an Action
+
+Now connect SiteSpeakAI to your destination app. Here are some popular examples:
+
+### Example: Send Leads to Google Sheets
+
+<Steps>
+  <Step title="Add Action">
+    Click the **+** button to add an action step.
+  </Step>
+  <Step title="Select Google Sheets">
+    Search for and select **Google Sheets**.
+  </Step>
+  <Step title="Choose Action Event">
+    Select **Create Spreadsheet Row**.
+  </Step>
+  <Step title="Connect and Configure">
+    Connect your Google account, select your spreadsheet, and map the lead fields to columns.
+  </Step>
+</Steps>
+
+### Example: Notify Team in Slack
+
+<Steps>
+  <Step title="Add Action">
+    Click the **+** button to add an action step.
+  </Step>
+  <Step title="Select Slack">
+    Search for and select **Slack**.
+  </Step>
+  <Step title="Choose Action Event">
+    Select **Send Channel Message**.
+  </Step>
+  <Step title="Configure Message">
+    Choose your channel and create a message template with lead details.
+  </Step>
+</Steps>
+
+### Example: Add to Mailchimp
+
+<Steps>
+  <Step title="Add Action">
+    Click the **+** button to add an action step.
+  </Step>
+  <Step title="Select Mailchimp">
+    Search for and select **Mailchimp**.
+  </Step>
+  <Step title="Choose Action Event">
+    Select **Add/Update Subscriber**.
+  </Step>
+  <Step title="Map Fields">
+    Map the email and name fields from the lead to Mailchimp subscriber fields.
+  </Step>
+</Steps>
+
+## Step 5: Test and Publish
+
+<Steps>
+  <Step title="Test the Zap">
+    Click **Test step** to verify data flows correctly to your destination app.
+  </Step>
+  <Step title="Verify">
+    Check that the test data appeared in your destination (spreadsheet, Slack channel, etc.).
+  </Step>
+  <Step title="Publish">
+    Click **Publish** to activate your Zap.
+  </Step>
+</Steps>
+
+## Available Trigger Data
+
+When a lead is captured, Zapier receives the following data that you can use in your actions:
+
+| Field | Description |
+|-------|-------------|
+| `email` | Lead's email address |
+| `name` | Lead's name (if captured) |
+| `message` | Any message the lead submitted |
+| `created_at` | Timestamp of submission |
+| Custom fields | Any additional fields from your lead capture form |
+
+<Tip>
+  You can create multiple Zaps with different actions. For example, one Zap to add leads to your CRM and another to send a Slack notification.
+</Tip>
+
+## Troubleshooting
+
+### Leads Not Triggering the Zap
+
+- Check that your Zap is published and turned on
+- Verify the API token is still valid
+- Ensure the chatbot ID is correct
+- Check the Zap history for any errors
+
+### Missing Data
+
+- Make sure your lead capture form collects the fields you need
+- Check field mappings in your Zap action
+
+<Cta />
+

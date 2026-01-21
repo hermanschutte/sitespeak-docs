@@ -70,6 +70,21 @@
               "tools-and-actions/calcom",
               "tools-and-actions/mcp-server"
             ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/hubspot",
+              "integrations/zapier"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "advanced/identify-users",
+              "advanced/csv-to-sqlite"
+            ]
           }
         ]
       },
