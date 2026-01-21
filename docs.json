@@ -92,18 +92,60 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Overview",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoints",
+            "group": "Chatbot",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/chatbot/get-chatbot"
+            ]
+          },
+          {
+            "group": "Conversation History",
+            "pages": [
+              "api-reference/conversations/get-conversations"
+            ]
+          },
+          {
+            "group": "Echo Fine-tunes",
+            "pages": [
+              "api-reference/echo/get-echo",
+              "api-reference/echo/create-echo",
+              "api-reference/echo/delete-echo"
+            ]
+          },
+          {
+            "group": "Leads",
+            "pages": [
+              "api-reference/leads/get-leads"
+            ]
+          },
+          {
+            "group": "Prompts",
+            "pages": [
+              "api-reference/prompts/get-prompts"
+            ]
+          },
+          {
+            "group": "Query",
+            "pages": [
+              "api-reference/query/query-chatbot"
+            ]
+          },
+          {
+            "group": "Sources",
+            "pages": [
+              "api-reference/sources/get-sources"
+            ]
+          },
+          {
+            "group": "User",
+            "pages": [
+              "api-reference/user/get-user",
+              "api-reference/user/get-chatbots"
             ]
           }
         ]

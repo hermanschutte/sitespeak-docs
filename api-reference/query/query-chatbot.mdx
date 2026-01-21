@@ -1,0 +1,73 @@
+---
+title: 'Query Chatbot'
+api: 'POST https://api.sitespeak.ai/v1/{chatbot_id}/query'
+description: 'Queries your chatbot and returns the answer and URLs used to find the answer'
+---
+
+## Path Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| chatbot_id* | String | The ID of your chatbot. You can find the ID on the settings page for your chatbot. |
+
+## Headers
+
+| Name | Type | Description |
+|------|------|-------------|
+| Authorization* | String | Bearer {api_token} |
+
+## Body
+
+| Name | Type | Description |
+|------|------|-------------|
+| prompt* | String | The question or query text that you would like to send to your chatbot to answer. |
+| conversation_id | String | A unique identifier to group questions and answers sent to your chatbot. |
+| format | String | Can be either **html** or **markdown**. Defaults to return the response text in markdown. |
+
+<RequestExample>
+```bash cURL
+curl -X POST https://api.sitespeak.ai/v1/{chatbot_id}/query \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "What is SiteSpeakAI?",
+    "conversation_id": "unique-conversation-id",
+    "format": "markdown"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.sitespeak.ai/v1/{chatbot_id}/query', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_TOKEN',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    prompt: 'What is SiteSpeakAI?',
+    conversation_id: 'unique-conversation-id',
+    format: 'markdown'
+  })
+});
+
+const data = await response.json();
+console.log(data);
+```
+</RequestExample>
+
+## Response
+
+<Tabs>
+  <Tab title="200 Success">
+```json
+{
+  "text": "The answer to your question...",
+  "urls": ["https://example.com/1", "https://example.com/2"]
+}
+```
+  </Tab>
+  <Tab title="401 Permission denied">
+    Returns when the API token is invalid or missing.
+  </Tab>
+</Tabs>
+

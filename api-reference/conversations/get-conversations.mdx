@@ -1,0 +1,98 @@
+---
+title: 'Get Conversation History'
+api: 'GET https://api.sitespeak.ai/v1/{chatbot_id}/conversations'
+description: 'Returns the conversations your visitors has had with your chatbot'
+---
+
+## Path Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| chatbot_id* | String | The ID of your chatbot. You can find the ID on the settings page for your chatbot. |
+
+## Headers
+
+| Name | Type | Description |
+|------|------|-------------|
+| Authorization* | String | Bearer {api_token} |
+
+## Query Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| conversation_id | String | Return only conversations with this conversation_id (visitor). |
+| include_deleted | Boolean | Include conversations that have been cleared in the response. Default: False. |
+| include_sources | Boolean | Include sources that were used by your bot for each conversation when available. Default: False. |
+| limit | Integer | Limit the number of conversations returned. Default: 10. |
+| order | String | Sort order for the conversation history returned. Can be either "asc" or "desc". Default: "asc". |
+
+<RequestExample>
+```bash cURL
+curl -X GET "https://api.sitespeak.ai/v1/{chatbot_id}/conversations?limit=10&order=desc&include_sources=true" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+```javascript JavaScript
+const params = new URLSearchParams({
+  limit: 10,
+  order: 'desc',
+  include_sources: true
+});
+
+const response = await fetch(`https://api.sitespeak.ai/v1/{chatbot_id}/conversations?${params}`, {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_TOKEN'
+  }
+});
+
+const data = await response.json();
+console.log(data);
+```
+</RequestExample>
+
+## Response
+
+<Tabs>
+  <Tab title="200 Success">
+```json
+[
+  {
+    "id": "f72caccf-40b7-4b17-9b20-b314cfcb3f21",
+    "chatbot_id": "7878ffe5-d785-48d6-8113-23eaa4ed2c39",
+    "visitor_id": "100753748e9cefddb50e9fca5dd59295",
+    "thread_id": null,
+    "entry": "SnapWidget is a platform that allows you to automatically display your Instagram, Twitter, Facebook, and YouTube content on your website.",
+    "speaker": "bot",
+    "avatar": null,
+    "status": "read",
+    "feedback": null,
+    "category_id": null,
+    "created_at": "2024-06-04 11:42:29",
+    "updated_at": "2024-06-04 11:42:29",
+    "deleted_at": null
+  },
+  {
+    "id": "581b2dc1-3e54-4188-8c4c-2442c8891ec3",
+    "chatbot_id": "7878ffe5-d785-48d6-8113-23eaa4ed2c39",
+    "visitor_id": "100753748e9cefddb50e9fca5dd59295",
+    "thread_id": null,
+    "entry": "Please provide a short overview of what SnapWidget is?",
+    "speaker": "user",
+    "avatar": null,
+    "status": "read",
+    "feedback": null,
+    "category_id": null,
+    "created_at": "2024-06-04 11:42:25",
+    "updated_at": "2024-06-04 11:42:25",
+    "deleted_at": null,
+    "sources": []
+  }
+]
+```
+  </Tab>
+  <Tab title="401 Permission denied">
+    Returns when the API token is invalid or missing.
+  </Tab>
+</Tabs>
+

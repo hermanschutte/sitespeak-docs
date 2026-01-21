@@ -69,3 +69,20 @@ Use these redirects in Cloudflare Bulk Redirects to map old help center URLs to 
 | `/help-center/advanced/convert-csv-to-sqlite-table-for-custom-gpt-chatbot` | `/docs/advanced/csv-to-sqlite` |
 | `/help-center/advanced/connect-chatbot-to-mcp-server` | `/docs/tools-and-actions/mcp-server` |
 
+## API Reference
+
+Note: The old API docs were hosted at `api-docs.sitespeak.ai`. If migrating that domain, use these redirects:
+
+| Source URL (api-docs.sitespeak.ai) | Destination URL |
+|------------------------------------|-----------------|
+| `/` | `/docs/api-reference/introduction` |
+| `/quick-start` | `/docs/api-reference/introduction` |
+| `/reference/api-reference` | `/docs/api-reference/introduction` |
+| `/reference/api-reference/chatbot` | `/docs/api-reference/chatbot/get-chatbot` |
+| `/reference/api-reference/conversation-history` | `/docs/api-reference/conversations/get-conversations` |
+| `/reference/api-reference/echo-fine-tunes` | `/docs/api-reference/echo/get-echo` |
+| `/reference/api-reference/leads` | `/docs/api-reference/leads/get-leads` |
+| `/reference/api-reference/prompts` | `/docs/api-reference/prompts/get-prompts` |
+| `/reference/api-reference/query` | `/docs/api-reference/query/query-chatbot` |
+| `/reference/api-reference/sources` | `/docs/api-reference/sources/get-sources` |
+| `/reference/api-reference/user` | `/docs/api-reference/user/get-user` |

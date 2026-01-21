@@ -1,0 +1,66 @@
+---
+title: 'Get All Leads'
+api: 'GET https://api.sitespeak.ai/v1/{chatbot_id}/leads'
+description: 'Returns all the leads for your chatbot'
+---
+
+## Path Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| chatbot_id* | String | The ID of your chatbot. You can find the ID on the settings page for your chatbot. |
+
+## Headers
+
+| Name | Type | Description |
+|------|------|-------------|
+| Accept* | String | application/json |
+| Authorization* | String | Bearer {api_token} |
+
+<RequestExample>
+```bash cURL
+curl -X GET https://api.sitespeak.ai/v1/{chatbot_id}/leads \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.sitespeak.ai/v1/{chatbot_id}/leads', {
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer YOUR_API_TOKEN'
+  }
+});
+
+const data = await response.json();
+console.log(data);
+```
+</RequestExample>
+
+## Response
+
+<Tabs>
+  <Tab title="200 Success">
+```json
+[
+  {
+    "id": "",
+    "chatbot_id": "",
+    "visitor_id": "",
+    "name": null,
+    "email": "user@example.com",
+    "phone": null,
+    "status": "read",
+    "last_entry_at": "2023-09-30 13:10:39",
+    "created_at": "2023-09-30 13:10:19",
+    "updated_at": "2023-10-03 05:49:48"
+  }
+]
+```
+  </Tab>
+  <Tab title="401 Permission denied">
+    Returns when the API token is invalid or missing.
+  </Tab>
+</Tabs>
+

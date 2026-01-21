@@ -1,0 +1,59 @@
+---
+title: 'Retrieve All Chatbots'
+api: 'GET https://api.sitespeak.ai/v1/me/chatbots'
+description: 'Retrieves a list of all chatbots in your account'
+---
+
+## Headers
+
+| Name | Type | Description |
+|------|------|-------------|
+| Authorization* | String | Bearer {api_token} |
+
+<RequestExample>
+```bash cURL
+curl -X GET https://api.sitespeak.ai/v1/me/chatbots \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.sitespeak.ai/v1/me/chatbots', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_TOKEN'
+  }
+});
+
+const data = await response.json();
+console.log(data);
+```
+</RequestExample>
+
+## Response
+
+<Tabs>
+  <Tab title="200 Success">
+```json
+[
+  {
+    "id": "030e5b41-1358-490f-ad37-28e69a7847ef",
+    "name": "Smart Tutor GPT",
+    "type": "assistant",
+    "created_at": "2023-11-24T05:54:51.000000Z",
+    "updated_at": "2023-11-28T15:24:00.000000Z"
+  },
+  {
+    "id": "0a87c308-a96f-4f53-88ed-eb64857da30s",
+    "name": "SiteSpeakAI Custom Support",
+    "type": "customer-support",
+    "created_at": "2023-11-24T02:23:11.000000Z",
+    "updated_at": "2023-11-28T15:24:00.000000Z"
+  }
+]
+```
+  </Tab>
+  <Tab title="401 Permission denied">
+    Returns when the API token is invalid or missing.
+  </Tab>
+</Tabs>
+
