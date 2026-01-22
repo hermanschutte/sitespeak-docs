@@ -81,8 +81,10 @@ Note: The old API docs were hosted at `api-docs.sitespeak.ai`. If migrating that
 | `/reference/api-reference/chatbot` | `/docs/api-reference/chatbot/get-chatbot` |
 | `/reference/api-reference/conversation-history` | `/docs/api-reference/conversations/get-conversations` |
 | `/reference/api-reference/echo-fine-tunes` | `/docs/api-reference/echo/get-echo` |
+| `/reference/api-reference/updated-answers` | `/docs/api-reference/echo/get-echo` |
 | `/reference/api-reference/leads` | `/docs/api-reference/leads/get-leads` |
 | `/reference/api-reference/prompts` | `/docs/api-reference/prompts/get-prompts` |
+| `/reference/api-reference/suggested-messages` | `/docs/api-reference/prompts/get-prompts` |
 | `/reference/api-reference/query` | `/docs/api-reference/query/query-chatbot` |
 | `/reference/api-reference/sources` | `/docs/api-reference/sources/get-sources` |
 | `/reference/api-reference/user` | `/docs/api-reference/user/get-user` |

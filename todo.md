@@ -134,11 +134,11 @@ Track which articles have been migrated from the help center to the new docs sit
 | ✅ | Quick Start / Introduction | `api-reference/introduction.mdx` |
 | ✅ | GET /v1/{chatbot_id} (Chatbot Settings) | `api-reference/chatbot/get-chatbot.mdx` |
 | ✅ | GET /v1/{chatbot_id}/conversations | `api-reference/conversations/get-conversations.mdx` |
-| ✅ | GET /v1/{chatbot_id}/finetunes | `api-reference/echo/get-echo.mdx` |
-| ✅ | POST /v1/{chatbot_id}/finetunes | `api-reference/echo/create-echo.mdx` |
-| ✅ | DELETE /v1/{chatbot_id}/finetunes/{id} | `api-reference/echo/delete-echo.mdx` |
+| ✅ | GET /v1/{chatbot_id}/finetunes (Updated Answers) | `api-reference/echo/get-echo.mdx` |
+| ✅ | POST /v1/{chatbot_id}/finetunes (Updated Answers) | `api-reference/echo/create-echo.mdx` |
+| ✅ | DELETE /v1/{chatbot_id}/finetunes/{id} (Updated Answers) | `api-reference/echo/delete-echo.mdx` |
 | ✅ | GET /v1/{chatbot_id}/leads | `api-reference/leads/get-leads.mdx` |
-| ✅ | GET /v1/{chatbot_id}/prompts | `api-reference/prompts/get-prompts.mdx` |
+| ✅ | GET /v1/{chatbot_id}/prompts (Suggested Messages) | `api-reference/prompts/get-prompts.mdx` |
 | ✅ | POST /v1/{chatbot_id}/query | `api-reference/query/query-chatbot.mdx` |
 | ✅ | GET /v1/{chatbot_id}/sources | `api-reference/sources/get-sources.mdx` |
 | ✅ | GET /v1/me (User Account) | `api-reference/user/get-user.mdx` |

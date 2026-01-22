@@ -110,7 +110,7 @@
             ]
           },
           {
-            "group": "Echo Fine-tunes",
+            "group": "Updated Answers",
             "pages": [
               "api-reference/echo/get-echo",
               "api-reference/echo/create-echo",
@@ -124,7 +124,7 @@
             ]
           },
           {
-            "group": "Prompts",
+            "group": "Suggested Messages",
             "pages": [
               "api-reference/prompts/get-prompts"
             ]
