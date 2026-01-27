@@ -181,6 +181,36 @@ Control where your chatbot can be loaded:
 - **Allowed Domains**: Add specific domains where your chatbot is permitted to load. Leave empty to allow all domains.
 - **Custom Domain**: Serve your agent from your own custom domain (available on Business and Enterprise plans).
 
+### Page URL Filtering
+
+Control which pages your chatbot appears on by filtering based on URL paths.
+
+- **Filter Mode**: Choose between three modes:
+  - **Disabled**: The chatbot loads on all pages (default)
+  - **Include only**: The chatbot loads only on pages matching the specified patterns (whitelist)
+  - **Exclude**: The chatbot loads on all pages except those matching the specified patterns (blacklist)
+- **URL Patterns**: Add URL path patterns to match against. Use `*` as a wildcard to match any characters in a path segment.
+  - `/pricing` — matches only the pricing page
+  - `/blog/*` — matches all pages under `/blog/`
+  - `/docs/*` — matches all pages under `/docs/`
+
+<Note>
+  Page URL filtering is applied client-side. It is bypassed in preview mode so you can always test your chatbot.
+</Note>
+
+### IP Address Blocking
+
+Block specific IP addresses or ranges from interacting with your chatbot.
+
+- **Enable IP Blocking**: Toggle to activate IP-based blocking
+- **Blocked IPs**: Add individual IP addresses or CIDR ranges to block.
+  - `192.168.1.1` — blocks a single IP address
+  - `10.0.0.0/8` — blocks an entire IP range
+
+<Note>
+  IP address blocking is applied server-side. It is bypassed in preview mode so you can always test your chatbot.
+</Note>
+
 ---
 
 ## Danger Zone
