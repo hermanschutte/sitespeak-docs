@@ -86,6 +86,13 @@ The Translations section lets you customize:
 - Confirmation messages
 - Unavailable messages
 
+**Email Notifications**
+- Email subject line
+- Greeting and introduction message
+- Contact information labels (Name, Email, Phone, Internal User ID)
+- Last question label
+- Button text, footer, sign off, and sender name
+
 **Feedback**
 - Feedback prompts
 - Thank you messages
@@ -111,6 +118,42 @@ The Translations section lets you customize:
 
 <Tip>
   You can add as many languages as you need. Each language gets its own complete set of customizable text fields.
+</Tip>
+
+---
+
+## Email Notification Localization
+
+Escalation notification emails sent to your team can also be localized. These emails are sent in your chatbot's **default language** when a visitor requests human assistance.
+
+### Available Placeholders
+
+Use the following placeholders in your email notification text. They will be replaced with actual values when the email is sent:
+
+| Placeholder | Description |
+|---|---|
+| `{{inbox_link}}` | Full URL to the visitor's inbox |
+| `{{visitor_name}}` | Visitor's full name (or "Unknown visitor" if not provided) |
+| `{{visitor_email}}` | Visitor's email address |
+| `{{visitor_phone}}` | Visitor's phone number |
+| `{{last_question}}` | The visitor's last message |
+| `{{chatbot_name}}` | Name of the chatbot |
+| `{{app_name}}` | Application name (SiteSpeakAI) |
+
+### Customizable Email Fields
+
+You can customize the following parts of the escalation email:
+
+- **Email Subject** - e.g., `{{chatbot_name}}: Visitor needs human assistance`
+- **Greeting** - e.g., `Hello!`
+- **Introduction Message** - Supports markdown links, e.g., `Visit your [inbox]({{inbox_link}})`
+- **Last Question Label** - Label shown above the visitor's last message
+- **Contact Information Labels** - Labels for name, email, phone, and internal user ID
+- **Button Text** - The call-to-action button text
+- **Footer, Sign Off, and Sender Name** - Closing content of the email
+
+<Tip>
+  The introduction message field supports markdown, so you can include links like `[inbox]({{inbox_link}})` that will render as clickable links in the email.
 </Tip>
 
 ---
