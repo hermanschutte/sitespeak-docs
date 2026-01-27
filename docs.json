@@ -31,6 +31,7 @@
             "group": "Managing Your Chatbot",
             "pages": [
               "managing-your-chatbot/appearance",
+              "managing-your-chatbot/conversation-history",
               "managing-your-chatbot/lead-capture",
               "managing-your-chatbot/personalise-welcome-message",
               "managing-your-chatbot/human-handoff",
