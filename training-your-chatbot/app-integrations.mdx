@@ -1,13 +1,13 @@
 ---
 title: "Connect App Integrations"
 sidebarTitle: "App Integrations"
-description: "Connect Notion, OneNote, Google Drive, Discord, and other services to train your chatbot."
+description: "Connect Notion, OneNote, Google Drive, SharePoint, Discord, and other services to train your chatbot."
 icon: "plug"
 ---
 
 import Cta from '/snippets/cta.mdx';
 
-Connect your chatbot to third-party services like Notion, OneNote, Google Drive, and Discord to use their content for training. This allows your chatbot to answer questions based on your existing documentation and knowledge bases.
+Connect your chatbot to third-party services like Notion, OneNote, Google Drive, SharePoint, and Discord to use their content for training. This allows your chatbot to answer questions based on your existing documentation and knowledge bases.
 
 ## Available Integrations
 
@@ -17,6 +17,7 @@ From the **Apps** source type, you can connect:
 - **Bookstack** - Connect your BookStack wiki ([detailed guide](/training-your-chatbot/bookstack))
 - **OneNote** - Connect your Microsoft OneNote notebooks
 - **Google Drive** - Connect your Google Drive documents
+- **SharePoint** - Connect your SharePoint document libraries
 - **Discord** - Select Discord channels to train on
 
 <Note>
@@ -89,6 +90,44 @@ Click **Connect Google Drive** to link your Google account. You'll be redirected
 <Frame>
   <img src="/images/training-your-chatbot/google-drive-oauth.png" alt="Google account chooser" />
 </Frame>
+
+---
+
+## SharePoint
+
+Click **Connect SharePoint** to train your chatbot on documents stored in your SharePoint Online environment. You'll be prompted to sign in with your Microsoft account and grant permission to read your SharePoint sites and files.
+
+### Supported file types
+
+- Word documents (.docx, .doc)
+- PDF files (.pdf)
+- PowerPoint presentations (.pptx, .ppt)
+- Excel spreadsheets (.xlsx, .xls)
+- Text files (.txt, .csv, .md, .rtf)
+
+### How to add SharePoint documents
+
+<Steps>
+  <Step title="Click Connect SharePoint">
+    From the **Apps** source type, click **Connect SharePoint**. If you haven't connected your Microsoft account yet, you'll be prompted to sign in and authorize access.
+  </Step>
+  <Step title="Select a SharePoint site">
+    Choose the SharePoint site that contains the documents you want to use for training.
+  </Step>
+  <Step title="Select a document library">
+    Choose the document library within the site.
+  </Step>
+  <Step title="Select documents">
+    Browse the available documents and select the ones you want to add as training sources.
+  </Step>
+  <Step title="Add selected">
+    Click **Add Selected** to start training your chatbot on the selected documents.
+  </Step>
+</Steps>
+
+<Note>
+  SharePoint uses the same Microsoft account connection as OneNote. If you've already connected OneNote, you may need to reconnect to grant the additional SharePoint permissions.
+</Note>
 
 ---
 
