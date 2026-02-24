@@ -210,6 +210,16 @@
             ]
           },
           {
+            "group": "Agency & Reseller",
+            "pages": [
+              "agency/overview",
+              "agency/getting-started",
+              "agency/branding",
+              "agency/custom-domain",
+              "agency/client-management"
+            ]
+          },
+          {
             "group": "Advanced",
             "pages": [
               "advanced/mcp-endpoint",

@@ -1,0 +1,48 @@
+---
+title: "Custom Domain Setup"
+sidebarTitle: "Custom Domain"
+description: "Serve your agency dashboard on your own domain (e.g., app.youragency.com) with automatic HTTPS. Available on Agency Pro and Enterprise plans."
+icon: "globe"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Note, Warning, Tip } from '@mintlify/components';
+
+A custom domain means your clients access the dashboard at your URL (e.g. `app.youragency.com`) instead of `app.sitespeak.ai`. Combined with your logo and branding, this creates a fully white-labeled experience with no visible SiteSpeak branding.
+
+<Note>
+  Custom domains are available on Agency Pro and Enterprise plans only.
+</Note>
+
+## Setup
+
+<Steps>
+  <Step title="Enter your domain in Branding settings">
+    Go to **Agency > Branding** and find the **Custom Domain** field. Enter your desired domain or subdomain - for example, `app.youragency.com` - and click **Save**.
+  </Step>
+  <Step title="Add a CNAME record with your DNS provider">
+    Log in to your domain registrar or DNS provider and add the following record:
+
+    | Type | Name | Target |
+    |------|------|--------|
+    | CNAME | `app` (or your full subdomain) | `app.sitespeak.ai` |
+
+    For example, if your domain is `youragency.com` and you want `app.youragency.com`, create a CNAME record where the name is `app` and the target is `app.sitespeak.ai`.
+  </Step>
+  <Step title="Wait for DNS propagation">
+    DNS changes can take anywhere from a few minutes to 24 hours to propagate, though it's usually much faster. You can check propagation status using a tool like [dnschecker.org](https://dnschecker.org).
+  </Step>
+  <Step title="Confirm verification">
+    Once your CNAME is live, return to **Agency > Branding**. You'll see a green **Verified** badge next to your custom domain. Your dashboard is now accessible at your domain with HTTPS.
+  </Step>
+</Steps>
+
+<Warning>
+  SSL is provisioned automatically once your CNAME record is verified. Do not use an A record pointing to an IP address - only CNAME records are supported.
+</Warning>
+
+<Tip>
+  Use a subdomain like `app.youragency.com` rather than a root/apex domain. Root domains cannot use CNAME records in most DNS configurations - subdomains are simpler to set up and verify.
+</Tip>
+
+<Cta />
