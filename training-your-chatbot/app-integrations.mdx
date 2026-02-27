@@ -95,33 +95,64 @@ Click **Connect Google Drive** to link your Google account. You'll be redirected
 
 ## SharePoint
 
-Click **Connect SharePoint** to train your chatbot on documents stored in your SharePoint Online environment. You'll be prompted to sign in with your Microsoft account and grant permission to read your SharePoint sites and files.
+Click **Connect SharePoint** to train your chatbot on documents and pages stored in your SharePoint Online environment. You'll be prompted to sign in with your Microsoft account and grant permission to read your SharePoint sites and files.
 
-### Supported file types
-
-- Word documents (.docx, .doc)
-- PDF files (.pdf)
-- PowerPoint presentations (.pptx, .ppt)
-- Excel spreadsheets (.xlsx, .xls)
-- Text files (.txt, .csv, .md, .rtf)
-
-### How to add SharePoint documents
+### Getting started
 
 <Steps>
   <Step title="Click Connect SharePoint">
     From the **Apps** source type, click **Connect SharePoint**. If you haven't connected your Microsoft account yet, you'll be prompted to sign in and authorize access.
   </Step>
   <Step title="Select a SharePoint site">
-    Choose the SharePoint site that contains the documents you want to use for training.
+    Choose the SharePoint site that contains the content you want to use for training.
   </Step>
+  <Step title="Choose a content type">
+    Select either **Document Libraries** or **Site Pages** depending on the type of content you want to index.
+  </Step>
+</Steps>
+
+### Document Libraries
+
+Use this option to train on files stored in SharePoint document libraries.
+
+**Supported file types:**
+- Word documents (.docx, .doc)
+- PDF files (.pdf)
+- PowerPoint presentations (.pptx, .ppt)
+- Excel spreadsheets (.xlsx, .xls)
+- Text files (.txt, .csv, .md, .rtf)
+
+<Steps>
   <Step title="Select a document library">
-    Choose the document library within the site.
+    Browse the available document libraries in the selected site.
   </Step>
-  <Step title="Select documents">
-    Browse the available documents and select the ones you want to add as training sources.
+  <Step title="Select individual documents or auto-sync the library">
+    You can browse and select individual documents, or click **Auto-sync** to automatically discover and index all documents in the library.
   </Step>
   <Step title="Add selected">
     Click **Add Selected** to start training your chatbot on the selected documents.
+  </Step>
+</Steps>
+
+**Auto-sync** creates a parent source that checks the library daily for new or updated documents and indexes them automatically. This works the same way as sitemap auto-sync.
+
+<Note>
+  Auto-sync for document libraries requires the **Pro** plan or higher.
+</Note>
+
+### Site Pages
+
+Use this option to train on SharePoint wiki pages and modern pages.
+
+<Steps>
+  <Step title="Browse available pages">
+    All wiki and modern pages from the selected site are listed.
+  </Step>
+  <Step title="Select pages">
+    Choose the pages you want to add as training sources.
+  </Step>
+  <Step title="Add selected">
+    Click **Add Selected** to start training your chatbot on the selected pages. Content is extracted from each page's canvas layout.
   </Step>
 </Steps>
 
