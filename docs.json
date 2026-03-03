@@ -99,7 +99,7 @@
                   "installing-your-chatbot/how-to-add-chatgpt-to-publii",
                   "installing-your-chatbot/how-to-add-chatgpt-to-rocket",
                   "installing-your-chatbot/how-to-add-chatgpt-to-scene",
-                  "installing-your-chatbot/how-to-add-a-chatgpt-chatbot-to-showit",
+                  "installing-your-chatbot/how-to-add-chatgpt-chatbot-to-showit",
                   "installing-your-chatbot/how-to-add-chatgpt-to-silex",
                   "installing-your-chatbot/how-to-add-chatgpt-to-simpleshop",
                   "installing-your-chatbot/how-to-add-chatgpt-to-simvoli",
@@ -116,6 +116,7 @@
                   "installing-your-chatbot/how-to-add-chatgpt-to-unicorn-platform",
                   "installing-your-chatbot/how-to-add-chatgpt-to-upsitely",
                   "installing-your-chatbot/how-to-add-chatgpt-to-versoly",
+                  "installing-your-chatbot/how-to-add-chatgpt-to-w3schools-spaces",
                   "installing-your-chatbot/how-to-add-chatgpt-to-waveon",
                   "installing-your-chatbot/how-to-add-chatgpt-to-webflow",
                   "installing-your-chatbot/how-to-add-chatgpt-to-websim-ai",
@@ -151,8 +152,6 @@
                   "installing-your-chatbot/how-to-add-chatgpt-to-elementor",
                   "installing-your-chatbot/how-to-add-chatgpt-to-grav",
                   "installing-your-chatbot/how-to-add-chatgpt-to-hubspot-cms",
-                  "installing-your-chatbot/how-to-add-chatgpt-to-koha",
-                  "installing-your-chatbot/how-to-add-chatgpt-to-moodle-lms",
                   "installing-your-chatbot/how-to-add-chatgpt-to-motocms",
                   "installing-your-chatbot/how-to-add-chatgpt-to-open-real-estate",
                   "installing-your-chatbot/how-to-add-chatgpt-to-pagecloud",
@@ -160,6 +159,13 @@
                   "installing-your-chatbot/how-to-add-chatgpt-to-plone",
                   "installing-your-chatbot/how-to-add-chatgpt-to-sharepoint-modern-online",
                   "installing-your-chatbot/how-to-add-chatgpt-to-wordpress"
+                ]
+              },
+              {
+                "group": "LMS Platforms",
+                "pages": [
+                  "installing-your-chatbot/how-to-add-chatgpt-to-moodle-lms",
+                  "installing-your-chatbot/how-to-add-chatgpt-to-koha"
                 ]
               },
               {
