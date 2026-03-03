@@ -148,13 +148,19 @@ Use this option to train on SharePoint wiki pages and modern pages.
   <Step title="Browse available pages">
     All wiki and modern pages from the selected site are listed.
   </Step>
-  <Step title="Select pages">
-    Choose the pages you want to add as training sources.
+  <Step title="Select pages or auto-sync all pages">
+    You can select individual pages using the checkboxes, or click **Auto-sync All Pages** to automatically index every page on the site.
   </Step>
   <Step title="Add selected">
     Click **Add Selected** to start training your chatbot on the selected pages. Content is extracted from each page's canvas layout.
   </Step>
 </Steps>
+
+**Auto-sync** creates a parent source that checks the site daily for new, updated, or deleted pages and keeps your training data in sync automatically. New pages are added, and pages that have been removed from SharePoint are cleaned up on the next sync cycle.
+
+<Note>
+  Auto-sync for site pages requires the **Pro** plan or higher.
+</Note>
 
 <Note>
   SharePoint uses the same Microsoft account connection as OneNote. If you've already connected OneNote, you may need to reconnect to grant the additional SharePoint permissions.

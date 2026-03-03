@@ -65,6 +65,31 @@ After crawling, you'll see a list of discovered pages with their URLs and conten
   Focus on pages with valuable content like product pages, FAQs, help articles, and documentation. Skip pages with minimal content like login pages or utility pages.
 </Tip>
 
+### Auto-Sync Website
+
+Instead of manually selecting pages, you can set up automatic syncing that crawls your website daily and keeps your training data up to date.
+
+<Steps>
+  <Step title="Enable auto-sync">
+    Before crawling, check the **Auto-sync website pages daily** checkbox below the URL input field.
+  </Step>
+  <Step title="Set exclusion patterns (optional)">
+    Open **Advanced Options** to add URL exclusion patterns. Any URLs matching these patterns will be skipped during crawling. For example, you can exclude `/admin/*` or `/login`.
+  </Step>
+  <Step title="Create auto-syncing website">
+    Click the **Create Auto-Syncing Website** button. SiteSpeakAI will crawl your website, discover all pages, and set up daily automatic syncing.
+  </Step>
+</Steps>
+
+Once set up, SiteSpeakAI checks your website daily for changes:
+- **New pages** are automatically discovered and added as training sources
+- **Removed pages** are cleaned up and removed from your training data
+- **Exclusion patterns** are applied on every sync cycle
+
+<Note>
+  Auto-sync for websites requires the **Pro Plus** plan or higher.
+</Note>
+
 ---
 
 ## Link Sources
