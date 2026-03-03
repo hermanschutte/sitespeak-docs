@@ -1,23 +1,19 @@
 ---
 title: "Managing Clients"
 sidebarTitle: "Client Management"
-description: "Create and manage client accounts from your agency dashboard. Each client gets their own isolated workspace for chatbots and training sources."
+description: "Create and manage client accounts from your agency dashboard. Each client gets their own isolated workspace for chatbots and training sources. Invite client users and set per-client usage limits."
 icon: "users"
 ---
 
 import Cta from '/snippets/cta.mdx';
-import { Note } from '@mintlify/components';
+import { Note, Tip } from '@mintlify/components';
 
 Each client you create has a fully isolated workspace with their own chatbots, training sources, conversations, and leads. Clients cannot see each other's data, and you can switch between them instantly from your agency dashboard.
-
-<Note>
-  Clients do not have their own SiteSpeak login. They are managed entirely through your agency dashboard. You control all access and configuration on their behalf.
-</Note>
 
 ## Creating a Client
 
 1. Go to **Agency > Clients** in your dashboard.
-2. Click **Create Client**.
+2. Click **Add Client**.
 3. Enter the client's name and confirm.
 
 The new client workspace is created immediately. You can now switch into it to start building chatbots.
@@ -26,9 +22,82 @@ The new client workspace is created immediately. You can now switch into it to s
 
 To work inside a client's workspace, use the **client switcher** in the top navigation bar. Select the client from the dropdown to switch context - all chatbots, sources, and settings you see will belong to that client.
 
-You can also click **Switch** next to any client in the **Agency > Clients** list to jump directly to their workspace.
+You can also click **Manage** next to any client in the **Agency > Clients** list to jump directly to their workspace.
 
-To return to your main agency account, select your agency name from the same switcher.
+To return to your main agency account, select your agency name from the same switcher. The **Agency** link in the profile menu is always available when you're managing a client workspace, so you can quickly navigate back.
+
+## Inviting Client Users
+
+You can give your clients direct access to their own dashboard and inbox. When invited, a client user can log in (using your branded login page if you have a custom domain) and access only their workspace - they cannot see other clients or your agency settings.
+
+### How to Invite a Client User
+
+1. Go to **Agency > Clients** in your dashboard
+2. Click the actions menu (three dots) next to the client
+3. Select **Users**
+4. Enter the email address of the person you want to invite
+5. Choose a role (Administrator, Editor, or Member)
+6. Click **Add Team Member**
+
+The invitee receives an email invitation with your agency branding. If you have a custom domain configured, the invitation link will use your branded URL.
+
+<Tip>
+  Send invitations while accessing the dashboard through your custom domain. This ensures the invite email and registration flow use your agency branding instead of SiteSpeak's.
+</Tip>
+
+### What Client Users Can See
+
+Client users are scoped to their specific client workspace. They can:
+
+- View and manage chatbots belonging to their client account
+- Access the inbox and respond to conversations
+- View leads and conversation history
+- Manage training sources (within their limits)
+
+Client users **cannot** see or access:
+
+- Other client accounts
+- The agency dashboard or settings
+- Billing or subscription information
+- Agency team management
+
+### Client User Roles
+
+The same roles available for agency team members apply to client users:
+
+| Role | Permissions |
+|------|------------|
+| **Administrator** | Full access to client chatbots, settings, and user management |
+| **Editor** | Can view and respond to messages in the inbox and update chatbot answers |
+| **Member** | Can view and respond to messages in the inbox |
+
+## Per-Client Usage Limits
+
+You can set individual message credit and source limits for each client. This lets you control how much of your agency's total allocation each client can use.
+
+### Setting Limits
+
+In the **Agency > Clients** table, each client row has **Messages** and **Sources** columns. Click on these fields to set a limit:
+
+1. Click the **Set limit** text (or the existing limit value) in the Messages or Sources column
+2. Enter the limit number
+3. Press **Enter** or click away to save
+
+Leave a field blank to remove the limit. Clients without explicit limits share the agency's total pool.
+
+### How Limits Work
+
+- **Message credits**: The limit controls how many message credits a client can use per month. When a client reaches their limit, their chatbots will stop responding until the next billing cycle or until you increase the limit.
+- **Sources**: The limit controls how many training sources a client can add across all their chatbots. When reached, the client cannot add new sources until the limit is increased or existing sources are removed.
+- **Agency ceiling**: Per-client limits work alongside your plan's total limits. Even if a client has remaining allocation, they cannot exceed the agency's overall plan limit.
+
+### Over-Allocation Warning
+
+If the sum of all client limits exceeds your agency's plan total, a warning banner appears at the top of the clients table. This is informational only - the agency plan total remains the hard ceiling.
+
+<Note>
+  Per-client limits are soft limits. Setting them helps you manage allocation across clients, but your agency plan's total limits are always the hard ceiling regardless of individual client settings.
+</Note>
 
 ## Building Chatbots for Clients
 
@@ -38,6 +107,13 @@ Refer to the main SiteSpeak documentation for chatbot setup:
 - [Create Your Chatbot](/getting-started/create-your-chatbot)
 - [Training Your Chatbot](/training-your-chatbot/overview)
 - [Tools & Actions](/tools-and-actions/overview)
+
+## Renaming and Deleting Clients
+
+From the actions menu next to any client in the **Agency > Clients** table:
+
+- **Rename** - Change the client's display name
+- **Delete** - Permanently remove the client and all their chatbots, sources, and data. This action cannot be undone.
 
 ## Plan Limits
 
