@@ -1,13 +1,13 @@
 ---
 title: "Connect App Integrations"
 sidebarTitle: "App Integrations"
-description: "Connect Notion, OneNote, Google Drive, SharePoint, Discord, and other services to train your chatbot."
+description: "Connect Notion, OneNote, Google Drive, SharePoint, OneDrive, Confluence, Discord, and other services to train your chatbot."
 icon: "plug"
 ---
 
 import Cta from '/snippets/cta.mdx';
 
-Connect your chatbot to third-party services like Notion, OneNote, Google Drive, SharePoint, and Discord to use their content for training. This allows your chatbot to answer questions based on your existing documentation and knowledge bases.
+Connect your chatbot to third-party services like Notion, OneNote, Google Drive, SharePoint, OneDrive, Confluence, and Discord to use their content for training. This allows your chatbot to answer questions based on your existing documentation and knowledge bases.
 
 ## Available Integrations
 
@@ -17,11 +17,13 @@ From the **Apps** source type, you can connect:
 - **Bookstack** - Connect your BookStack wiki ([detailed guide](/training-your-chatbot/bookstack))
 - **OneNote** - Connect your Microsoft OneNote notebooks
 - **Google Drive** - Connect your Google Drive documents
-- **SharePoint** - Connect your SharePoint document libraries
+- **SharePoint** - Connect your SharePoint document libraries and site pages
+- **OneDrive** - Connect your OneDrive files and documents
+- **Confluence** - Connect your Confluence spaces and pages
 - **Discord** - Select Discord channels to train on
 
 <Note>
-  Intercom and Google Docs integrations are coming soon.
+  Intercom integration is coming soon.
 </Note>
 
 <Frame>
@@ -164,6 +166,70 @@ Use this option to train on SharePoint wiki pages and modern pages.
 
 <Note>
   SharePoint uses the same Microsoft account connection as OneNote. If you've already connected OneNote, you may need to reconnect to grant the additional SharePoint permissions.
+</Note>
+
+---
+
+## OneDrive
+
+Click **Connect OneDrive** to train your chatbot on files stored in your OneDrive account. You'll be prompted to sign in with your Microsoft account and grant permission to read your files.
+
+### Getting started
+
+<Steps>
+  <Step title="Click Connect OneDrive">
+    From the **Apps** source type, click **Connect OneDrive**. If you haven't connected your Microsoft account yet, you'll be prompted to sign in and authorize access.
+  </Step>
+  <Step title="Browse your files">
+    Navigate through your OneDrive folders to find the files you want to use for training.
+  </Step>
+  <Step title="Select files">
+    Check the boxes next to the files you want to train on.
+  </Step>
+  <Step title="Add selected">
+    Click **Add Selected** to start training your chatbot on the selected files.
+  </Step>
+</Steps>
+
+**Supported file types:**
+- Word documents (.docx, .doc)
+- PDF files (.pdf)
+- PowerPoint presentations (.pptx, .ppt)
+- Excel spreadsheets (.xlsx, .xls)
+- Text files (.txt, .csv, .md, .rtf)
+
+<Note>
+  OneDrive uses the same Microsoft account connection as OneNote and SharePoint. If you've already connected one of these, you may need to reconnect to grant the additional OneDrive permissions.
+</Note>
+
+---
+
+## Confluence
+
+Click **Connect Confluence** to train your chatbot on pages from your Confluence workspace. You'll be redirected to Atlassian to log in and authorize access.
+
+### Getting started
+
+<Steps>
+  <Step title="Click Connect Confluence">
+    From the **Apps** source type, click **Connect Confluence**. You'll be redirected to Atlassian to authorize access.
+  </Step>
+  <Step title="Select a Confluence site">
+    If you have multiple Confluence sites, choose the one that contains the content you want to use for training.
+  </Step>
+  <Step title="Select a space">
+    Browse the available spaces and select the one you want to train on.
+  </Step>
+  <Step title="Select pages">
+    Browse the pages in the selected space and check the ones you want to include.
+  </Step>
+  <Step title="Add selected">
+    Click **Add Selected** to start training your chatbot on the selected pages.
+  </Step>
+</Steps>
+
+<Note>
+  Confluence integration requires your Confluence instance to be accessible via Atlassian Cloud.
 </Note>
 
 ---
