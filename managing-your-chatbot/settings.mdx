@@ -166,6 +166,20 @@ Control how strictly your agent adheres to its training data:
 | **Low** | Agent will attempt to use training data, but can also use some general ChatGPT knowledge |
 | **None** | No restrictions, agent will answer any query |
 
+### Prompt Guard
+
+Prompt Guard pre-screens every visitor message using AI classification to detect prompt injection and jailbreak attempts before they reach your chatbot. When a malicious message is detected, the chatbot responds with the [default answer](#default-answer) instead of processing the harmful prompt.
+
+Enable Prompt Guard by toggling it on in the Advanced settings tab.
+
+<Note>
+  Prompt Guard adds a small amount of latency to each message as it runs the classification check. This is typically imperceptible to visitors.
+</Note>
+
+<Info>
+  Prompt Guard is available on **Startup** plans and above.
+</Info>
+
 ### Rate Limiting
 
 Prevent abuse by limiting the number of messages a visitor can send within a 5-minute window.
