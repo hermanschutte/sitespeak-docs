@@ -5,16 +5,14 @@ description: "How to add your custom ChatGPT trained AI support agent to any HTM
 icon: "code"
 ---
 
+import InstallCopyCode from '/snippets/install-copy-code.mdx';
 import Cta from '/snippets/cta.mdx';
 
 You want to embed your custom trained AI support agent to your **HTML website**. Here's how to add an AI support agent to any HTML website with SiteSpeakAI. 
 
 ## Add your AI support agent to your **HTML website** website
 
-### In SiteSpeakAI
-	
-Log into your SiteSpeakAI account and select your agent from the dropdown menu at the top, click on the **Install Agent** section in the sidebar, select the **Javascript** tab and then click on the **Copy Code** button to copy your agent code snippet.
-![Copy code snippet](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/AvSb6iF2OUXlQnC1hnpDeC1bpplkn7AzQ6pTFZmt.png)
+<InstallCopyCode />
 
 ### In your website
 
@@ -24,15 +22,13 @@ Using a simple editor e.g. **Notepad** (Windows), **TextEdit** (Mac), or a code 
 
 ```html
 <!-- SiteSpeakAI - Add ChatGPT to your website -->
-
 <script type="text/javascript">(function()	{d=document;s=d.createElement("script");s.src="https://sitespeak.ai/chatbots/########-####-####-####-############.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
-
 <!-- / SiteSpeakAI -->
 ```
 
 #### 2. Please note
 
-- **Caching:** Browsers often cache (save) files. If you make changes and they don't appear, clear your browser's cache (usually in your browser settings).
+- **Caching:** Browsers often cache (save) files. If you make changes and they don't appear, on Windows you can press F5 (or Shift+F5) or clear your browser's cache (usually in your browser settings).
 - **Code Editors:** Using a code editor like **VS Code** will make writing and managing your code much easier. They provide syntax highlighting, error checking, and other helpful features.
 
 <Cta />
