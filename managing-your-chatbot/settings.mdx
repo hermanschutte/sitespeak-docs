@@ -64,6 +64,26 @@ Allow the agent to understand the current page content when responding to questi
 
 Allow visitors to upload files to the agent with their messages. Your agent can process these files and use them to answer questions.
 
+### Visitor Geolocation
+
+Identify the country of your visitors when they interact with your chatbot. When enabled, the visitor's country is determined using network-level headers and displayed across your dashboard, inbox, and contacts pages.
+
+**Privacy-first by design:**
+- This feature is **disabled by default** and must be explicitly enabled per chatbot
+- Only the **country name** is stored (e.g. "United States"), not the city, region, or any granular location data
+- **IP addresses are never stored** - the country is identified at the network level and the IP is immediately discarded
+- Country data is captured once on the visitor's first message and is not updated on subsequent visits
+
+When enabled, country data appears in:
+- **Dashboard** - A world map visualization showing where your visitors are located
+- **Inbox** - The contact details sidebar displays the visitor's country with a flag
+- **Contacts** - A country column in the leads table and in the contact details dialog
+- **CSV Export** - Country data is included when exporting your leads
+
+<Note>
+  Visitor Geolocation is available on all plans.
+</Note>
+
 ---
 
 ## AI Model Settings
