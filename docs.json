@@ -201,6 +201,7 @@
               "tools-and-actions/overview",
               "tools-and-actions/custom-api-action",
               "tools-and-actions/sqlite-database",
+              "tools-and-actions/mysql-database",
               "tools-and-actions/bookstack-search",
               "tools-and-actions/brave-search",
               "tools-and-actions/firecrawl-search",
