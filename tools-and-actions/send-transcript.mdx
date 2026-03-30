@@ -1,0 +1,74 @@
+---
+title: "Send Transcript Action"
+sidebarTitle: "Send Transcript"
+description: "Enable your AI chatbot to send a copy of the conversation transcript to visitors via email."
+icon: "mail"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Frame, Note, Tip } from '@mintlify/components';
+
+The **Send Transcript** action enables your AI agent to send a copy of the conversation to the visitor via email. When invoked, it displays an email form where the visitor can confirm their address and receive the full conversation thread.
+
+This action also enriches your Contacts - when a visitor provides their email to receive a transcript, it is automatically saved to their contact record.
+
+## How it Works
+
+When a visitor asks for a copy of the conversation, your chatbot invokes the Send Transcript action and displays an email input form:
+
+- **If the visitor's email is already known** (e.g., from a previous lead capture or identification), the form is pre-filled with their email so they can confirm with a single click.
+- **If the visitor's email is not known**, the form is empty and the visitor enters their email address.
+
+After clicking **Send**, the transcript is delivered to the provided email and the address is saved to Contacts. The visitor can also click **Skip** to dismiss the form.
+
+## Add a Send Transcript Action
+
+<Steps>
+  <Step title="Go to Tools & Actions">
+    In your chatbot dashboard, click **Configuration** in the sidebar, then select **Tools & Actions**.
+  </Step>
+  <Step title="Click Add Action">
+    Click the **+ Add Action** button.
+  </Step>
+  <Step title="Search for Send Transcript">
+    Type "Send Transcript" in the search field to filter the available actions.
+  </Step>
+  <Step title="Select Send Transcript">
+    Click **Add** next to **Send Transcript**.
+  </Step>
+</Steps>
+
+### Configure the Action
+
+<Steps>
+  <Step title="Set Name and Description">
+    - **Name**: Give your action a descriptive name (e.g., `send_transcript`)
+    - **Description**: Describe when the AI should use this action (e.g., "Use this action when the visitor asks for a copy or transcript of the conversation.")
+  </Step>
+  <Step title="Set Response Messages">
+    - **Submitted Message**: Message shown after the transcript is sent (e.g., "The transcript has been sent to your email.")
+    - **Dismissed Message**: Message shown if the visitor skips (e.g., "No problem! Let me know if you need anything else.")
+  </Step>
+  <Step title="Set Email Subject">
+    - **Email Subject**: The subject line for the transcript email (e.g., "Your conversation transcript")
+  </Step>
+  <Step title="Save">
+    Click **Add Action** to save your configuration.
+  </Step>
+</Steps>
+
+## Contact Enrichment
+
+When a visitor provides their email address through the Send Transcript form, it is automatically saved to their contact record in your **Contacts** page. This gives you another way to collect visitor information without requiring a dedicated lead capture form.
+
+<Tip>
+  **Combine with Suggested Messages for a one-click transcript button.**
+
+  You can create a [Suggested Messages](/tools-and-actions/suggested-messages) action with auto-generation **disabled** and add a manual message like "Send me a transcript of this conversation". This gives visitors an easy one-click button to request a transcript after their first message.
+</Tip>
+
+## Rate Limiting
+
+To prevent abuse, transcript sends are limited to 3 per visitor per hour per chatbot. If a visitor exceeds this limit, they will see an error message asking them to try again later.
+
+<Cta />
