@@ -199,6 +199,7 @@
               "tools-and-actions/brave-search",
               "tools-and-actions/firecrawl-search",
               "tools-and-actions/capture-leads",
+              "tools-and-actions/send-transcript",
               "tools-and-actions/polar",
               "tools-and-actions/paddle",
               "tools-and-actions/suggested-messages",
