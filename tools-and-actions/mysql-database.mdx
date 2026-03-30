@@ -1,0 +1,125 @@
+---
+title: "Chat to Your MySQL Database"
+sidebarTitle: "MySQL Database"
+description: "Enable your AI agent to retrieve data from a remote MySQL database to answer your visitors' questions."
+icon: "database"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Frame, Note, Tip } from '@mintlify/components';
+
+The MySQL Database action allows your AI agent to query a remote MySQL database to retrieve information and answer visitor questions. This is useful for providing real-time data from your application database, inventory systems, CRMs, or any data stored in MySQL.
+
+## How it Works
+
+When a visitor asks a question that requires database information, the AI agent:
+
+1. Discovers the database schema (table structure)
+2. Generates the appropriate SQL query
+3. Executes the query (read-only) and returns the results
+
+All queries are **read-only** (SELECT only). The agent cannot modify your data.
+
+## Adding the MySQL Database Action
+
+<Steps>
+  <Step title="Go to Tools & Actions">
+    In your chatbot dashboard, go to **Configuration > Tools & Actions**.
+  </Step>
+  <Step title="Click Add Action">
+    Click the **+ Add Action** button.
+  </Step>
+  <Step title="Select MySQL Database">
+    Find **MySQL Database** and click **Add**.
+  </Step>
+</Steps>
+
+## Configuration
+
+### Name (required)
+
+A descriptive name for the action. This helps the AI agent understand what data this database contains.
+
+**Example:** `query_inventory`
+
+### Description (required)
+
+A description of the action and when it should be used. Be specific about what data is available.
+
+**Example:**
+> Use this action when the user asks about product inventory, stock levels, or product details.
+
+<Note>
+  Make the **Name** and **Description** as specific as possible so the AI agent knows exactly when to use this action and what kind of data to look for.
+</Note>
+
+### Host (required)
+
+The hostname or IP address of your MySQL server.
+
+**Example:** `db.example.com` or `127.0.0.1`
+
+### Port (required)
+
+The port your MySQL server listens on. Default is `3306`.
+
+### Database Name (required)
+
+The name of the database to connect to.
+
+**Example:** `my_database`
+
+### Username (required)
+
+The MySQL username for authentication.
+
+<Tip>
+  **We strongly recommend creating a dedicated read-only user** for your chatbot connection. This ensures the chatbot can only read data and prevents accidental modifications.
+
+  ```sql
+  CREATE USER 'chatbot_readonly'@'%' IDENTIFIED BY 'your_password';
+  GRANT SELECT ON your_database.* TO 'chatbot_readonly'@'%';
+  FLUSH PRIVILEGES;
+  ```
+</Tip>
+
+### Password (required)
+
+The password for the MySQL user.
+
+### SSL (optional)
+
+Enable SSL/TLS for the connection. **Recommended for cloud-hosted databases** such as AWS RDS, Google Cloud SQL, PlanetScale, or DigitalOcean Managed Databases. Enabled by default.
+
+## Connection Validation
+
+When you save the action, the connection is automatically tested. If the connection fails, you will see an error message on the host field with details about what went wrong. Common issues include:
+
+- Incorrect hostname or port
+- Wrong username or password
+- Firewall blocking the connection
+- SSL required but not enabled
+
+## Security
+
+- **Read-only queries only** - the agent can only execute SELECT statements
+- **Query timeout** - queries are limited to 5 seconds to prevent slow queries from affecting your database
+- **Result size limit** - large results are truncated to prevent excessive data transfer
+- All credentials are encrypted at rest
+
+<Note>
+  Make sure your MySQL server allows connections from external IP addresses. You may need to update your firewall rules or security group settings to allow connections from the SiteSpeak server.
+</Note>
+
+## Example Use Case
+
+With an e-commerce database, your chatbot can answer questions like:
+
+- "What products do you have in stock?"
+- "What is the price of the Pro Plan?"
+- "How many orders were placed this month?"
+- "Show me the top-selling products"
+
+The AI agent will automatically discover your table structure and generate the appropriate SQL queries to retrieve the information.
+
+<Cta />
