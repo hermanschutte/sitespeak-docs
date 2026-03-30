@@ -8,16 +8,18 @@ icon: "mail"
 import Cta from '/snippets/cta.mdx';
 import { Steps, Step, Frame, Note, Tip } from '@mintlify/components';
 
-The **Send Transcript** action enables your AI agent to send a copy of the conversation to the visitor via email. When invoked, it collects the visitor's email address (or uses a previously known email) and delivers the full conversation thread.
+The **Send Transcript** action enables your AI agent to send a copy of the conversation to the visitor via email. When invoked, it displays an email form where the visitor can confirm their address and receive the full conversation thread.
 
 This action also enriches your Contacts - when a visitor provides their email to receive a transcript, it is automatically saved to their contact record.
 
 ## How it Works
 
-When a visitor asks for a copy of the conversation, your chatbot invokes the Send Transcript action:
+When a visitor asks for a copy of the conversation, your chatbot invokes the Send Transcript action and displays an email input form:
 
-- **If the visitor's email is already known** (e.g., from a previous lead capture or identification), the transcript is sent automatically with a brief confirmation.
-- **If the visitor's email is not known**, a simple email input form is displayed. After submission, the transcript is sent and their email is saved to Contacts.
+- **If the visitor's email is already known** (e.g., from a previous lead capture or identification), the form is pre-filled with their email so they can confirm with a single click.
+- **If the visitor's email is not known**, the form is empty and the visitor enters their email address.
+
+After clicking **Send**, the transcript is delivered to the provided email and the address is saved to Contacts. The visitor can also click **Skip** to dismiss the form.
 
 ## Add a Send Transcript Action
 
