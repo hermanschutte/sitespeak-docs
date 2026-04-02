@@ -1,0 +1,125 @@
+---
+title: "Navigate to Page Action"
+sidebarTitle: "Navigate to Page"
+description: "Enable your AI chatbot to navigate visitors to specific pages on your site with dynamic URL parameters."
+icon: "arrow-up-right-from-square"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Frame, Note, Tip } from '@mintlify/components';
+
+The **Navigate to Page** action enables your AI agent to automatically navigate visitors to relevant pages on your site after answering their questions. The system constructs the navigation URL from your configured template and fills in dynamic parameters based on the conversation context.
+
+## How it Works
+
+After the AI finishes responding, the system automatically checks the response for data that matches your URL template variables. If a match is found, a navigation button appears below the chatbot's response (or the page navigates automatically, depending on your configuration).
+
+The Navigate to Page action supports two modes:
+
+### Source URL Mode
+
+When your URL template contains **no variables**, the system uses the first source URL from the chatbot's knowledge base results. This is useful for navigating visitors to pages your chatbot has indexed.
+
+For example, if a visitor asks "Tell me about your pricing" and the AI pulls information from `https://yoursite.com/pricing`, a "Go to page" button appears linking directly to that page.
+
+### Template Mode
+
+When your URL template contains **variables** (e.g., `{{category_id}}`), the system looks for matching values in the tool results from your chatbot's actions (such as MySQL Database or Custom API Action). If the AI ran a database query that returned a `category_id` column, the system uses that value to construct the navigation URL.
+
+For example, with a URL template of `https://yoursite.com/products?category={{category_id}}&sort={{sort_by}}`, if the AI's MySQL query returns `category_id: 42` and `sort_by: price`, the navigation URL becomes `https://yoursite.com/products?category=42&sort=price`.
+
+<Tip>
+  **Template variables are matched automatically.** You don't need to configure anything special in your MySQL or API action. The system scans all tool results for columns matching your URL template variable names. If the AI's query doesn't return the exact columns, the system runs a supplementary lookup using the same database connection and query filters.
+</Tip>
+
+## Navigation Modes
+
+You can choose how the navigation is triggered:
+
+| Mode | Behavior |
+|------|----------|
+| **Show a clickable button** | A button appears below the AI's response. The visitor clicks to navigate. |
+| **Navigate immediately** | The page navigates automatically as soon as the AI finishes responding. |
+| **Show message then navigate after delay** | A countdown message appears (e.g., "Navigating in 3s...") with options to "Go now" or "Cancel". |
+
+## Add a Navigate to Page Action
+
+<Steps>
+  <Step title="Go to Tools & Actions">
+    In your chatbot dashboard, click **Configuration** in the sidebar, then select **Tools & Actions**.
+  </Step>
+  <Step title="Click Add Action">
+    Click the **+ Add Action** button.
+  </Step>
+  <Step title="Search for Navigate to Page">
+    Type "Navigate" in the search field to filter the available actions.
+  </Step>
+  <Step title="Select Navigate to Page">
+    Click **Add** next to **Navigate to Page**.
+  </Step>
+</Steps>
+
+### Configure the Action
+
+<Steps>
+  <Step title="Set Name and Description">
+    - **Name**: Give your action a descriptive name (e.g., `navigate_to_products`)
+    - **Description**: Describe when the AI should navigate the visitor (e.g., "Navigate visitors to the filtered product listing page after answering product questions.")
+  </Step>
+  <Step title="Set URL Template">
+    Enter the URL to navigate to. Use `{{variable_name}}` for dynamic values that will be filled in from tool results.
+
+    Examples:
+    - **Static (source URL mode):** `https://yoursite.com` - navigates to the source page from knowledge base results
+    - **Dynamic:** `https://yoursite.com/search?category={{category_id}}&location={{state_id}}` - constructs the URL from tool result fields
+  </Step>
+  <Step title="Set Parameters (optional)">
+    If your URL template contains variables, define them as a JSON object. Keys are the variable names, values are descriptions.
+
+    ```json
+    {
+      "category_id": "The product category ID",
+      "state_id": "The state or location ID"
+    }
+    ```
+  </Step>
+  <Step title="Choose Navigation Mode">
+    Select how the navigation should be triggered:
+    - **Show a clickable button** (default) - safest option, gives visitors control
+    - **Navigate immediately** - best for search result pages
+    - **Show message then navigate after delay** - gives visitors a chance to cancel
+  </Step>
+  <Step title="Configure Additional Options">
+    - **Button Label** (button mode only): The text shown on the button (default: "Go to page")
+    - **Delay** (delay mode only): Seconds to wait before navigating (default: 3)
+  </Step>
+  <Step title="Save">
+    Click **Add Action** to save your configuration.
+  </Step>
+</Steps>
+
+## Using with MySQL Database
+
+When combined with the [MySQL Database](/tools-and-actions/mysql-database) action, the Navigate to Page action can construct URLs from database query results. The URL template variable names must match column names or aliases in the database.
+
+For example, if your database has an `interests` table with `id` and `name` columns, and your URL expects `?interests=42`:
+
+1. Set the URL template to `https://yoursite.com/search?interests={{interests}}`
+2. Ensure the database table or view the AI queries contains a column named `interests` with the numeric ID
+
+<Note>
+  The system automatically runs a supplementary lookup if the AI's query doesn't include the required columns. It extracts the WHERE clause from the AI's query and runs a targeted query to fetch the missing values using the same database connection.
+</Note>
+
+### MySQL Table Filter
+
+If your database has many tables, use the **Tables** field on the MySQL Database action to specify which tables the AI should use. This limits the schema discovery to only the relevant tables, improving accuracy and performance.
+
+## Embed Script Requirement
+
+The Navigate to Page action works by sending a `postMessage` from the chatbot iframe to the parent page. The parent page must have the SiteSpeak embed script installed for navigation to work. This means:
+
+- Navigation works on any page where the chatbot widget is embedded via the standard JavaScript snippet
+- Navigation does **not** work on the share page (`/share/{chatbotId}`) since there is no parent page to navigate
+
+<Cta />
