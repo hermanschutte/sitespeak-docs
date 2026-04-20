@@ -133,7 +133,12 @@
               {
                 "group": "App Builders",
                 "pages": [
+<<<<<<< Updated upstream
                   "installing-your-chatbot/how-to-add-chatgpt-to-base44"
+=======
+                  "installing-your-chatbot/how-to-add-chatgpt-to-base44",
+                  "installing-your-chatbot/how-to-add-chatgpt-to-emergent"
+>>>>>>> Stashed changes
                 ]
               },
               {
