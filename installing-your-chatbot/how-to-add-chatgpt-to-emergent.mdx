@@ -1,0 +1,59 @@
+---
+title: "How to add a ChatGPT chatbot to Emergent"
+sidebarTitle: "Emergent"
+description: "How to add your custom ChatGPT trained chatbot to your Emergent website or app."
+icon: "wand-sparkles"
+---
+
+import InstallCopyCode from '/snippets/install-copy-code.mdx';
+import Cta from '/snippets/cta.mdx';
+
+You want to embed your custom trained chatbot to your **Emergent** website or app. Here's how to add ChatGPT to Emergent with SiteSpeakAI.
+
+**Emergent** lets you build production-ready apps and website/landing pages through conversation.
+
+Chat with AI agents that design, code, and deploy your application from start to finish.
+
+**Website URL:** [Emergent](https://app.emergent.sh/home)
+
+## Add your chatbot to your **Emergent** website or app
+
+<InstallCopyCode />
+
+### In Emergent
+
+1.	Log in to your **Emergent** account and on the dashboard select the project you want to edit
+
+![Dashboard](/images/installing-your-chatbot//Emergent/1-Emergent-Dashboard.png)
+
+We are going to use a prompt to instruct the Emergent AI to insert the snippet for us. The prompt consists of the instruction, "Please add the following JS snippet to my app code:" followed by the snippet code as copied at the beginning of this tutorial.
+
+```
+Please add the following JS snippet to my app code:
+
+<!-- SiteSpeakAI - Add ChatGPT to your website -->
+	<script type="text/javascript">(function()	{d=document;s=d.createElement("script");
+	s.src="https://sitespeak.ai/chatbots/##########################.js";
+	s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<!-- / SiteSpeakAI -->
+
+```
+
+2. Insert this prompt into the AI chatbox and click on **Send message**
+
+![2-Insert-AI-prompt](/images/installing-your-chatbot/Emergent/2-Emergent-AI-prompt.png)
+
+It will go through a whole process of inserting your snippet and then display a message indicating that the snippet was added succesfully.
+
+3. Your AI support agent button will now be displayed on your **Emergent** website or app
+
+![3-chatbot-button](/images/installing-your-chatbot/Emergent/3-Emergent-chatbot-button.png)
+
+4. If you click on the button it will display the AI support agent dialogue
+
+![4-Chatbot-dialogue](/images/installing-your-chatbot/Emergent/4-Emergent-chatbot-dialogue.png)
+
+Your AI support agent has now been added to your **Emergent** website or app and your visitors/customers can start interacting with it!
+
+
+<Cta />
