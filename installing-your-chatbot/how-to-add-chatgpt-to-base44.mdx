@@ -11,9 +11,9 @@ import Cta from '/snippets/cta.mdx';
 You want to embed your custom trained AI support agent in your **base44** app. Here's how to add an AI support agent to base44 with SiteSpeakAI.
 
 **base44** is an AI-powered app builder that lets you create fully functional apps using just your words in minutes. No code required.
-**Website URL:** [base44](https://app.base44.com/)
+Build an app at the speed of thought: Type your idea in plain language and watch it transform into a working app, generating the frontend, backend, data models, and logic in real time. Base44 securely stores your app’s data, manages accounts and logins if you need them, and keeps everything running smoothly.
 
-You can learn more at: [base44](https://app.base44.com/)
+**Website URL**: [base44](https://app.base44.com/)
 
 ## Add your AI support agent to your base44 app
 
@@ -27,15 +27,16 @@ You can learn more at: [base44](https://app.base44.com/)
 
 We are going to use a prompt to instruct the base44 AI to insert the snippet for us. The prompt consists of the instruction, "Please add the following JS snippet to my app code:" followed by the snippet code as copied at the beginning of this tutorial.
 
-`Please add the following JS snippet to my app code:`
+```
+Please add the following JS snippet to my app code:
 
-`<!-- SiteSpeakAI - Add ChatGPT to your website -->`<br />
-	`<script type="text/javascript">(function()	{d=document;s=d.createElement("script");
+<!-- SiteSpeakAI - Add ChatGPT to your website -->
+	<script type="text/javascript">(function()	{d=document;s=d.createElement("script");
 	s.src="https://sitespeak.ai/chatbots/##########################.js";
-	s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`<br />
-`<!-- / SiteSpeakAI -->`
+	s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<!-- / SiteSpeakAI -->
 
-
+```
 2. Insert this prompt into AI chatbox and click on **Send message**
 
 ![2-Insert-AI-prompt](/images/installing-your-chatbot/base44/2-Insert-AI-prompt.png)
