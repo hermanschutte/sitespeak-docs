@@ -122,6 +122,7 @@
                   "installing-your-chatbot/how-to-add-chatgpt-to-webflow",
                   "installing-your-chatbot/how-to-add-chatgpt-to-websim-ai",
                   "installing-your-chatbot/how-to-add-chatgpt-to-website-x5-pro",
+                  "installing-your-chatbot/how-to-add-chatgpt-to-webstarts",
                   "installing-your-chatbot/how-to-add-chatgpt-to-webstudio",
                   "installing-your-chatbot/how-to-add-chatgpt-to-webwave",
                   "installing-your-chatbot/how-to-add-chatgpt-to-weebly",
@@ -133,7 +134,8 @@
               {
                 "group": "App Builders",
                 "pages": [
-                  "installing-your-chatbot/how-to-add-chatgpt-to-base44"
+                  "installing-your-chatbot/how-to-add-chatgpt-to-base44",
+                  "installing-your-chatbot/how-to-add-chatgpt-to-emergent"
                 ]
               },
               {
