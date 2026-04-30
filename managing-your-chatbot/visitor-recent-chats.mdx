@@ -1,0 +1,80 @@
+---
+title: "Visitor Recent Chats"
+sidebarTitle: "Visitor Recent Chats"
+description: "Let visitors resume past conversations, start a fresh chat, or delete a chat from inside the chatbot widget."
+icon: "history"
+---
+
+import Cta from '/snippets/cta.mdx';
+
+Your visitors can see and resume their past conversations from inside the chatbot widget. A small menu in the chatbot header gives them three options: start a new chat, view recent chats, or delete the current chat.
+
+## The widget menu
+
+In the top-right of the chatbot header, visitors see a `…` menu. Tapping it opens a dropdown with:
+
+- **Start New Chat** - rotates to a fresh session. The previous conversation stays available in Recent Chats.
+- **Recent Chats** - opens the full list of past conversations.
+- **Delete Chat** - soft-deletes the current conversation from the visitor's view. Your inbox keeps the full transcript.
+
+No setup is required. The menu is enabled by default on every chatbot.
+
+## Resuming a past conversation
+
+When a visitor taps **Recent Chats**, they see a list of every past session they have had with your chatbot, with the latest message and a relative timestamp. Tapping any row reloads that conversation in full so they can continue exactly where they left off.
+
+The current chat is highlighted in the list. The newest sessions appear at the top.
+
+A floating **Start New Chat** button stays pinned at the bottom of the list so visitors can begin a fresh conversation without scrolling.
+
+## Browser-local vs cross-device history
+
+By default, Recent Chats is **local to the browser** the visitor chatted from. If they switch to a different device or browser, they get a fresh start.
+
+If you have **identity verification** enabled and the visitor is identified, Recent Chats follows them across browsers and devices automatically. A visitor who chatted on their laptop yesterday can pick up the same thread on their phone today.
+
+See [Identify Users](/advanced/identify-users) for details on enabling identity verification.
+
+<Note>
+  Cross-device history only links sessions created from the date your chatbot was upgraded to support this feature. Older conversations stay tied to the browser they originated from.
+</Note>
+
+## Deleting a chat
+
+Visitors who want to wipe a conversation can tap `…` -> **Delete Chat**. The chat is removed from their view immediately and no longer appears in Recent Chats.
+
+What still happens behind the scenes:
+
+- Your **Inbox** keeps the full transcript so you can always look back at what was said. See [Conversation History](/managing-your-chatbot/conversation-history).
+- **Message credits** are still counted - deleting a chat from the visitor's side does not refund credits.
+- The deletion is scoped to that visitor's identity. A different visitor on the same device cannot delete chats that don't belong to them.
+
+## Localization
+
+Every label in the new menu can be translated for each language you support. Configure them in **Configuration > Localization** alongside the other widget strings.
+
+The localizable keys are:
+
+| Key | Default | Where it shows |
+|---|---|---|
+| `menu` | `Menu` | aria-label / tooltip on the `…` button |
+| `new_chat` | `Start New Chat` | menu item + floating pill in Recent Chats |
+| `view_recent_chats` | `Recent Chats` | menu item |
+| `delete_chat` | `Delete Chat` | menu item |
+| `recent_chats` | `Recent Chats` | header title in the recent-chats view |
+| `no_conversations` | `No past conversations` | empty state |
+| `back` | `Back` | aria-label on the back arrow |
+
+See [Languages](/managing-your-chatbot/languages) for how to edit translations.
+
+## Behavior across the widget variants
+
+Recent Chats works in every widget configuration:
+
+- **Chat Bubble** - the menu sits in the top-right of the widget header.
+- **Search Bar** - same menu, accessible once the conversation panel is open.
+- **Share page** (`/share/:id`) - the menu is available even when the visitor opens a fresh share link.
+
+In the **large header** layout, the recent-chats view uses the compact header style so the conversation list has more room to breathe.
+
+<Cta />
