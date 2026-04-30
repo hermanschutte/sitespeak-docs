@@ -144,7 +144,16 @@ The chatbot will verify the token signature using your secret key, ensuring the 
   - Use [template tags](/managing-your-chatbot/personalise-welcome-message) in welcome messages (e.g., "Hi \{\{first_name\}\}!")
   - View conversation history per user in your dashboard
   - Link conversations to customer records
+  - Give visitors **cross-device chat history** in the widget (see below)
 </Tip>
+
+### Cross-Device Chat History
+
+When identity verification is enabled, the chatbot widget's [Recent Chats](/managing-your-chatbot/visitor-recent-chats) feature follows your users across browsers and devices automatically. A visitor who chatted on their laptop can pick up the same thread on their phone, as long as they are identified with the same `user_id`.
+
+For unverified visitors, Recent Chats stays local to the browser they chatted from.
+
+No additional configuration is required. As soon as a visitor is identified through `window.SiteSpeakAI.identify({ token })`, every conversation they have is linked to their `user_id` and appears in their Recent Chats list on any device they sign in from.
 
 ---
 
