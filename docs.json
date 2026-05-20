@@ -355,5 +355,11 @@
       "telegram": "https://t.me/+QSyFTD8dmmQzZjc0",
       "discord": "https://discord.gg/eSeVUqHZcj"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/quickstart",
+      "destination": "/getting-started/create-your-chatbot"
+    }
+  ]
 }
