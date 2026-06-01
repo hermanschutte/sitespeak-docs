@@ -1,0 +1,69 @@
+---
+title: "How to add a ChatGPT AI support agent to Zite"
+description: "How to add your custom ChatGPT trained AI support agent to your Zite web app."
+sidebarTitle: "Zite"
+icon: "workflow"
+---
+
+import InstallCopyCode from '/snippets/install-copy-code.mdx';
+import Cta from '/snippets/cta.mdx';
+
+You want to embed your custom trained AI support agent in your **Zite** web app page. Here's how to add an AI support agent to Zite with SiteSpeakAI.
+
+[Zite](https://www.zite.com) is an AI‑powered no‑code app builder that lets you quickly create business apps, workflows, and databases without writing code. 
+
+**Website URL**: [Zite](https://www.zite.com)
+
+## Add your AI support agent to your **Zite** web app
+
+<InstallCopyCode />
+
+### In Zite
+
+1. Log into your **Zite** account and on the dashboard select the web app you want to edit
+
+![1-Zite-Dashboard-select-web-app-to-edit](/images/installing-your-chatbot/Zite/1-Zite-Dasboard-select-web-app-to-edit.png)
+
+We are going to use Zite’s ** AI prompt bar** to insert your SiteSpeakAI agent snippet site‑wide. 
+   
+The prompt consists of an instruction, e.g. "Please add the following JS snippet to my app code:" followed by the snippet code as copied at the beginning of this tutorial. 
+
+Note that the `#########################.js` part of the JS file URL will be replaced by your specific js script filename (36 characters including the 4 dashes).
+
+**Tip**: Create the complete prompt in a text editor and then paste this into the AI prompt bar. 
+
+```
+Please add the following JS snippet to my app code:
+
+<!-- SiteSpeakAI - Add ChatGPT to your website -->
+	<script type="text/javascript">(function()	{d=document;s=d.createElement("script");
+	s.src="https://sitespeak.ai/chatbots/#########################.js";
+	s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<!-- / SiteSpeakAI -->
+```
+
+2. Insert the prompt in the **AI prompt bar** and click on **Send**
+
+![2-Zite-Insert-prompt-and-Send](/images/installing-your-chatbot/Zite/2-Zite-Insert-prompt-and-Send.png)
+
+3. If all goes well, the **Zite AI builder** will indicate "*Your SiteSpeak AI chatbot is all set up and ready to go!*" and also display the support agent button preview
+
+![3-Zite-Success-msg-and-button-preview](/images/installing-your-chatbot/Zite/3-Zite-Success-msg-and-button-preview.png)
+
+4. Click on **Publish** to publish your changes
+
+![4-Zite-Publish](/images/installing-your-chatbot/Zite/4-Zite-Publish.png)
+
+5. Your AI support agent button will now be displayed on your **Zite** web app page
+
+![5-Zite-Button](/images/installing-your-chatbot/Zite/5-Zite-Button.png)
+
+6. If you click on the button it will display the AI support agent dialogue
+
+![6-Zite-Dialogue](/images/installing-your-chatbot/Zite/6-Zite-Dialogue.png)
+
+Your AI support agent has now been added to your **Zite** web app page and your visitors/customers can start interacting with it!
+
+
+<Cta />
+
