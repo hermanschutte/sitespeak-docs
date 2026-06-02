@@ -1,0 +1,97 @@
+---
+title: "Content Security Policy (CSP)"
+sidebarTitle: "Content Security Policy"
+description: "Install the SiteSpeakAI widget on websites with a strict Content Security Policy, without 'unsafe-inline'."
+icon: "shield-check"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Note, Warning, Tip } from '@mintlify/components';
+
+If your website uses a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) (CSP), the SiteSpeakAI widget works with it. This guide covers the directives the widget needs, and how to install the widget on sites that have removed `'unsafe-inline'` from their policy.
+
+## How the widget interacts with your CSP
+
+The widget loader injects a `<style>` element into your page for the chat launcher and chat window styling. Under a CSP, inline styles like this are only allowed if your policy includes `'unsafe-inline'` in `style-src`, or if the style element carries a valid nonce.
+
+If your policy allows `'unsafe-inline'`, the standard install snippet works as is and you don't need anything from this guide except the [directives table](#required-csp-directives) below.
+
+If your policy does not allow `'unsafe-inline'`, pass a nonce to the loader as shown next.
+
+## Installing with a nonce
+
+Add one line to the standard install snippet: set the `nonce` property on the script element to your page's per-request CSP nonce.
+
+```html
+<script nonce="YOUR_PAGE_NONCE">
+  (function(){
+    d=document;
+    s=d.createElement("script");
+    s.src="https://sitespeak.ai/chatbots/YOUR_CHATBOT_ID.js";
+    s.nonce="YOUR_PAGE_NONCE";
+    s.async=1;
+    d.getElementsByTagName("head")[0].appendChild(s);
+  })();
+</script>
+```
+
+The loader reads the nonce from its own script element and applies it to the `<style>` element it creates. With the nonce in place, the widget is fully styled without `'unsafe-inline'`.
+
+`YOUR_PAGE_NONCE` must be the same per-request nonce your server puts in the CSP header. Nonces must be unique for every page load. A static value defeats the purpose of using nonces.
+
+<Warning>
+  When creating the script element in JavaScript, set the nonce with the `.nonce` property (`s.nonce = "..."`), not with `s.setAttribute("nonce", "...")`. Browsers hide nonce attributes from scripts for security, so the `setAttribute` form fails silently in some browsers.
+</Warning>
+
+If your page is server-rendered and the install snippet is part of your HTML, the `nonce` attribute on the outer `<script>` tag works the same way. The inner `s.nonce = "..."` line is still required, because the loader script is created dynamically.
+
+## Required CSP directives
+
+These are the directives the widget needs. Add the values to your existing policy.
+
+| Directive | Value | Used for |
+|-----------|-------|----------|
+| `script-src` | `'nonce-YOUR_PAGE_NONCE'` or `https://sitespeak.ai` | The widget loader script |
+| `style-src` | `'nonce-YOUR_PAGE_NONCE'` | The widget stylesheet |
+| `frame-src` | `https://chatbot.sitespeak.ai` | The chat window iframe |
+| `img-src` | `data: https://cdn.sitespeak.ai` | The launcher icon |
+
+A complete policy for a site that uses nonces looks like this:
+
+```
+Content-Security-Policy:
+  default-src 'self';
+  script-src 'nonce-YOUR_PAGE_NONCE';
+  style-src 'nonce-YOUR_PAGE_NONCE';
+  frame-src https://chatbot.sitespeak.ai;
+  img-src 'self' data: https://cdn.sitespeak.ai;
+```
+
+<Note>
+  If your chatbot uses a [custom domain](/agency/custom-domain) (agency white-label or per-chatbot domain), replace `https://chatbot.sitespeak.ai` in `frame-src` with your custom domain, and add your custom domain to `script-src` if you load the widget from it.
+</Note>
+
+The chat window itself runs inside a cross-origin iframe, so your page's CSP does not apply to anything inside it. Only the loader and launcher on your page are affected by your policy.
+
+## Verifying your setup
+
+After installing, open your browser's developer console and reload the page.
+
+1. The chat launcher should appear fully styled (a round button in the corner of the page).
+2. There should be no CSP violation messages in the console mentioning `style-src` or `sitespeak`.
+
+If the launcher appears as an unstyled button in the top-left of your page, the nonce is not reaching the loader. Check that:
+
+- The `s.nonce = "..."` line is present in your snippet.
+- The nonce value matches the one in your CSP header for that page load.
+- Your CMS or templating engine is not stripping the `nonce` attribute from the output.
+
+<Tip>
+  You can test your policy without breaking your live site by using the `Content-Security-Policy-Report-Only` header first. Violations are logged to the console but not enforced.
+</Tip>
+
+## Need help?
+
+If you run into CSP issues that this guide doesn't cover, [contact our support team](mailto:support@sitespeak.ai) with your CSP header value and a link to the page where the widget is installed, and we'll help you get set up.
+
+<Cta />

@@ -247,7 +247,8 @@
             "pages": [
               "advanced/mcp-endpoint",
               "advanced/identify-users",
-              "advanced/csv-to-sqlite"
+              "advanced/csv-to-sqlite",
+              "advanced/content-security-policy"
             ]
           }
         ]
