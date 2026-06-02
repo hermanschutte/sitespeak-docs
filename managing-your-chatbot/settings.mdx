@@ -200,6 +200,30 @@ Enable Prompt Guard by toggling it on in the Advanced settings tab.
   Prompt Guard is available on **Startup** plans and above.
 </Info>
 
+### PII Redaction
+
+PII Redaction automatically masks sensitive identifiers in visitor messages before they are stored or sent to the AI model. Detected values are replaced with placeholders so the conversation stays readable while the sensitive data never reaches the AI provider or your conversation history.
+
+The following identifiers are detected and masked:
+
+| Identifier | Placeholder |
+| --- | --- |
+| National ID numbers (PESEL) | `[PESEL]` |
+| Payment card numbers | `[CARD]` |
+| Bank account numbers (IBAN) | `[IBAN]` |
+| BLIK payment codes | `[BLIK]` |
+| Passwords | `[REDACTED]` |
+
+Enable PII Redaction by toggling it on in the Advanced settings tab. Every redaction is also recorded in your audit log as a "PII Redaction" entry showing how many values were masked and their types, never the values themselves.
+
+<Note>
+  Detection uses pattern matching with checksum validation, so it adds no latency to responses. Values that are unusually formatted (for example, digits separated by words) may not be detected, so treat PII Redaction as a strong safeguard rather than an absolute guarantee.
+</Note>
+
+<Info>
+  PII Redaction is available on **Growth** plans and above.
+</Info>
+
 ### Rate Limiting
 
 Prevent abuse by limiting the number of messages a visitor can send within a 5-minute window.
