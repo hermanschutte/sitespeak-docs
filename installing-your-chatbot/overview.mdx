@@ -6,7 +6,7 @@ icon: "download"
 ---
 
 import Cta from '/snippets/cta.mdx';
-import { Card, CardGroup } from '@mintlify/components';
+import { Card, CardGroup, Note } from '@mintlify/components';
 
 SiteSpeakAI can be installed on virtually any website or platform. Choose your platform below to get step-by-step installation instructions.
 
@@ -27,6 +27,10 @@ The fastest way to add your chatbot to any website is with our embed script. Sim
 ```
 
 Replace `YOUR_CHATBOT_ID` with your actual chatbot ID, which you can find in your [dashboard](https://sitespeak.ai/dashboard) under **Install Agent**.
+
+<Note>
+  Does your website use a strict Content Security Policy without `'unsafe-inline'`? The widget supports CSP nonces. See the [CSP integration guide](/advanced/content-security-policy) for the one-line addition to the snippet.
+</Note>
 
 ## Choose Your Platform
 
