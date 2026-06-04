@@ -1,0 +1,78 @@
+---
+title: "Data Handling & Security"
+sidebarTitle: "Data & Security"
+description: "What data SiteSpeakAI processes, how it is secured, and the privacy controls and legal documents available to you."
+icon: "lock"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Note, Tip } from '@mintlify/components';
+
+This page summarises what data SiteSpeakAI processes on your behalf, how it is secured, and the controls you have. For the authoritative details, see our [Trust Center](https://sitespeak.ai/trust), [Privacy Policy](https://sitespeak.ai/privacy-policy), and [Data Processing Agreement](https://sitespeak.ai/data-processing-agreement).
+
+## What data is processed
+
+When a visitor chats with your bot, SiteSpeakAI processes:
+
+- **Messages** the visitor sends and the responses your chatbot generates.
+- **Lead details** (such as name, email, or phone) only if you enable [lead capture](/managing-your-chatbot/lead-capture).
+- A **randomly generated visitor ID** and the visitor's **approximate country**, derived from their network connection.
+- The **content you train your bot on** (your website pages, documents, and other sources).
+
+You are the controller of this data. SiteSpeakAI processes it as your processor, on your instructions.
+
+## How responses are generated
+
+To answer a question, the visitor's message and the most relevant pieces of your training content are sent to the AI provider configured for your chatbot (OpenAI, Anthropic, Google, or xAI) to generate a response.
+
+<Note>
+  AI providers act as our subprocessors and are contractually prohibited from using your data to train their models. We never use your content or conversations to train any AI model.
+</Note>
+
+## Security
+
+- **Encryption** in transit (TLS) and at rest (AES-256).
+- Hosted on **SOC 2-certified infrastructure** (DigitalOcean).
+- **Role-based access** with multi-factor authentication and least-privilege access for staff.
+- Optional **PII redaction** masks identifiers such as ID numbers, payment card numbers, and bank account numbers in visitor messages before they reach AI providers or storage.
+
+The full list of subprocessors, their location, and the data-transfer safeguard used for each is published in our [Trust Center](https://sitespeak.ai/trust).
+
+## Controls you have
+
+<CardGroup cols={2}>
+  <Card title="Pre-chat notice" icon="circle-info" href="/managing-your-chatbot/settings">
+    Require visitors to accept a notice before chatting, with a one-click GDPR preset.
+  </Card>
+  <Card title="Lead capture privacy link" icon="user-shield" href="/managing-your-chatbot/lead-capture">
+    Show a link to your own privacy policy on the lead capture form.
+  </Card>
+  <Card title="Manage conversations" icon="comments" href="/managing-your-chatbot/conversation-history">
+    Review and delete individual conversations and visitor records at any time.
+  </Card>
+  <Card title="Identify users" icon="id-card" href="/advanced/identify-users">
+    Control what visitor information is passed to your chatbot.
+  </Card>
+</CardGroup>
+
+You can also export your account data and delete your account at any time from your dashboard.
+
+## GDPR and compliance
+
+- We offer a signable **Data Processing Agreement** that incorporates the EU Standard Contractual Clauses for international transfers.
+- We maintain a current, public **subprocessor list** in the [Trust Center](https://sitespeak.ai/trust).
+- We support **data subject rights** (access, rectification, erasure, portability, objection). You can action many of these directly from your dashboard, or contact us at [privacy@sitespeak.ai](mailto:privacy@sitespeak.ai).
+
+<Tip>
+  If your visitors are in the EEA or UK, enable the pre-chat notice and add your privacy policy URL to the lead capture form so visitors are informed before any data is collected.
+</Tip>
+
+## Where data is stored
+
+SiteSpeakAI's infrastructure is currently hosted in the United States. Transfers of EEA, UK, and Swiss personal data are covered by the safeguards listed per subprocessor in the [Trust Center](https://sitespeak.ai/trust) (the EU-US Data Privacy Framework, Standard Contractual Clauses, or an adequacy decision).
+
+## Questions
+
+For data, privacy, or security questions, contact [privacy@sitespeak.ai](mailto:privacy@sitespeak.ai).
+
+<Cta />

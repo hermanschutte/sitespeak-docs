@@ -248,7 +248,8 @@
               "advanced/mcp-endpoint",
               "advanced/identify-users",
               "advanced/csv-to-sqlite",
-              "advanced/content-security-policy"
+              "advanced/content-security-policy",
+              "advanced/data-handling-and-security"
             ]
           }
         ]
