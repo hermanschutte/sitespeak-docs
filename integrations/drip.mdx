@@ -1,0 +1,73 @@
+---
+title: "Connect SiteSpeakAI to Drip"
+sidebarTitle: "Drip"
+description: "Automatically sync leads captured by your chatbot to your Drip account as subscribers."
+icon: "droplet"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Frame } from '@mintlify/components';
+
+SiteSpeakAI integrates with Drip to automatically create and update subscribers in your Drip account when leads are captured by your chatbot. Each lead is also tagged and recorded as a "Lead captured" event, so you can trigger Drip workflows automatically.
+
+## Connect Drip
+
+<Steps>
+  <Step title="Go to Integrations">
+    In your chatbot dashboard, go to **Configuration > Settings** and click the **Integrations** tab.
+  </Step>
+  <Step title="Find Drip">
+    Locate the **Drip** integration card.
+  </Step>
+  <Step title="Click Connect">
+    Click the **Connect** button.
+  </Step>
+  <Step title="Authorize">
+    A popup will appear asking you to sign in to your Drip account and authorize SiteSpeakAI to connect.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="/images/integrations/drip-connect.png" alt="Drip integration card" />
+</Frame>
+
+<Frame>
+  <img src="/images/integrations/drip-oauth.png" alt="Drip authorization" />
+</Frame>
+
+## Connected State
+
+Once connected, you'll see:
+- A green **Connected** badge
+- Your Drip **Account** name
+
+All newly captured leads will now automatically be added to your Drip account as subscribers.
+
+<Frame>
+  <img src="/images/integrations/drip-connected.png" alt="Drip connected state" />
+</Frame>
+
+## Set a Tag
+
+Every lead synced to Drip can be tagged, so you can segment your subscribers and trigger automations:
+
+<Steps>
+  <Step title="Find the Tag field">
+    In the connected Drip card, locate the **Tag** field.
+  </Step>
+  <Step title="Enter a tag">
+    Enter the tag to apply to each subscriber (for example, `SiteSpeak Lead`). Leave it empty to apply no tag.
+  </Step>
+</Steps>
+
+Each captured lead is also recorded in Drip as a **"Lead captured"** event, which you can use as a trigger to start a Drip workflow or campaign.
+
+<Frame>
+  <img src="/images/integrations/drip-tag.png" alt="Drip tag field" />
+</Frame>
+
+## Disconnect Drip
+
+To disconnect the integration, click the **Disconnect** button in the Drip card. You can also use the main toggle at the bottom of the card to temporarily disable syncing without disconnecting.
+
+<Cta />

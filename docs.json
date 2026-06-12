@@ -228,6 +228,7 @@
             "pages": [
               "integrations/overview",
               "integrations/hubspot",
+              "integrations/drip",
               "integrations/whatsapp",
               "integrations/zapier"
             ]
