@@ -1,0 +1,143 @@
+---
+title: "Manage your chatbot from an AI agent"
+sidebarTitle: "AI Agents (MCP)"
+description: "Connect Claude, Cursor, or any MCP client to the SiteSpeakAI management MCP server and run your account in plain English. Includes the one-line Claude Code plugin."
+icon: "terminal"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Note, Tip, Warning } from '@mintlify/components';
+
+SiteSpeakAI has a management MCP (Model Context Protocol) server that lets an AI agent run your account for you. Connect Claude, Cursor, or any MCP client and ask in plain English: read your analytics, find what is not working, and fix it.
+
+The easiest way in is the [Claude Code](https://claude.com/claude-code) plugin, which bundles the connection and a skill that knows how to work on a SiteSpeakAI chatbot. You can also connect any other MCP client directly.
+
+<Note>
+This is the **management** MCP: it works on your account and chatbots (settings, analytics, sources, inbox). It is different from the [MCP Endpoint](/advanced/mcp-endpoint), which lets AI agents query a single chatbot's knowledge base.
+</Note>
+
+## What you can do
+
+Once connected, an agent can:
+
+- **Read analytics** - conversation volume, answered-question rate, negative sentiment, leads, top sources and pages.
+- **Read question insights** - AI-clustered themes of what visitors ask, including the unanswered ones (your real knowledge gaps).
+- **Change settings** - model, prompts, welcome message, default answer, temperature, lead capture, and escalations.
+- **Manage knowledge sources** - add new pages and recrawl stale ones.
+- **Manage suggested messages** - the starter prompts shown to visitors.
+- **Work the inbox** - read conversations, read captured leads, and triage threads.
+
+Some things you can ask:
+
+- "Look at my support bot's last 3 months and optimize it for lead capture."
+- "Why is my bot failing to answer questions? Find the gaps and fix them."
+- "Turn on human handoff and escalate after two unanswered messages."
+- "Which of my chatbots has the worst answer rate?"
+
+## Get an API token
+
+Every connection uses an API token. Create one on the [API tokens](https://sitespeak.ai/user/api-tokens) page in your account. The agent acts only on the chatbots that token can access.
+
+<Warning>
+An API token can read and change your account. Treat it like a password, and only paste it into tools you trust.
+</Warning>
+
+## Connect Claude Code (recommended)
+
+The Claude Code plugin bundles the MCP connection and a skill that runs a safe, step-by-step loop: it reads your data, proposes changes, and waits for your confirmation before writing anything.
+
+<Steps>
+  <Step title="Add the marketplace">
+    In Claude Code, run:
+
+    ```bash
+    /plugin marketplace add sitespeakai/sitespeak-claude-plugin
+    ```
+  </Step>
+  <Step title="Install the plugin">
+    ```bash
+    /plugin install sitespeak-chatbot-manager@sitespeak-plugins
+    ```
+
+    Claude Code asks for your API token during install and stores it securely (in the macOS Keychain, or an encrypted credentials file on other platforms). The MCP server connects on its own.
+  </Step>
+  <Step title="Start asking">
+    Ask Claude to work on your chatbot, for example: "List my SiteSpeak chatbots" or "Optimize my support bot for lead capture."
+  </Step>
+</Steps>
+
+<Tip>
+The plugin is open source. See the code on [GitHub](https://github.com/sitespeakai/sitespeak-claude-plugin).
+</Tip>
+
+## Connect other MCP clients
+
+Any MCP client that supports Streamable HTTP with a bearer token can connect to the management MCP directly.
+
+- **Endpoint:** `https://api.sitespeak.ai/mcp`
+- **Header:** `Authorization: Bearer YOUR_API_TOKEN`
+
+<Tabs>
+<Tab title="Claude Desktop">
+Add this to your `claude_desktop_config.json`, then restart Claude Desktop:
+
+```json
+{
+  "mcpServers": {
+    "sitespeak": {
+      "type": "http",
+      "url": "https://api.sitespeak.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+```
+</Tab>
+<Tab title="Cursor">
+Add this to `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "sitespeak": {
+      "type": "http",
+      "url": "https://api.sitespeak.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+```
+</Tab>
+<Tab title="Any HTTP client">
+Use these details with any MCP client that supports Streamable HTTP with a bearer token:
+
+```
+Endpoint: https://api.sitespeak.ai/mcp
+Header:   Authorization: Bearer YOUR_API_TOKEN
+```
+</Tab>
+</Tabs>
+
+<Note>
+The step-by-step confirmation loop is part of the Claude Code plugin's skill. Other MCP clients call the tools directly, so review what your client is about to do before you approve a change.
+</Note>
+
+## Troubleshooting
+
+### The plugin installed but tools are missing
+
+Run `/reload-plugins` in Claude Code, or restart it, to load the bundled MCP server.
+
+### Getting an authentication error
+
+Confirm your API token is valid. Create a new one on the [API tokens](https://sitespeak.ai/user/api-tokens) page and reconnect.
+
+### Analytics or insights look empty
+
+Answer rate, sentiment, and question insights come from scheduled jobs, so they lag and are empty for brand-new or low-traffic bots. Empty does not mean there are no gaps.
+
+<Cta />
