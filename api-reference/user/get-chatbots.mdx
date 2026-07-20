@@ -37,20 +37,36 @@ console.log(data);
 [
   {
     "id": "030e5b41-1358-490f-ad37-28e69a7847ef",
+    "team_id": "7f2c1c9a-4a2b-4f6e-9a0d-2b7f1d3c5e88",
     "name": "Smart Tutor GPT",
     "type": "assistant",
+    "header_icon": "https://cdn.sitespeak.ai/uploads/.../header_icon.svg",
+    "launcher_icon": null,
+    "open_count": 12,
+    "unread_count": 3,
     "created_at": "2023-11-24T05:54:51.000000Z",
     "updated_at": "2023-11-28T15:24:00.000000Z"
   },
   {
     "id": "0a87c308-a96f-4f53-88ed-eb64857da30s",
+    "team_id": "7f2c1c9a-4a2b-4f6e-9a0d-2b7f1d3c5e88",
     "name": "SiteSpeakAI Custom Support",
     "type": "customer-support",
+    "header_icon": null,
+    "launcher_icon": null,
+    "open_count": 0,
+    "unread_count": 0,
     "created_at": "2023-11-24T02:23:11.000000Z",
     "updated_at": "2023-11-28T15:24:00.000000Z"
   }
 ]
 ```
+
+<ParamField path="team_id" type="string">The id of the team that owns the chatbot.</ParamField>
+<ParamField path="header_icon" type="string | null">The chatbot's header icon URL, if set.</ParamField>
+<ParamField path="launcher_icon" type="string | null">The chatbot's launcher icon URL, if set.</ParamField>
+<ParamField path="open_count" type="integer">Number of conversations that are not archived.</ParamField>
+<ParamField path="unread_count" type="integer">Number of unread conversations, matching the dashboard sidebar badge.</ParamField>
   </Tab>
   <Tab title="401 Permission denied">
     Returns when the API token is invalid or missing.
