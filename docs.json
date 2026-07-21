@@ -273,6 +273,12 @@
             ]
           },
           {
+            "group": "Analytics",
+            "pages": [
+              "api-reference/analytics/get-analytics"
+            ]
+          },
+          {
             "group": "Conversation History",
             "pages": [
               "api-reference/conversations/get-conversations"

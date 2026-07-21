@@ -1,0 +1,138 @@
+---
+title: 'Get Analytics'
+api: 'GET https://api.sitespeak.ai/v1/{chatbot_id}/analytics'
+description: 'Returns analytics and performance data for your chatbot'
+---
+
+## Path Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| chatbot_id* | String | The ID of your chatbot. You can find the ID on the settings page for your chatbot. |
+
+## Query Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| from | String | Start date (ISO 8601, e.g. `2026-06-01`). Defaults to 30 days ago. |
+| to | String | End date (ISO 8601). Defaults to today. The range is capped at 366 days. |
+
+## Headers
+
+| Name | Type | Description |
+|------|------|-------------|
+| Accept* | String | application/json |
+| Authorization* | String | Bearer {api_token} |
+
+<RequestExample>
+```bash cURL
+curl -X GET "https://api.sitespeak.ai/v1/{chatbot_id}/analytics?from=2026-06-01&to=2026-06-30" \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+```javascript JavaScript
+const response = await fetch(
+  'https://api.sitespeak.ai/v1/{chatbot_id}/analytics?from=2026-06-01&to=2026-06-30',
+  {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer YOUR_API_TOKEN'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(data);
+```
+</RequestExample>
+
+## Response
+
+The `previousPeriod*` fields cover the period of the same length directly before `from`, so you can show trends.
+
+`leads` counts visitors that shared an email address or phone number in the period. It is `null` when your API token's user does not have permission to view contacts for the chatbot.
+
+The `popular` lists are limited to the top 10 entries each.
+
+`insights` contains AI-generated summaries of the most common answered and unanswered questions. Either entry can be `null` when no insights exist for the period yet.
+
+<Tabs>
+  <Tab title="200 Success">
+```json
+{
+  "fromDate": "2026-06-01",
+  "toDate": "2026-06-30",
+  "totalConversations": 412,
+  "averageConversationsPerDay": 13.7,
+  "answeredQuestionsPercentage": 91.4,
+  "negativeSentimentPercentage": 4.2,
+  "messagesPerConversation": 5,
+  "positiveFeedback": 37,
+  "negativeFeedback": 3,
+  "uniqueLinkClicks": 96,
+  "leads": 28,
+  "previousPeriodConversations": 388,
+  "previousPeriodAnsweredQuestionsPercentage": 89.9,
+  "previousPeriodNegativeSentimentPercentage": 5.1,
+  "previousPeriodMessagesPerConversation": 4,
+  "previousPeriodPositiveFeedback": 31,
+  "previousPeriodNegativeFeedback": 5,
+  "conversationsPerDay": {
+    "2026-06-01": 11,
+    "2026-06-02": 16
+  },
+  "popular": {
+    "popularLinks": [
+      {
+        "id": "",
+        "url": "https://example.com/pricing",
+        "title": "Pricing",
+        "conversations_count": 54
+      }
+    ],
+    "popularCategories": [
+      {
+        "name": "Pricing",
+        "conversations_count": 61
+      }
+    ],
+    "popularEvents": [
+      {
+        "value": "https://example.com/signup",
+        "click_count": 33
+      }
+    ],
+    "topCountries": [
+      {
+        "country": "Austria",
+        "country_code": "AT",
+        "visitors_count": 122
+      }
+    ]
+  },
+  "insights": {
+    "period_type": "weekly",
+    "answered_questions": {
+      "insight_data": [
+        {
+          "summary_question": "What is the cost of the service?",
+          "theme": "Pricing",
+          "frequency": 8,
+          "examples": ["How much does it cost?", "What's the monthly price?"]
+        }
+      ]
+    },
+    "unanswered_questions": null
+  }
+}
+```
+  </Tab>
+  <Tab title="401 Permission denied">
+    Returns when the API token is invalid or missing.
+  </Tab>
+  <Tab title="422 Invalid dates">
+    Returns when `from` or `to` is not a valid date, or `from` is after `to`.
+  </Tab>
+</Tabs>
