@@ -94,7 +94,7 @@ console.log(data);
   <Tab title="409 Request in progress">
     Returns when a request with the same `Idempotency-Key` is still being processed. Retry shortly.
   </Tab>
-  <Tab title="422 Limit reached">
-    Returns when the client's AI agent limit or your plan's agent limit is reached, or a field is invalid.
+  <Tab title="422 Validation error">
+    Returns when the client's AI agent limit or your plan's agent limit is reached, a field is invalid, or the `Idempotency-Key` was already used with a different request body.
   </Tab>
 </Tabs>

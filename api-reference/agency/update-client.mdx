@@ -37,7 +37,7 @@ Limits apply from the next message or source the client uses. Message credits al
 | message_limit | Integer | Monthly message credit limit. Send `null` to remove the client-level limit. |
 | source_limit | Integer | Source limit. Send `null` to remove the client-level limit. |
 | chatbot_limit | Integer | Maximum number of AI agents. Send `null` to remove the client-level limit. |
-| reset_credits | Boolean | When `true`, the client's usage counter restarts now and their remaining credits become the full `message_limit`. Use for mid-cycle plan changes. |
+| reset_credits | Boolean | When `true`, the client's usage counter restarts now and their remaining credits become the full `message_limit` (or the existing limit when `message_limit` is omitted). Use for mid-cycle plan changes. |
 
 <RequestExample>
 ```bash cURL
