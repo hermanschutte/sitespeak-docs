@@ -1,0 +1,61 @@
+---
+title: "How to add a ChatGPT AI support agent to Hercules"
+description: "How to add your custom ChatGPT trained AI support agent to your Hercules website or App."
+sidebarTitle: "Hercules"
+icon: "tickets"
+---
+
+import InstallCopyCode from '/snippets/install-copy-code.mdx';
+import Cta from '/snippets/cta.mdx';
+
+You want to embed your custom trained AI support agent in your **Hercules** website page or App. Here's how to add an AI support agent to Hercules with SiteSpeakAI.
+
+**Hercules** makes it easy to build stunning apps and websites by chatting with AI. With the Hercules platform you can build any type of app or website, e.g. SaaS, eCommerce, Internal Tools, Mobile Apps, Marketing Pages, Landing pages, and more.
+
+**Website URL**: [Hercules](https://hercules.app)
+
+## Add your AI support agent to your **Hercules** website or App
+
+<InstallCopyCode />
+
+### In Hercules
+
+1. Log into your **Hercules** account and select your project on the dashboard
+![1-Hercules-Dashboard](/images/installing-your-chatbot/Hercules/1-Hercules-Dashboard.png)
+
+We are going to use a prompt to instruct the Hercules AI to insert the snippet for us. 
+
+The prompt consists of an instruction, e.g. “Please add the following JS snippet to my project code:” followed by the snippet code as copied at the beginning of this tutorial.
+
+<Note>
+Note that the #########################.js part of the JS file URL will be replaced by your specific js script filename (36 characters including the 4 dashes).
+
+**Tip**: Create the complete prompt in a text editor and then paste this into the AI prompt message box.
+</Note>
+
+```
+Please add the following JS snippet to my project code:
+
+<!-- SiteSpeakAI - Add ChatGPT to your website -->
+	<script type="text/javascript">(function()	{d=document;s=d.createElement("script");
+	s.src="https://sitespeak.ai/chatbots/##########################.js";
+	s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<!-- / SiteSpeakAI -->
+
+```
+2. Make sure the **AI Editor** option is selected on the Left sidebar and insert this prompt into the AI prompt message box. Click on the **Send** button
+![2-Hercules-Insert-AI-prompt](/images/installing-your-chatbot/Hercules/2-Hercules-Insert-AI-prompt.png)
+
+3. The **Hercules AI** will start adding the code to your website, it takes a while so please be patient. When done it will display a message indicating that the snippet was added and also display the support Agent button on the Preview page. Click on **Publish** to publish your changes
+![3-Hercules-AI-action-done](/images/installing-your-chatbot/Hercules/3-Hercules-AI-action-done.png)
+
+4. Your AI support agent button will now be displayed on your **Hercules** website page or App
+![4-Hercules-Agent-button](/images/installing-your-chatbot/Hercules/4-Hercules-Agent-button.png)
+
+5. If you click on the button it will display the AI support agent dialogue
+![5-Hercules-Agent-dialogue](/images/installing-your-chatbot/Hercules/5-Hercules-Agent-dialogue.png)
+
+Your AI support agent has now been added to your **Hercules** website and your visitors/customers can start interacting with it!
+
+
+<Cta />
