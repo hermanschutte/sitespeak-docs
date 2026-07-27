@@ -54,7 +54,30 @@ An optional message displayed underneath the chat input. Supports markdown. Maxi
 
 ### Theme
 
-Choose between **Light** or **Dark** theme for your chatbot.
+Choose between **Light**, **Dark**, or **Auto** for your chatbot.
+
+- **Light** and **Dark** always show that theme, on every device.
+- **Auto (match visitor device)** follows each visitor's device setting: visitors using dark mode see the dark version of your chatbot, everyone else sees the light version.
+
+#### Customizing the Auto theme
+
+With Auto selected, you can style the light and dark sides separately. Each side has its own **Accent color**, **Text color**, and icon fields.
+
+- Leave a field empty (Auto) to use the built-in neutral palette for that side: white with dark text on light, dark grey with light text on dark.
+- Set a value to override just that side. For example, keep your brand accent on the light side and leave the dark side neutral.
+- To go back to Auto for a field, clear it.
+
+The default launcher logo also adapts: it renders dark on pale accents and white on colored or dark accents, so it stays readable on both sides.
+
+#### Pinning the theme on a specific page
+
+If one part of your site should always show one side of an Auto chatbot (for example, a light-only marketing site while your app uses Auto), add `data-theme` to the embed script on that page:
+
+```html
+<script src="https://sitespeak.ai/chatbots/YOUR_CHATBOT_ID.js" data-theme="light" defer></script>
+```
+
+`data-theme` accepts `light` or `dark`, and only affects chatbots set to Auto. Embeds without the attribute keep following the visitor's device.
 
 ### Accent color
 

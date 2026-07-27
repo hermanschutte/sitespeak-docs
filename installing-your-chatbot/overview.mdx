@@ -32,6 +32,10 @@ Replace `YOUR_CHATBOT_ID` with your actual chatbot ID, which you can find in you
   Does your website use a strict Content Security Policy without `'unsafe-inline'`? The widget supports CSP nonces. See the [CSP integration guide](/advanced/content-security-policy) for the one-line addition to the snippet.
 </Note>
 
+<Note>
+  Using the **Auto** theme but want one page to always show the light or dark version? Add `s.dataset.theme="light";` (or `"dark"`) to the snippet before the `appendChild` line, or put `data-theme="light"` on a plain script tag. See [theme settings](/managing-your-chatbot/appearance#pinning-the-theme-on-a-specific-page).
+</Note>
+
 ## Choose Your Platform
 
 <CardGroup cols={2}>
