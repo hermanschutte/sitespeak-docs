@@ -102,13 +102,13 @@ In the **Add Bookstack Integration** modal:
 
 ---
 
-## Select Content to Train On
+## What Gets Imported
 
-Once connected, SiteSpeakAI will fetch your BookStack content. You can then:
+Once connected, SiteSpeakAI imports every BookStack page your API token's user can view. Each page appears as its own source:
 
-1. **Select specific pages**: Choose which pages, chapters, or books to include
-2. **Train your chatbot**: Click **Train** to process the selected content
-3. **Monitor status**: Watch the training progress in the Sources list
+1. **Automatic import**: All pages visible to the token's user are fetched and processed
+2. **Monitor status**: Watch the training progress in the Sources list
+3. **Control what's included**: Use BookStack's role and content permissions to limit which pages the token's user (and so your chatbot) can see
 
 Your sources will show a **Trained** status with a green checkmark when ready.
 
@@ -157,9 +157,10 @@ If you can't connect to BookStack:
 ### Content Not Appearing
 
 If your content isn't being fetched:
+- Make sure the role of the user who created the API token has the **Access system API** permission enabled (BookStack **Settings → Roles**). Without it, BookStack rejects every request with "The owner of the used API token does not have permission to make API calls"
 - Check your BookStack role permissions
 - Verify the pages aren't restricted to specific roles
-- Try creating a new API token with broader permissions
+- Try creating a new API token with broader permissions, or create the token as an admin user
 
 ### Chatbot Giving Wrong Answers
 
