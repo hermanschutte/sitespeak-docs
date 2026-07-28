@@ -157,10 +157,10 @@ If you can't connect to BookStack:
 ### Content Not Appearing
 
 If your content isn't being fetched:
-- Make sure the role of the user who created the API token has the **Access system API** permission enabled (BookStack **Settings → Roles**). Without it, BookStack rejects every request with "The owner of the used API token does not have permission to make API calls"
+- Make sure the role of the user who created the API token has both the **Access system API** and **Export content** permissions enabled (BookStack **Settings → Roles**). Without them, BookStack rejects the API or page-export requests and no content is imported
 - Check your BookStack role permissions
 - Verify the pages aren't restricted to specific roles
-- Try creating a new API token with broader permissions, or create the token as an admin user
+- Try creating a new API token whose role has the **Access system API** and **Export content** permissions, plus view access to the books you want imported
 
 ### Chatbot Giving Wrong Answers
 
