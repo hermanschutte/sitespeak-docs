@@ -1,0 +1,66 @@
+---
+title: "How to add a ChatGPT AI support agent to Replit"
+description: "How to add your custom ChatGPT trained AI support agent to your Replit website or app."
+sidebarTitle: "Replit"
+icon: "bot"
+---
+
+import InstallCopyCode from '/snippets/install-copy-code.mdx';
+import Cta from '/snippets/cta.mdx';
+
+You want to embed your custom trained AI support agent in your **Replit** website page or app. Here's how to add an AI support agent to Replit with SiteSpeakAI.
+
+**Replit** is a cloud-based development platform and AI-powered app builder that lets you write code, collaborate in real time, and build fully functional software straight from your web browser.
+The **Replit Agent** is an AI tool that lets you build complete websites, apps, and tools just by describing what you want in plain English.
+
+**Website URL**: [Replit](https://replit.com)
+
+## Add your AI support agent to your **Replit** website or app
+
+<Note>
+**Replit** can also be installed as a desktop app. For this tutorial we will be using the web based setup.
+</Note>
+
+<InstallCopyCode />
+
+### In Replit
+
+1. Log into your **Replit** account, select **Projects** on the left sidebar and click on the Project you want to add your AI Support agent to
+![1-Replit-Dashboard-Projects](/images/installing-your-chatbot/Replit/1-Replit-Dashboard-Projects.png)
+
+We are going to use a prompt to instruct the **Replit Agent** to insert the snippet for us. 
+
+The prompt consists of an instruction, e.g. “Please add the following JS snippet to my project code:” followed by the snippet code as copied at the beginning of this tutorial.
+
+<Note>
+Note that the /####################################.js part of the JS file URL will be replaced by your specific js script filename (36 characters including the 4 dashes).
+
+**Tip**: Create the complete prompt in a text editor and then paste this into the Replit Agent **Message Agent...** box.
+</Note>
+
+```
+Please add the following JS snippet to my project code:
+
+<!-- SiteSpeakAI - Add ChatGPT to your website -->
+	<script type="text/javascript">(function()	{d=document;s=d.createElement("script");
+	s.src="https://sitespeak.ai/chatbots/####################################.js";
+	s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<!-- / SiteSpeakAI -->
+
+```
+2. Insert this prompt into the Replit Agent **Message Agent...** box and click on the **Send** button
+![2-Replit-Insert-AI-prompt](/images/installing-your-chatbot/Replit/2-Replit-Insert-AI-prompt.png)
+
+3. The **Replit Agent** will start adding the code to your website, it takes a while so please be patient. When done it will display a message indicating that the snippet was added and also display the AI  support agent button on the Preview page. Click on **Publish** (or *Republish**)to publish your changes to your live website or app
+![3-Replit-AI-action-done](/images/installing-your-chatbot/Replit/3-Replit-AI-action-done.png)
+
+4. Your AI support agent button will now be displayed on your **Replit** website page or app
+![4-Replit-Agent-button](/images/installing-your-chatbot/Replit/4-Replit-Agent-button.png)
+
+5. If you click on the button it will display the AI support agent dialogue
+![5-Replit-Agent-dialogue](/images/installing-your-chatbot/Replit/5-Replit-Agent-dialogue.png)
+
+Your AI support agent has now been added to your **Replit** website or app and your visitors/customers can start interacting with it!
+
+
+<Cta />
