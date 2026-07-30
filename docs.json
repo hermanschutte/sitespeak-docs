@@ -277,6 +277,9 @@
               "api-reference/agency/create-client",
               "api-reference/agency/get-client",
               "api-reference/agency/update-client",
+              "api-reference/agency/pause-client",
+              "api-reference/agency/suspend-client",
+              "api-reference/agency/resume-client",
               "api-reference/agency/list-client-chatbots",
               "api-reference/agency/create-client-chatbot"
             ]
