@@ -42,7 +42,7 @@ console.log(data);
 
 ## Response
 
-A `null` limit means no client-level limit is set for that resource.
+A `null` limit means no client-level limit is set for that resource. `response_tokens` is a per-answer length cap, not a usage quota, so it has no `usage` counterpart.
 
 `usage.messages` counts message credits used in the current cycle, which starts at the beginning of the calendar month or at the client's last credit reset, whichever is later. `messages_remaining` is `null` when no message limit is set.
 
