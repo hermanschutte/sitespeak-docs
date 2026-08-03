@@ -13,6 +13,8 @@ Only the fields you send are changed. Two common flows:
 
 Limits apply from the next message or source the client uses. Message credits also reset automatically at the start of each calendar month.
 
+- **Cap response length**: send `response_token_limit` to bound how long the client's AI agents' answers can be. The agents are instructed to write complete answers that fit the budget, with a hard cut as the backstop. Length shaping is approximate and varies a little by model; treat the limit as a strong target rather than an exact word count.
+
 ## Path Parameters
 
 | Name | Type | Description |
@@ -37,6 +39,7 @@ Limits apply from the next message or source the client uses. Message credits al
 | message_limit | Integer | Monthly message credit limit. Send `null` to remove the client-level limit. |
 | source_limit | Integer | Source limit. Send `null` to remove the client-level limit. |
 | chatbot_limit | Integer | Maximum number of AI agents. Send `null` to remove the client-level limit. |
+| response_token_limit | Integer | Maximum response length in tokens (1 to 10000). Applies to new answers within seconds. Send `null` to remove the limit. |
 | reset_credits | Boolean | When `true`, the client's usage counter restarts now and their remaining credits become the full `message_limit` (or the existing limit when `message_limit` is omitted). Use for mid-cycle plan changes. |
 
 <RequestExample>
@@ -91,7 +94,8 @@ Returns the updated client workspace. After a credit reset, `credits_reset_at` h
     "limits": {
       "chatbots": 2,
       "sources": 50,
-      "messages": 5000
+      "messages": 5000,
+      "response_tokens": 500
     },
     "usage": {
       "chatbots": 1,
