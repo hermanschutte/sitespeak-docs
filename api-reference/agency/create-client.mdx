@@ -26,6 +26,7 @@ Use this endpoint to provision a client from your own billing system: create the
 | message_limit | Integer | Monthly message credit limit for this client. Omit or `null` for no client-level limit. |
 | source_limit | Integer | Source limit for this client. Omit or `null` for no client-level limit. |
 | chatbot_limit | Integer | Maximum number of AI agents for this client. Omit or `null` for no client-level limit. |
+| response_token_limit | Integer | Response length limit in tokens (50 to 10000) for this client's AI agents. Answers are shaped to fit, with a small allowance to finish the last sentence; `null` or omitted means no limit. |
 | chatbot | Object | Optionally create the client's first AI agent in the same call. |
 | chatbot.name* | String | The AI agent name. Required when `chatbot` is present. |
 | chatbot.website_url | String | A website URL to crawl and train the agent on. |
@@ -46,6 +47,7 @@ curl -X POST "https://api.sitespeak.ai/v1/agency/clients" \
     "message_limit": 1000,
     "source_limit": 50,
     "chatbot_limit": 2,
+    "response_token_limit": 500,
     "chatbot": {
       "name": "Acme Support Agent",
       "website_url": "https://acme.example"
@@ -70,6 +72,7 @@ const response = await fetch('https://api.sitespeak.ai/v1/agency/clients', {
     message_limit: 1000,
     source_limit: 50,
     chatbot_limit: 2,
+    response_token_limit: 500,
     chatbot: {
       name: 'Acme Support Agent',
       website_url: 'https://acme.example'
@@ -104,7 +107,8 @@ The `accept_url` is a signed link your client uses to create their login and joi
     "limits": {
       "chatbots": 2,
       "sources": 50,
-      "messages": 1000
+      "messages": 1000,
+      "response_tokens": 500
     },
     "usage": {
       "chatbots": 1,
