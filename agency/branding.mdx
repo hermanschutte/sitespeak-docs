@@ -47,7 +47,11 @@ When set, every upgrade button shown to users in a client workspace redirects to
 https://youragency.com/pricing?email=customer%40example.com
 ```
 
-If your URL already contains query parameters, the `email` parameter is appended with `&`.
+If your URL already contains query parameters, the `email` parameter is appended with `&`. If it contains a fragment (e.g. `https://youragency.com/pricing#plans` or an SPA route like `https://youragency.com/#/pricing`), the `email` parameter is inserted before the fragment, so it always reaches your server:
+
+```
+https://youragency.com/pricing?email=customer%40example.com#plans
+```
 
 - The redirect only applies to users in client workspaces. Your own agency team keeps the default behavior.
 - Leave the field empty to keep the default pricing page for everyone.
