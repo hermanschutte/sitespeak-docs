@@ -37,6 +37,22 @@ Control how your agency appears in outgoing emails:
 
 **Sign-off Name** - The name used in the closing line of email bodies (e.g. "The Acme Team"). This appears at the bottom of escalation and notification emails.
 
+## Upgrade URL
+
+By default, upgrade buttons in the dashboard open the SiteSpeak pricing page. Set an **Upgrade URL** to send your client workspace users to your own pricing or billing page instead.
+
+When set, every upgrade button shown to users in a client workspace redirects to your URL, with the user's email address appended as an identifier:
+
+```
+https://youragency.com/pricing?email=customer%40example.com
+```
+
+If your URL already contains query parameters, the `email` parameter is appended with `&`.
+
+- The redirect only applies to users in client workspaces. Your own agency team keeps the default behavior.
+- Leave the field empty to keep the default pricing page for everyone.
+- Include the protocol (e.g. `https://youragency.com/pricing`).
+
 ## Powered By
 
 By default, the chat widget shows a small "Powered by SiteSpeak" badge. You can customize or remove this from the **Powered By** section in branding settings:
