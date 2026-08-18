@@ -1,0 +1,74 @@
+---
+title: 'Test Webhook'
+api: 'POST https://api.sitespeak.ai/v1/agency/webhooks/{webhook_id}/test'
+description: 'Sends a signed ping event so you can verify your endpoint'
+---
+
+Available on agency plans. The API token must belong to the agency owner.
+
+Queues a `ping` event to the endpoint, signed exactly like real events, so you can verify your endpoint and signature handling end to end. Check the result with the [deliveries endpoint](/api-reference/agency/list-webhook-deliveries).
+
+## Path Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| webhook_id* | String | The ID of the webhook. |
+
+## Headers
+
+| Name | Type | Description |
+|------|------|-------------|
+| Accept* | String | application/json |
+| Authorization* | String | Bearer {api_token} |
+
+<RequestExample>
+```bash cURL
+curl -X POST "https://api.sitespeak.ai/v1/agency/webhooks/{webhook_id}/test" \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+```javascript JavaScript
+const response = await fetch(
+  'https://api.sitespeak.ai/v1/agency/webhooks/{webhook_id}/test',
+  {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer YOUR_API_TOKEN'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(data);
+```
+</RequestExample>
+
+## Response
+
+<Tabs>
+  <Tab title="202 Accepted">
+```json
+{
+  "delivery_id": "be5b6e75-258d-4e97-a4fa-e02e6daf0267"
+}
+```
+  </Tab>
+</Tabs>
+
+The ping your endpoint receives:
+
+```json
+{
+  "id": "be5b6e75-258d-4e97-a4fa-e02e6daf0267",
+  "event": "ping",
+  "timestamp": "2026-08-18T11:42:01+00:00",
+  "team_id": null,
+  "external_reference": null,
+  "chatbot_id": null,
+  "data": {
+    "message": "SiteSpeak webhook test"
+  }
+}
+```
