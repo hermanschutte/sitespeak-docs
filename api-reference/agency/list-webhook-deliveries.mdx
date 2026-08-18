@@ -100,4 +100,4 @@ Standard Laravel pagination envelope. Each delivery shows the payload that was s
   </Tab>
 </Tabs>
 
-A delivery with `delivered_at: null` and a `last_error` is still retrying or has exhausted its 5 attempts.
+A delivery with `delivered_at: null` and a `last_error` is still retrying, unless the error ends with `(retries exhausted)` or `(not sent)`, which is terminal.

@@ -6,7 +6,7 @@ description: 'Updates a webhook endpoint URL, event subscriptions, or active sta
 
 Available on agency plans. The API token must belong to the agency owner.
 
-Only the fields you send are changed. Setting `active` to `false` stops deliveries without deleting the endpoint or its history; queued retries for earlier events are dropped while it is inactive.
+Only the fields you send are changed. Changing the URL or events keeps the signing secret. Setting `active` to `false` stops deliveries without deleting the endpoint or its history; queued retries for earlier events are marked as not sent while it is inactive.
 
 ## Path Parameters
 

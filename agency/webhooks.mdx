@@ -21,6 +21,11 @@ Manage endpoints under **Agency > Webhooks** in your dashboard, or via the [Agen
 
 Each endpoint can subscribe to specific events or receive all of them. Endpoints subscribed to all events also receive event types added in the future.
 
+Two behaviors to know:
+
+- `lead.captured` fires the **first time** a visitor leaves contact details. Repeat submissions and identify calls for the same visitor do not fire it again.
+- A handoff request that includes contact details fires `escalation.created` only, not both events. The escalation payload carries the same visitor contact fields.
+
 ## Payload
 
 Every request body has the same envelope:
@@ -91,9 +96,10 @@ Reject requests with a missing or invalid signature.
 
 ## Delivery and retries
 
-- Respond with any `2xx` status within 15 seconds to acknowledge a delivery.
-- Failed deliveries are retried up to 5 times with increasing delays: 30 seconds, 2 minutes, 10 minutes, then 1 hour.
+- Respond with any `2xx` status within 15 seconds to acknowledge a delivery. Redirects are not followed.
+- Failed deliveries are retried up to 5 times with increasing delays: 30 seconds, 2 minutes, 10 minutes, then 1 hour. A delivery that exhausts its retries gets a last error ending in `(retries exhausted)`.
 - The last 30 days of delivery attempts are visible under **Agency > Webhooks** and via the [deliveries endpoint](/api-reference/agency/list-webhook-deliveries), including response status and the last error.
+- To change an endpoint's URL or event subscriptions, use the [update endpoint](/api-reference/agency/update-webhook); the signing secret stays the same. Deleting and recreating an endpoint generates a new secret.
 
 Use the **Test** button in the dashboard (or the [test endpoint](/api-reference/agency/test-webhook)) to send a signed `ping` event and confirm your endpoint and signature verification work end to end.
 
