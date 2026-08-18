@@ -76,9 +76,13 @@ const crypto = require("crypto")
 function verify(rawBody, signatureHeader, secret) {
   const expected =
     "sha256=" + crypto.createHmac("sha256", secret).update(rawBody).digest("hex")
-  return crypto.timingSafeEqual(
-    Buffer.from(signatureHeader),
-    Buffer.from(expected)
+  const received = Buffer.from(signatureHeader ?? "")
+  const expectedBuffer = Buffer.from(expected)
+
+  // timingSafeEqual throws on length mismatch, so check length first.
+  return (
+    received.length === expectedBuffer.length &&
+    crypto.timingSafeEqual(received, expectedBuffer)
   )
 }
 ```
@@ -97,7 +101,7 @@ Reject requests with a missing or invalid signature.
 ## Delivery and retries
 
 - Respond with any `2xx` status within 15 seconds to acknowledge a delivery. Redirects are not followed.
-- Failed deliveries are retried up to 5 times with increasing delays: 30 seconds, 2 minutes, 10 minutes, then 1 hour. A delivery that exhausts its retries gets a last error ending in `(retries exhausted)`.
+- A failed delivery is attempted up to 5 times in total: the initial delivery plus 4 retries after 30 seconds, 2 minutes, 10 minutes, and 1 hour. A delivery that exhausts its attempts gets a last error ending in `(retries exhausted)`.
 - The last 30 days of delivery attempts are visible under **Agency > Webhooks** and via the [deliveries endpoint](/api-reference/agency/list-webhook-deliveries), including response status and the last error.
 - To change an endpoint's URL or event subscriptions, use the [update endpoint](/api-reference/agency/update-webhook); the signing secret stays the same. Deleting and recreating an endpoint generates a new secret.
 
