@@ -88,8 +88,12 @@ function verify(rawBody, signatureHeader, secret) {
 ```
 
 ```php PHP
-function verify(string $rawBody, string $signatureHeader, string $secret): bool
+function verify(string $rawBody, ?string $signatureHeader, string $secret): bool
 {
+    if ($signatureHeader === null) {
+        return false;
+    }
+
     $expected = 'sha256=' . hash_hmac('sha256', $rawBody, $secret);
 
     return hash_equals($expected, $signatureHeader);
