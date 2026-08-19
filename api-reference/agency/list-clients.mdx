@@ -44,7 +44,7 @@ console.log(data);
 
 A `null` limit means no client-level limit is set for that resource. `response_tokens` is a per-answer length cap, not a usage quota, so it has no `usage` counterpart.
 
-`usage.messages` counts message credits used in the current cycle, which starts at the beginning of the calendar month or at the client's last credit reset, whichever is later. `messages_remaining` is `null` when no message limit is set.
+`usage.messages` counts message credits used in the current cycle, which starts at the beginning of the calendar month or at the client's last credit reset, whichever is later. `messages_remaining` is `null` when no message limit is set. `topup_credits_remaining` is the client's [top-up credit](/api-reference/agency/add-topup-credits) balance, drawn only after the monthly limit is used up. `credits_exhausted_at` is set while the client's own budget (monthly plus top-up) is at zero and clears when credits return.
 
 <Tabs>
   <Tab title="200 Success">
@@ -70,6 +70,8 @@ A `null` limit means no client-level limit is set for that resource. `response_t
         "messages": 274
       },
       "messages_remaining": 726,
+      "topup_credits_remaining": 0,
+      "credits_exhausted_at": null,
       "credits_reset_at": null,
       "created_at": "2026-07-22T19:31:40+00:00"
     }

@@ -17,14 +17,16 @@ Manage endpoints under **Agency > Webhooks** in your dashboard, or via the [Agen
 |-------|-----------|
 | `lead.captured` | A visitor leaves contact details in a client workspace's AI agent |
 | `escalation.created` | A visitor asks to talk to a human |
+| `client.credits_exhausted` | A client workspace runs out of message credits (monthly limit plus any top-up credits) |
 | `ping` | You send a test from the dashboard or API |
 
 Each endpoint can subscribe to specific events or receive all of them. Endpoints subscribed to all events also receive event types added in the future.
 
-Two behaviors to know:
+Behaviors to know:
 
 - `lead.captured` fires the **first time** a visitor leaves contact details. Repeat submissions and identify calls for the same visitor do not fire it again.
 - A handoff request that includes contact details fires `escalation.created` only, not both events. The escalation payload carries the same visitor contact fields.
+- `client.credits_exhausted` fires **once per exhaustion**: it does not repeat while the client stays at zero, and it arms again once credits return (a [top-up](/api-reference/agency/add-topup-credits), a limit raise, or the monthly renewal). It only fires for clients with their own `message_limit`, and only when their own budget runs out, not when your agency-wide pool does. Since it is a team-level event, `chatbot_id` is `null` in the payload.
 
 ## Payload
 
@@ -56,7 +58,11 @@ Every request body has the same envelope:
 - `id` is unique per delivery and stays the same across retries, so you can deduplicate.
 - `team_id` is the client workspace the event happened in.
 - `external_reference` is the billing reference you set on the client workspace, so you can map events straight to your own billing system.
-- `data` is event-specific. `escalation.created` adds `last_message` and `inbox_url`.
+- `data` is event-specific. `escalation.created` adds `last_message` and `inbox_url`. `client.credits_exhausted` carries `message_limit`, `messages_used`, and `topup_credits_remaining`.
+
+## Auto-replenish flow
+
+`client.credits_exhausted` pairs with the [Add Top-Up Credits](/api-reference/agency/add-topup-credits) endpoint to automate replenishment: when the event arrives, charge the client in your own billing system, then call the top-ups API. Use the event's delivery id as your `Idempotency-Key` so a retried delivery can never buy credits twice. The client's AI agents start answering again within seconds of the top-up.
 
 ## Verifying signatures
 
