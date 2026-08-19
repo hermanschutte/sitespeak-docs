@@ -9,9 +9,13 @@ Available on agency plans. The API token must belong to the agency owner.
 Use this when a client cancels or fails payment. You choose the stop behavior per call:
 
 - **hard**: the client's AI agents stop answering right away and the widget no longer loads on their site.
-- **soft**: the client's AI agents keep answering until their remaining message credits run out. Credits are not refilled while paused.
+- **soft**: the client's AI agents keep answering until their remaining monthly message credits run out. Credits are not refilled while paused.
 
 In both modes the monthly credit reset skips the workspace until you resume it. Calling pause again with a different mode switches the mode.
+
+<Note>
+Top-up credits freeze during any pause: they are not drained, not served, and come back untouched on resume. A soft pause drains only the client's remaining monthly allowance, so a client currently serving on top-up credits stops right away.
+</Note>
 
 ## Path Parameters
 

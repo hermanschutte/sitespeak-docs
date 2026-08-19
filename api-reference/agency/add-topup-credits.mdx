@@ -11,7 +11,11 @@ Top-up credits sit in a separate bucket next to the client's monthly allowance. 
 Pairs with the [`client.credits_exhausted` webhook](/agency/webhooks) for automated replenishment: charge the client in your own billing system when the event arrives, then call this endpoint with the event's delivery id as your `Idempotency-Key`.
 
 <Note>
-Top-ups require the client to have their own `message_limit`. Clients without one draw on your agency-wide pool and have no per-client budget to top up; the API returns 422 for them.
+Top-ups require the client to have their own `message_limit` of at least 1. Clients without one draw on your agency-wide pool and have no per-client budget to top up; the API returns 422 for them.
+</Note>
+
+<Note>
+Top-up credits freeze while a client is paused or suspended and come back untouched on resume. A soft pause drains only the remaining monthly allowance.
 </Note>
 
 <Note>
