@@ -246,6 +246,7 @@
               "agency/branding",
               "agency/custom-domain",
               "agency/client-management",
+              "agency/webhooks",
               "agency/team-members"
             ]
           },
@@ -281,7 +282,13 @@
               "api-reference/agency/suspend-client",
               "api-reference/agency/resume-client",
               "api-reference/agency/list-client-chatbots",
-              "api-reference/agency/create-client-chatbot"
+              "api-reference/agency/create-client-chatbot",
+              "api-reference/agency/list-webhooks",
+              "api-reference/agency/create-webhook",
+              "api-reference/agency/update-webhook",
+              "api-reference/agency/delete-webhook",
+              "api-reference/agency/test-webhook",
+              "api-reference/agency/list-webhook-deliveries"
             ]
           },
           {
@@ -343,7 +350,8 @@
           }
         ]
       }
-    ]  },
+    ]
+  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
