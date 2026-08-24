@@ -1,13 +1,13 @@
 ---
 title: "Bring Your Own Keys (BYOK)"
 sidebarTitle: "Bring Your Own Keys"
-description: "Use your own OpenAI or Anthropic API keys with SiteSpeakAI for unlimited messages without credit charges."
+description: "Use your own OpenAI, Anthropic, Google, or Cohere API keys with SiteSpeakAI for unlimited messages without credit charges."
 icon: "key"
 ---
 
 import Cta from '/snippets/cta.mdx';
 
-Bring Your Own Keys (BYOK) lets you connect your own OpenAI or Anthropic API keys to SiteSpeakAI. When your own keys are used, messages don't count against your monthly credit allowance, giving you effectively unlimited messages.
+Bring Your Own Keys (BYOK) lets you connect your own OpenAI, Anthropic, Google, and Cohere API keys to SiteSpeakAI. When your own keys are used, messages don't count against your monthly credit allowance, giving you effectively unlimited messages.
 
 <Note>
   BYOK is available on Pro Plus and Business plans.
@@ -22,14 +22,18 @@ SiteSpeakAI supports two levels of API keys:
 
 The priority order is: **Chatbot key > Account key > Platform key**. If no custom key is found for the model's provider, SiteSpeakAI falls back to platform keys and messages count against your credits as usual.
 
-Your keys cover more than the chat reply. The steps that prepare each answer (searching your knowledge base, rewriting the question for better search results, message categorization, language detection, and the prompt guard) run on OpenAI models, so they use your OpenAI key whenever you have one saved - even if your chatbot's main model is a Claude model.
+Your keys cover more than the chat reply. The steps that prepare each answer (searching your knowledge base, rewriting the question for better search results, message categorization, language detection, and the prompt guard) run on OpenAI models, so they use your OpenAI key whenever you have one saved - even if your chatbot's main model is a Claude or Gemini model. Search result reranking runs on Cohere, so it uses your Cohere key whenever you have one saved.
 
 ### Supported providers
 
-| Provider | Models | Key format |
-|----------|--------|------------|
-| **OpenAI** | GPT-4.1, GPT-4.1 Mini, GPT-5, o3, etc. | `sk-...` |
-| **Anthropic** | Claude Sonnet 4.5, Claude Haiku, etc. | `sk-ant-...` |
+| Provider | Used for | Key format |
+|----------|----------|------------|
+| **OpenAI** | GPT models (GPT-4.1, GPT-5, o3, etc.) and answer preparation | `sk-...` |
+| **Anthropic** | Claude models (Claude Sonnet 4.5, Claude Haiku, etc.) | `sk-ant-...` |
+| **Google** | Gemini models (Gemini 2.5 Flash, etc.) | `AIza...` |
+| **Cohere** | Search result reranking | Your Cohere API key |
+
+Google and Cohere keys are account-level only. OpenAI and Anthropic keys can also be set per chatbot.
 
 ## Adding account-level keys
 
@@ -56,7 +60,7 @@ Account-level keys apply to all chatbots on your account. This is the recommende
 
 ## Adding chatbot-level keys
 
-Chatbot-level keys override your account keys for a specific chatbot. Use this if you want different keys for different agents, or if you only want to use your own keys for certain chatbots.
+Chatbot-level keys override your account keys for a specific chatbot. Use this if you want different keys for different agents, or if you only want to use your own keys for certain chatbots. Chatbot-level keys are available for OpenAI and Anthropic; Google and Cohere keys apply account-wide.
 
 <Steps>
   <Step title="Go to chatbot settings">
@@ -107,6 +111,8 @@ When your own key is not available for the model being used (for example, you ha
 
 The credit rule follows your chatbot's main model. In the example above (Claude chatbot, OpenAI key only), messages still count against your credits because the answer itself runs on platform keys, while the search and preparation steps run on your OpenAI key and are billed to your OpenAI account. To have everything run on your own keys, save a key for your chatbot's model provider as well.
 
+A Cohere key never changes what a message costs: it only moves the reranking step onto your Cohere account. Credits are decided by the key for your chatbot's model provider (OpenAI, Anthropic, or Google).
+
 ## Frequently asked questions
 
 <AccordionGroup>
@@ -114,12 +120,12 @@ The credit rule follows your chatbot's main model. In the example above (Claude 
     BYOK is available on Pro Plus and Business plans.
   </Accordion>
 
-  <Accordion title="Do I need keys for both providers?">
-    No. You only need a key for the provider your chatbot's model uses. If your chatbot uses a GPT model, you only need an OpenAI key. If it uses a Claude model, you only need an Anthropic key.
+  <Accordion title="Do I need keys for every provider?">
+    No. You only need a key for the provider your chatbot's model uses. If your chatbot uses a GPT model, you only need an OpenAI key. If it uses a Claude model, you only need an Anthropic key; for a Gemini model, a Google key. A Cohere key is optional and only moves the reranking step onto your own Cohere account.
   </Accordion>
 
   <Accordion title="What happens if my key becomes invalid?">
-    If your key is rejected by the provider (revoked, expired, or out of provider credit), SiteSpeakAI does not switch to platform keys. The steps that depend on that key stop working until you update it: if it is the key for your chatbot's main model, messages fail; if it is your OpenAI key while your chatbot answers with a Claude model, the chatbot keeps talking but can no longer search your knowledge base. Update or remove the key to restore normal service.
+    If your key is rejected by the provider (revoked, expired, or out of provider credit), SiteSpeakAI does not switch to platform keys. The steps that depend on that key stop working until you update it: if it is the key for your chatbot's main model, messages fail; if it is your OpenAI key while your chatbot answers with a Claude or Gemini model, the chatbot keeps talking but can no longer search your knowledge base. A failing Cohere key skips the reranking step, so answers keep flowing but search quality drops. Update or remove the key to restore normal service.
   </Accordion>
 
   <Accordion title="Can I use different keys for different chatbots?">
@@ -129,6 +135,8 @@ The credit rule follows your chatbot's main model. In the example above (Claude 
   <Accordion title="Where do I get an API key?">
     - **OpenAI**: Create a key at [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
     - **Anthropic**: Create a key at [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys)
+    - **Google**: Create a key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
+    - **Cohere**: Create a key at [dashboard.cohere.com/api-keys](https://dashboard.cohere.com/api-keys)
   </Accordion>
 </AccordionGroup>
 
