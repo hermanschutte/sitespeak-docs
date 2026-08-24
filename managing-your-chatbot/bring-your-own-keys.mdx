@@ -22,6 +22,8 @@ SiteSpeakAI supports two levels of API keys:
 
 The priority order is: **Chatbot key > Account key > Platform key**. If no custom key is found for the model's provider, SiteSpeakAI falls back to platform keys and messages count against your credits as usual.
 
+Your keys cover more than the chat reply. The steps that prepare each answer (searching your knowledge base, rewriting the question for better search results, message categorization, language detection, and the prompt guard) run on OpenAI models, so they use your OpenAI key whenever you have one saved - even if your chatbot's main model is a Claude model.
+
 ### Supported providers
 
 | Provider | Models | Key format |
@@ -103,6 +105,8 @@ When a message is processed using your own API key:
 
 When your own key is not available for the model being used (for example, you have an OpenAI key but your chatbot uses a Claude model), messages will use platform keys and count against your credits as normal.
 
+The credit rule follows your chatbot's main model. In the example above (Claude chatbot, OpenAI key only), messages still count against your credits because the answer itself runs on platform keys, while the search and preparation steps run on your OpenAI key and are billed to your OpenAI account. To have everything run on your own keys, save a key for your chatbot's model provider as well.
+
 ## Frequently asked questions
 
 <AccordionGroup>
@@ -115,7 +119,7 @@ When your own key is not available for the model being used (for example, you ha
   </Accordion>
 
   <Accordion title="What happens if my key becomes invalid?">
-    If your key is rejected by the provider (e.g., revoked or expired), SiteSpeakAI will automatically fall back to platform keys. Messages will count against your credits until you update your key.
+    If your key is rejected by the provider (revoked, expired, or out of provider credit), SiteSpeakAI does not switch to platform keys. The steps that depend on that key stop working until you update it: if it is the key for your chatbot's main model, messages fail; if it is your OpenAI key while your chatbot answers with a Claude model, the chatbot keeps talking but can no longer search your knowledge base. Update or remove the key to restore normal service.
   </Accordion>
 
   <Accordion title="Can I use different keys for different chatbots?">
