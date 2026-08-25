@@ -27,6 +27,7 @@ Use this endpoint to provision a client from your own billing system: create the
 | source_limit | Integer | Source limit for this client. Omit or `null` for no client-level limit. |
 | chatbot_limit | Integer | Maximum number of AI agents for this client. Omit or `null` for no client-level limit. |
 | response_token_limit | Integer | Response length limit in tokens (50 to 10000) for this client's AI agents. Answers are shaped to fit, with a small allowance to finish the last sentence; `null` or omitted means no limit. |
+| byok_enabled | Boolean | When `true`, the client's workspace administrators can add their own LLM API keys. Defaults to `false`. Messages still count against the client's credits. See [Client API Keys (BYOK)](/agency/client-management#client-api-keys-byok). |
 | chatbot | Object | Optionally create the client's first AI agent in the same call. |
 | chatbot.name* | String | The AI agent name. Required when `chatbot` is present. |
 | chatbot.website_url | String | A website URL to crawl and train the agent on. |
@@ -104,6 +105,7 @@ The `accept_url` is a signed link your client uses to create their login and joi
     "status": "active",
     "pause_mode": null,
     "paused_at": null,
+    "byok_enabled": false,
     "limits": {
       "chatbots": 2,
       "sources": 50,
