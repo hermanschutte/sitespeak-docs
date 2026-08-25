@@ -103,6 +103,28 @@ If the sum of all client limits exceeds your agency's plan total, a warning bann
   Per-client limits are soft limits. Setting them helps you manage allocation across clients, but your agency plan's total limits are always the hard ceiling regardless of individual client settings.
 </Note>
 
+## Client API Keys (BYOK)
+
+You can let a client bring their own LLM API keys, so their chatbots run on the client's own provider accounts. This is off by default and is enabled per client with the `byok_enabled` field on the [Create](/api-reference/agency/create-client) and [Update](/api-reference/agency/update-client) Client Workspace API endpoints.
+
+### What Clients Get
+
+With BYOK enabled, workspace administrators see an **LLM API Keys** page in their profile settings where they can add keys for OpenAI, Anthropic, Google, and Cohere. They can also set OpenAI and Anthropic keys per chatbot in each chatbot's **AI Model** settings. Keys are validated against the provider before they are saved.
+
+Key priority for a client chatbot: **chatbot key > workspace key > agency account key**. Your own account-level keys keep serving all client workspaces that have no key of their own, whether or not BYOK is enabled for them.
+
+### Credits Still Count
+
+Messages from client chatbots always count against the client's message credits and your agency pool, no matter whose key served them. Per-client limits keep working with BYOK enabled. The provider usage itself is billed by the provider to whoever owns the key.
+
+### Disabling BYOK
+
+Set `byok_enabled` to `false` to switch a client back off. Their key pages disappear, and any stored keys stay saved but stop serving; the client's chatbots fall back to your agency keys or platform keys. Enabling again restores the stored keys.
+
+<Note>
+  A key that the provider rejects (revoked, expired, or out of provider credit) does not fall back to other keys. The client's messages on that provider fail until the key is updated or removed. A failing Cohere key normally just skips search result reranking, so answers keep flowing with lower ranking quality.
+</Note>
+
 ## Creating Chatbots for Clients
 
 You can create chatbots for a client directly from the agency dashboard without leaving the page:
