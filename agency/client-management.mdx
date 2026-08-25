@@ -122,7 +122,7 @@ Messages from client chatbots always count against the client's message credits 
 Set `byok_enabled` to `false` to switch a client back off. Their key pages disappear, and any stored keys stay saved but stop serving; the client's chatbots fall back to your agency keys or platform keys. Enabling again restores the stored keys.
 
 <Note>
-  A key that the provider rejects (revoked, expired, or out of provider credit) does not fall back to other keys. The client's messages on that provider fail until the key is updated or removed; a failing Cohere key only skips search result reranking.
+  A key that the provider rejects (revoked, expired, or out of provider credit) does not fall back to other keys. The client's messages on that provider fail until the key is updated or removed. A failing Cohere key normally just skips search result reranking, so answers keep flowing with lower ranking quality.
 </Note>
 
 ## Creating Chatbots for Clients
