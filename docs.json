@@ -232,6 +232,7 @@
             "group": "Integrations",
             "pages": [
               "integrations/overview",
+              "integrations/google-chat",
               "integrations/hubspot",
               "integrations/drip",
               "integrations/whatsapp",

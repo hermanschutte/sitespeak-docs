@@ -1,0 +1,109 @@
+---
+title: "Connect SiteSpeakAI to Google Chat"
+sidebarTitle: "Google Chat"
+description: "Let your team talk to your AI agent in 1:1 Google Chat direct messages using a private Chat app in your own Google Cloud project."
+icon: "comments"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Steps, Step, Note, Warning } from '@mintlify/components';
+
+SiteSpeakAI integrates with Google Chat so your team can message your AI agent directly inside Google Workspace. The integration runs as a private Chat app in your own Google Cloud project, visible only to the people and groups you choose. This guide walks your Google Workspace admin through the setup.
+
+<Note>
+Google Chat integration is available on **Pro** plans and higher.
+</Note>
+
+## How it works
+
+- Your admin creates a **private Chat app** in your own Google Cloud project. There is no Google Workspace Marketplace listing and no Google review process.
+- Your team members send the agent **1:1 direct messages** in Google Chat and get answers trained on your content.
+- Conversations appear in your SiteSpeakAI **inbox**, and a human agent can take over any conversation. While a human has the conversation, the AI stays silent and the agent's replies are delivered into Google Chat.
+- Your service account key is stored **encrypted** and is only used to send replies through the Google Chat API.
+
+## Prerequisites
+
+Before you begin, you'll need:
+
+- A **Google Workspace account** and a user with **Google Workspace admin** access
+- Access to the **Google Cloud console** (a free Google Cloud account is enough; this integration does not use paid Google Cloud services)
+- A **SiteSpeakAI Pro plan or higher**, with a trained agent
+
+## Create the Google Cloud project
+
+<Steps>
+  <Step title="Create a project">
+    Go to [console.cloud.google.com](https://console.cloud.google.com) and create a new project, for example "SiteSpeak Chat". Once it opens, copy the **project number** from the dashboard. It's the numeric value, not the project ID.
+  </Step>
+  <Step title="Enable the Google Chat API">
+    Go to **APIs & Services → Library**, search for **Google Chat API**, and click **Enable**.
+  </Step>
+  <Step title="Create a service account">
+    Go to **IAM & Admin → Service Accounts** and click **Create service account**. Name it something like `sitespeak-chat` and click **Done**. No roles are needed.
+
+    Open the new service account, go to the **Keys** tab, and choose **Add key → Create new key → JSON**. A `.json` key file downloads. You'll paste its contents into SiteSpeakAI in a later step.
+  </Step>
+</Steps>
+
+<Warning>
+Some organizations disable service account key creation with an organization policy (`iam.disableServiceAccountKeyCreation`). If key creation is blocked, ask your organization administrator to allow it for this project.
+</Warning>
+
+## Configure the Chat app
+
+<Steps>
+  <Step title="Open the Chat API configuration">
+    In the Google Cloud console, go to **APIs & Services → Google Chat API** and open the **Configuration** tab.
+  </Step>
+  <Step title="Fill in the app details">
+    - **App name**: the name your team will see, for example your agent's name
+    - **Avatar URL**: a public HTTPS image URL, for example your logo
+    - **Description**: a short description of what the agent does
+  </Step>
+  <Step title="Enable interactive features">
+    Turn on **Interactive features** and check **Receive 1:1 messages**. You can leave "Join spaces and group conversations" off; the integration currently supports direct messages.
+  </Step>
+  <Step title="Set the HTTP endpoint URL">
+    Under **Connection settings**, choose **HTTP endpoint URL** and paste the webhook URL shown on your agent's **Deploy & Install → Google Chat** tab in SiteSpeakAI:
+
+    ```
+    https://sitespeak.ai/google-chat/events
+    ```
+  </Step>
+  <Step title="Set the visibility">
+    Under **Visibility**, make the app available to the people, groups, or your whole domain. Only the people you list here can message the agent.
+  </Step>
+  <Step title="Save">
+    Click **Save**. If there is an **App status** toggle, set it to **Live**.
+  </Step>
+</Steps>
+
+## Connect your agent
+
+<Steps>
+  <Step title="Open the Google Chat tab">
+    In your SiteSpeakAI dashboard, open your agent and go to **Deploy & Install → Google Chat**.
+  </Step>
+  <Step title="Enter your project details">
+    Paste your **project number** and the **full contents of the service account JSON key file** you downloaded earlier, then click **Connect**.
+
+    SiteSpeakAI verifies the key with Google before saving it. The key is stored encrypted.
+  </Step>
+  <Step title="Test it">
+    Open [chat.google.com](https://chat.google.com), start a new chat, search for your Chat app by name, and send it a message. Your agent replies with answers trained on your content.
+  </Step>
+</Steps>
+
+## Taking over a conversation
+
+Google Chat conversations appear in your agent's **Inbox**. Reply as a human from the inbox and your message is delivered into the Google Chat conversation. While live chat is active, the AI stays silent; end live chat (or let it expire) and the AI resumes answering.
+
+## Troubleshooting
+
+**The app doesn't appear in Google Chat search.** Check the app's **Visibility** settings in the Chat API configuration; only listed people and groups can find it. Changes can take a few minutes to appear.
+
+**The app shows "not responding".** Check that the HTTP endpoint URL in the Chat app configuration exactly matches the webhook URL shown on the Google Chat tab in SiteSpeakAI.
+
+**Connect fails with "Google rejected this service account key".** Make sure you pasted the full JSON key file for a service account in the same project as the Chat app, and that the key hasn't been deleted in the Google Cloud console.
+
+<Cta />
