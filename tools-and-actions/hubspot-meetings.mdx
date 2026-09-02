@@ -8,7 +8,13 @@ icon: "calendar"
 import Cta from '/snippets/cta.mdx';
 import { Steps, Step, Note, Info } from '@mintlify/components';
 
-The HubSpot Meetings action allows your AI agent to check availability on one of your HubSpot meeting links and help visitors book a meeting directly through the chatbot. Each booking creates or updates the contact in HubSpot and adds the meeting to the organizer's calendar.
+The HubSpot Meetings action allows your AI agent to check availability on one of your HubSpot meeting links and help visitors book a meeting directly through the chatbot. Each booking creates or updates the contact in HubSpot and adds the meeting to the calendar of the meeting link's owner.
+
+## Before You Start
+
+You need at least one meeting link in HubSpot. Meeting links are managed under **Sales > Meetings Scheduler** in your HubSpot account.
+
+The chat asks visitors only for their name and email. Custom questions on the meeting link are not asked, so make any required custom questions on the link optional.
 
 ## Adding the HubSpot Meetings Action
 
@@ -19,7 +25,24 @@ The HubSpot Meetings action allows your AI agent to check availability on one of
   <Step title="Select HubSpot">
     Find **HubSpot: Make Bookings** and click **Add**.
   </Step>
+  <Step title="Connect your HubSpot account">
+    Click **Connect HubSpot Account**. You will be redirected to HubSpot to authorize access, then returned to the action.
+
+    Do this before editing any other field. Connecting leaves the page, and edits made before that are lost.
+  </Step>
+  <Step title="Choose a meeting link">
+    If your account has one meeting link, it is selected for you. If it has more than one, choose the link visitors can book from the **Select Meeting Link** list. Links owned by other users in your HubSpot account are included.
+  </Step>
+  <Step title="Save the action">
+    Adjust the **Description** if needed, then click **Add Action**.
+  </Step>
 </Steps>
+
+<Note>
+  If you already use the [HubSpot lead sync integration](/integrations/hubspot), you still need to click **Connect HubSpot Account** on the action. Booking needs a permission that the lead sync connection does not have.
+</Note>
+
+If HubSpot has no meeting links, the action page shows the error **No meeting links found in your HubSpot account**. Create a meeting link in HubSpot, then click **Connect HubSpot Account** again.
 
 ---
 
@@ -27,7 +50,7 @@ The HubSpot Meetings action allows your AI agent to check availability on one of
 
 ### Name
 
-A descriptive name for the action. Default: `book_hubspot_meeting`
+Fixed as `book_hubspot_meeting`. It cannot be changed.
 
 ### Description
 
@@ -35,17 +58,11 @@ A description of the action and when it should be used. The default description 
 
 ### HubSpot Account
 
-Click **Connect HubSpot Account** to connect your HubSpot account via OAuth. You will be redirected to HubSpot to authorize access.
-
-Once connected, your meeting link will be automatically selected. If you have more than one meeting link, you will be prompted to choose which one visitors can book.
+Connects your HubSpot account via OAuth. Once a meeting link is selected, the button reads **Reconnect HubSpot Account**. Click it to switch to a different meeting link or to authorize HubSpot again.
 
 <Info>
-  This uses the same HubSpot connection as the [HubSpot lead sync integration](/integrations/hubspot). Connecting here also enables lead sync for this chatbot, and disconnecting HubSpot on the Settings page also stops bookings.
+  This uses the same HubSpot connection as the [HubSpot lead sync integration](/integrations/hubspot). Connecting here also turns lead sync on for this chatbot. Turning lead sync off on the Settings page does not affect bookings, but **Disconnect** on the Settings page removes the connection and bookings stop working. The action stays installed, so delete it too, or connect again from the action.
 </Info>
-
-<Note>
-  You need at least one meeting link in HubSpot under **Sales > Meetings**. Meeting links are available on every HubSpot plan, including the free tier.
-</Note>
 
 ---
 
@@ -55,20 +72,9 @@ Once connected, your meeting link will be automatically selected. If you have mo
 2. Agent shows available time slots in a calendar
 3. Visitor selects a date and time
 4. Visitor fills in their name and email
-5. The meeting is booked on your HubSpot meeting link and added to your calendar
+5. The meeting is booked on your HubSpot meeting link and added to the link owner's calendar
 
-Meeting links with more than one duration use the first duration listed on the link. Custom questions on the meeting link are not asked in the chat.
-
----
-
-## Save the Action
-
-Once you've connected your HubSpot account and selected a meeting link, click **Add Action** to enable it.
-
-Your chatbot will now be able to:
-- Check availability on your HubSpot meeting link
-- Show available time slots to visitors
-- Book meetings for visitors
+Meeting links that offer more than one duration are booked at the shortest duration.
 
 Bookings appear in HubSpot as meetings on the contact's timeline.
 
