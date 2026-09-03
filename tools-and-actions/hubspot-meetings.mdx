@@ -28,6 +28,8 @@ The chat asks visitors only for their name and email. Custom questions on the me
   <Step title="Connect your HubSpot account">
     Click **Connect HubSpot Account**. You will be redirected to HubSpot to authorize access, then returned to the action.
 
+    On the HubSpot authorization screen, tick the optional permission **Read metadata and booking availability information for meeting links** before you click **Connect app**. Without it, the action cannot read your meeting links.
+
     Do this before editing any other field. Connecting leaves the page, and edits made before that are lost.
   </Step>
   <Step title="Choose a meeting link">
@@ -41,6 +43,8 @@ The chat asks visitors only for their name and email. Custom questions on the me
 <Note>
   If you already use the [HubSpot lead sync integration](/integrations/hubspot), you still need to click **Connect HubSpot Account** on the action. Booking needs a permission that the lead sync connection does not have.
 </Note>
+
+If the optional permission is locked and cannot be ticked, a HubSpot Super Admin needs to enable it first. In HubSpot, go to **Settings > Integrations > Connected Apps**, open the **Approved apps** tab, click **Manage access** next to SiteSpeakAI, and turn the permission on under **Data Permissions**. Then click **Connect HubSpot Account** again.
 
 If HubSpot has no meeting links, the action page shows the error **No meeting links found in your HubSpot account**. Create a meeting link in HubSpot, then click **Connect HubSpot Account** again.
 
