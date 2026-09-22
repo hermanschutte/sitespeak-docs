@@ -46,6 +46,8 @@ A `null` limit means no client-level limit is set for that resource. `response_t
 
 `usage.messages` counts message credits used in the current cycle, which starts at the beginning of the calendar month or at the client's last credit reset, whichever is later. `messages_remaining` is `null` when no message limit is set. `topup_credits_remaining` is the client's [top-up credit](/api-reference/agency/add-topup-credits) balance, drawn only after the monthly limit is used up. `credits_exhausted_at` is set while the client's own budget (monthly plus top-up) is at zero and clears when credits return.
 
+`enabled_integrations` is `null` when the client may use every integration your agency plan includes, or the list of keys they may use. See [Per-Client Integrations](/agency/client-management#per-client-integrations).
+
 <Tabs>
   <Tab title="200 Success">
 ```json
@@ -59,6 +61,7 @@ A `null` limit means no client-level limit is set for that resource. `response_t
       "pause_mode": null,
       "paused_at": null,
       "byok_enabled": false,
+      "enabled_integrations": null,
       "limits": {
         "chatbots": 2,
         "sources": 50,
