@@ -14,7 +14,7 @@ Each client you create has a fully isolated workspace with their own chatbots, t
 
 1. Go to **Agency > Clients** in your dashboard.
 2. Click **Add Client**.
-3. Enter the client's name and confirm.
+3. Enter the client's name, untick any integrations you want to keep out of this workspace, and confirm.
 
 The new client workspace is created immediately. You can now switch into it to start building chatbots.
 
@@ -103,6 +103,34 @@ If the sum of all client limits exceeds your agency's plan total, a warning bann
   Per-client limits are soft limits. Setting them helps you manage allocation across clients, but your agency plan's total limits are always the hard ceiling regardless of individual client settings.
 </Note>
 
+## Per-Client Integrations
+
+Your agency plan decides which integrations exist. Per client, you decide which of them the client may use. New clients get everything your plan includes; untick an integration to keep it out of that client's workspace.
+
+### Setting Integrations
+
+1. Go to **Agency > Clients**
+2. Click the actions menu (three dots) next to the client and select **Edit Client**, or set them when you create the client
+3. Untick the integrations to withhold and save
+
+The list covers WhatsApp, HubSpot, Slack, Google Chat, Telegram, Discord (chat) and Tools & actions.
+
+### What Withholding Does
+
+- The client's dashboard shows the integration as not enabled by your agency, with no connect button and no upgrade prompt.
+- A connection the client already made is disconnected at once: the saved connection is removed, and they connect again if you re-enable it. Discord channels already added as training sources stay, but stop syncing new messages.
+- Withholding **Tools & actions** stops the agent from using the client's installed tools. Their saved tools stay in place. Lead capture and transcript emails keep working, since they are part of the chat itself rather than tools the client adds.
+
+### Via the API
+
+Send `enabled_integrations` on [Create](/api-reference/agency/create-client) or [Update](/api-reference/agency/update-client) Client Workspace as a list of keys: `whatsapp`, `hubspot`, `slack`, `google_chat`, `telegram`, `discord`, `actions`. `null` means everything your plan includes; an empty list withholds all of them. Client responses echo the current value.
+
+If you sell your own plans, keep the list per plan on your side and send it when you create the client and again on every plan change. SiteSpeak stores the list per client, not per plan.
+
+<Note>
+  Your plan is still the ceiling. Ticking an integration your agency plan does not include does not unlock it.
+</Note>
+
 ## Client API Keys (BYOK)
 
 You can let a client bring their own LLM API keys, so their chatbots run on the client's own provider accounts. This is off by default and is enabled per client with the `byok_enabled` field on the [Create](/api-reference/agency/create-client) and [Update](/api-reference/agency/update-client) Client Workspace API endpoints.
@@ -150,7 +178,7 @@ From the actions menu (three dots) next to any client in the **Agency > Clients*
 - **View Agents** - Expand the row to see the client's chatbots
 - **Users** - Manage users invited to this client's workspace
 - **Create Agent** - Create a new chatbot for this client
-- **Rename** - Change the client's display name
+- **Edit Client** - Change the client's display name and which integrations they may use
 - **Delete** - Permanently remove the client and all their chatbots, sources, and data. This action cannot be undone.
 
 ## Plan Limits

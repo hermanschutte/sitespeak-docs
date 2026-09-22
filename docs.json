@@ -248,6 +248,7 @@
               "agency/branding",
               "agency/custom-domain",
               "agency/client-management",
+              "agency/integrations",
               "agency/webhooks",
               "agency/team-members"
             ]

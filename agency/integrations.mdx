@@ -1,0 +1,44 @@
+---
+title: "Integration Apps"
+sidebarTitle: "Integrations"
+description: "Register your own Slack and HubSpot apps so the consent screens your clients see carry your name instead of SiteSpeak's."
+icon: "plug"
+---
+
+import Cta from '/snippets/cta.mdx';
+import { Note, Warning } from '@mintlify/components';
+
+When a client connects Slack or HubSpot to one of their agents, the provider shows a consent screen naming the app that asks for access. By default that is SiteSpeak's app. Register your own app with the provider and enter its credentials under **Agency > Integrations**, and the consent screen carries your name and logo instead.
+
+The page is visible to the agency owner only. Leave a provider empty to keep using SiteSpeak's app for it. WhatsApp needs no agency app: each agent already connects with its own Meta app.
+
+## Slack
+
+1. Create an app at [api.slack.com/apps](https://api.slack.com/apps).
+2. Under **OAuth & Permissions**, add the redirect URLs shown on the Integrations page. One is on the SiteSpeak host and, once your [custom domain](/agency/custom-domain) is verified, one is on that domain. A client can start the connection from either, so both must be registered. Use the copy button next to each URL.
+3. In the same section, add these bot token scopes: `app_mentions:read`, `channels:read`, `chat:write`, `groups:read`, `im:read`, `mpim:read`, `users:read`.
+4. Under **Event Subscriptions**, enable events, set the request URL shown on the Integrations page, and subscribe to the bot events `app_mention`, `message.im` and `message.mpim`.
+5. Copy the app's **Client ID** and **Client Secret** from **Basic Information** into the Slack app section and save.
+
+<Note>
+  The events request URL is always on the SiteSpeak host, never on your custom domain. Slack posts events there and SiteSpeak routes each one to the right agent.
+</Note>
+
+## HubSpot
+
+1. In your [HubSpot developer account](https://developers.hubspot.com/), create a public app.
+2. Under **Auth**, add the redirect URLs shown on the Integrations page.
+3. Add the scopes `crm.objects.contacts.read`, `crm.objects.contacts.write`, `tickets` and `oauth`. Add `scheduler.meetings.meeting-link.read` as an optional scope if your clients use the HubSpot bookings tool.
+4. Copy the app's **Client ID** and **Client secret** into the HubSpot app section and save.
+
+## How Credentials Are Stored
+
+- The client secret is stored encrypted and never shown again. The field shows a placeholder while one is stored; enter a new value to replace it.
+- A new or changed client ID needs its own secret. SiteSpeak never pairs an ID with a secret from a different app.
+- Clearing the client ID clears the secret and switches that provider back to SiteSpeak's app.
+
+<Warning>
+  Connections your clients made through your app belong to that app. If you change or remove the HubSpot client ID, those connections can no longer be refreshed: the client's Settings page marks the HubSpot connection as needing a new connection, and lead sync pauses until they disconnect and connect again. Slack tokens do not expire, so Slack connections keep working for as long as your Slack app exists.
+</Warning>
+
+<Cta />
