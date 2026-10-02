@@ -363,6 +363,10 @@
   "navbar": {
     "links": [
       {
+        "label": "Pricing",
+        "href": "https://sitespeak.ai/pricing"
+      },
+      {
         "label": "Support",
         "href": "mailto:support@sitespeak.ai"
       }
@@ -396,7 +400,17 @@
       "youtube": "https://www.youtube.com/@sitespeakai",
       "telegram": "https://t.me/+QSyFTD8dmmQzZjc0",
       "discord": "https://discord.gg/eSeVUqHZcj"
-    }
+    },
+    "links": [
+      {
+        "header": "SiteSpeak",
+        "items": [
+          { "label": "Home", "href": "https://sitespeak.ai" },
+          { "label": "Integrations", "href": "https://sitespeak.ai/integrations" },
+          { "label": "Pricing", "href": "https://sitespeak.ai/pricing" }
+        ]
+      }
+    ]
   },
   "redirects": [
     {
