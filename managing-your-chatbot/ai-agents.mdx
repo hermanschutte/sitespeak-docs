@@ -25,7 +25,7 @@ Once connected, an agent can:
 - **Change settings** - model, prompts, welcome message, default answer, temperature, lead capture, and escalations.
 - **Manage knowledge sources** - add new pages and recrawl stale ones.
 - **Manage suggested messages** - the starter prompts shown to visitors.
-- **Work the inbox** - read conversations, read captured leads, and triage threads.
+- **Work the inbox** - read conversations, read captured leads, triage threads, and reply to visitors.
 
 Some things you can ask:
 
@@ -34,9 +34,31 @@ Some things you can ask:
 - "Turn on human handoff and escalate after two unanswered messages."
 - "Which of my chatbots has the worst answer rate?"
 
+## Connect Claude (claude.ai, Desktop and mobile)
+
+Claude connects with your SiteSpeakAI login. You do not need an API token.
+
+<Steps>
+  <Step title="Add the connector">
+    In Claude, open **Settings > Connectors** and click **Add custom connector**. Enter the name `SiteSpeak` and the URL `https://api.sitespeak.ai/mcp`, then click **Add**.
+  </Step>
+  <Step title="Sign in">
+    Click **Connect**. Sign in to SiteSpeakAI and click **Authorize** to approve the connection.
+  </Step>
+  <Step title="Start asking">
+    In a new chat, ask for example: "List my SiteSpeak chatbots", "Show me the open conversations in my SiteSpeak inbox" or "Show the leads my SiteSpeak chatbot captured."
+  </Step>
+</Steps>
+
+Claude shows your chatbots, inbox threads and leads in an interactive SiteSpeak app inside the chat. Open it in full view to switch between the inbox, leads, analytics and knowledge sources, read a whole conversation, and reply to a visitor.
+
+<Note>
+Claude asks you to confirm before it changes a setting or sends a reply to a visitor. To remove the connection, open **Settings > Connectors** in Claude and disconnect SiteSpeak.
+</Note>
+
 ## Get an API token
 
-Every connection uses an API token. Create one on the [API tokens](https://sitespeak.ai/user/api-tokens) page in your account. The agent acts only on the chatbots that token can access.
+Claude Code, Cursor and other MCP clients connect with an API token. Create one on the [API tokens](https://sitespeak.ai/user/api-tokens) page in your account. The agent acts only on the chatbots that token can access.
 
 <Warning>
 An API token can read and change your account. Treat it like a password, and only paste it into tools you trust.
@@ -134,7 +156,7 @@ Run `/reload-plugins` in Claude Code, or restart it, to load the bundled MCP ser
 
 ### Getting an authentication error
 
-Confirm your API token is valid. Create a new one on the [API tokens](https://sitespeak.ai/user/api-tokens) page and reconnect.
+In Claude, disconnect SiteSpeak in **Settings > Connectors** and connect it again. In other clients, confirm your API token is valid. Create a new one on the [API tokens](https://sitespeak.ai/user/api-tokens) page and reconnect.
 
 ### Analytics or insights look empty
 
