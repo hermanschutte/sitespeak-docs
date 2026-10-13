@@ -4,7 +4,7 @@ sidebarTitle: "WhatsApp"
 description: "Enable your AI chatbot to respond to WhatsApp messages using the WhatsApp Business API."
 icon: "whatsapp"
 "og:type": "video.other"
-"og:video": "https://www.youtube.com/embed/J4mVQ3wVYLI"
+"og:video": "https://www.youtube.com/embed/HcHgSQzXM0Q"
 "og:video:type": "text/html"
 "og:video:width": "1280"
 "og:video:height": "720"
@@ -18,7 +18,7 @@ SiteSpeakAI integrates with WhatsApp Business to let your AI chatbot respond to 
 <Frame>
   <iframe
     className="w-full aspect-video rounded-xl"
-    src="https://www.youtube.com/embed/J4mVQ3wVYLI"
+    src="https://www.youtube.com/embed/HcHgSQzXM0Q"
     title="How to connect an AI chatbot to WhatsApp Business"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen
@@ -26,15 +26,25 @@ SiteSpeakAI integrates with WhatsApp Business to let your AI chatbot respond to 
 </Frame>
 
 <Accordion title="Video transcript">
-In this tutorial, I'll show you how to connect your SiteSpeakAI chatbot to WhatsApp Business, so it can answer customer messages on WhatsApp automatically. WhatsApp is available on our Pro Plus and Business plans.
+Your customers send you questions on WhatsApp every day. What does this cost? When are you open? Where is my order?
 
-Before you can connect your agent to WhatsApp, you need to create and train it. After you log in to SiteSpeak, you land on the Get Started page, which walks you through it in five quick steps. First, give your agent a name. This is the name your visitors will see when they chat with it. Click Save and Continue to create the agent. Next, add the website you want your agent to learn from. For this example I'll use snapwidget.com. Click Save and Continue, and SiteSpeak crawls the site to find pages it can train on. In a few seconds, it finds the main pages on the site. SiteSpeak selects those pages for you. Click Save and Continue to train your agent on them. SiteSpeak now trains your agent on that content automatically. Once it finishes, your agent is ready to answer questions, and you can connect it to WhatsApp.
+A SiteSpeak AI agent can answer these questions on WhatsApp, at any time. This video shows how to make the agent, set up WhatsApp in Meta, and connect them.
 
-Now let's connect your agent to WhatsApp. Head to developers.facebook.com and log in, then create a new app. Give it a name, and under Add Use Cases, filter by Others and choose Other. Click Next. Select the Business app type, then click Next and create your app. In your app dashboard, scroll down to Add products and click Set up on the WhatsApp card. You'll be asked to select or create a Meta Business account, which the WhatsApp API requires. Open the API Setup page, click Add phone number, and verify it with the code Meta sends you by SMS or call. While you're here, copy your Phone Number ID shown below the number. You'll need it in a moment.
+Step 1. Make the agent. Log in to SiteSpeak. Type a name for your agent. Type the URL of your website. SiteSpeak finds your pages and selects the main pages for you. Click Save and Continue. SiteSpeak trains the agent on these pages. This takes a few minutes.
 
-Back in SiteSpeak, open Deploy and Install and click the WhatsApp tab. Paste in your Phone Number ID, your permanent access token, which you generate from a System User in Meta Business Settings, and your App Secret from App Settings, Basic. Then click Connect, and SiteSpeak gives you a Webhook URL and a Verify Token. Now configure the webhook back in Meta. Go to WhatsApp, then Configuration, and paste in the Webhook URL as the Callback URL and the Verify Token. Click Verify and save. Finally, under Webhook fields, find the messages field and click Subscribe. Send a message to your WhatsApp Business number to test it, and your agent will reply automatically.
+Step 2. Create a Meta app. Go to developers.facebook.com, and log in. Click My Apps, then Create App. Type a name for your app, and click Next. Under Add Use Cases, select Other, and click Next. Select the app type Business, and click Next. Then click Create App. In the app dashboard, find WhatsApp, and click Set up. Select your Meta Business Account, or create one.
 
-And that's it. Your SiteSpeakAI agent is now connected to WhatsApp Business, trained on your content and ready to answer your customers around the clock.
+Step 3. Add a phone number. In WhatsApp, open API Setup. Click Add phone number. Meta sends a code to that number. Type the code. Use a business number. You cannot use a number that already has a personal WhatsApp account. Below the number, Meta shows the Phone Number ID. Copy it.
+
+Step 4. Get the access token and the app secret. The token on the API Setup page expires after 24 hours. So make a permanent token. Open Business Settings, and go to System Users. Click Add. Type a name, and select the Admin role. Click Add Assets. Select your app, and turn on Full control. Click Generate new token, and select your app. Select the permissions WhatsApp business messaging and WhatsApp business management. Copy the token. Then, in your app, open App settings, then Basic. Click Show next to App Secret, and copy it.
+
+Step 5. Connect WhatsApp to your agent. In SiteSpeak, open Install Agent, and select WhatsApp. Paste the Phone Number ID, the Permanent Access Token, and the App Secret. Click Connect. SiteSpeak shows a Webhook URL and a Verify Token.
+
+Step 6. Set the webhook in Meta. In your Meta app, open WhatsApp, then Configuration. Paste the Webhook URL in Callback URL. Paste the Verify Token in Verify token. Click Verify and save. Under Webhook fields, find messages, and click Subscribe.
+
+Step 7. Test the agent. Send a message to your WhatsApp business number. The agent answers from your content, in the WhatsApp chat. At first, the agent can only send messages to the test numbers in your Meta app. To answer all customers, complete the business verification in Meta. You can read each WhatsApp conversation in the SiteSpeak Inbox.
+
+WhatsApp is available on the Pro plan and higher. You can start with a free plan at sitespeak.ai.
 </Accordion>
 
 <Note>
