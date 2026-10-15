@@ -220,6 +220,60 @@ If an email bounces or is marked as spam, the Inbox shows a note under the reply
   SiteSpeakAI removes the quoted history from the visitor's email answer, so you only see their new text. Attachments are not shown. The Inbox notes how many the visitor sent.
 </Tip>
 
+## Support inbox
+
+With the support inbox on, emails to your support address (for example `support@yourcompany.com`) open conversations in your Inbox. SiteSpeakAI writes a draft answer from your knowledge base. You check the draft, change it if necessary, and send it. The visitor gets your answer by email.
+
+<Note>
+  The support inbox is available on the Pro plan and higher. It needs **Email Replies To Visitors** to be on.
+</Note>
+
+<Steps>
+  <Step title="Turn on the support inbox">
+    Go to **Configuration**, then **Settings**. On the **Basic** tab, toggle on **Support Inbox** and save.
+  </Step>
+  <Step title="Copy your inbox address">
+    After you save, Settings shows an address like `yourcompany-k3f9x2@reply.sitespeak.ai`. Click **Copy address**.
+  </Step>
+  <Step title="Forward your support email">
+    In your email provider, forward your support address to the inbox address. See the steps for your provider below.
+  </Step>
+</Steps>
+
+### Forwarding from Gmail or Google Workspace
+
+1. In Gmail, open **Settings**, then **See all settings**, then **Forwarding and POP/IMAP**.
+2. Click **Add a forwarding address** and paste your inbox address.
+3. Gmail sends a confirmation email to the inbox address. It shows as a new conversation in your SiteSpeakAI Inbox. Open it to find the confirmation code or link.
+4. Back in Gmail, enter the code, then select **Forward a copy of incoming mail to** and save.
+
+### Forwarding from Microsoft 365 or Outlook
+
+1. In Outlook, open **Settings**, then **Mail**, then **Forwarding**.
+2. Turn on **Enable forwarding** and paste your inbox address.
+3. Select **Keep a copy of forwarded messages** if you want the emails in your mailbox too, and save.
+
+<Note>
+  Some Microsoft 365 organizations block automatic forwarding to outside addresses. If emails do not arrive, ask your Microsoft 365 admin to allow forwarding for your support mailbox.
+</Note>
+
+### How the support inbox works
+
+- Each sender gets one conversation in your Inbox. A new email from the same address goes into the same conversation.
+- SiteSpeakAI writes a draft answer from your knowledge base and puts it in the reply box, marked as an AI draft. Nothing is sent until you click send.
+- Your reply goes to the visitor by email at once, in the same email thread.
+- Each AI draft uses one query credit from your monthly [MCP query allowance](/advanced/mcp-endpoint#rate-limits-and-query-credits). When the allowance is used up, emails still arrive, without a draft.
+
+### Sending from your own address
+
+By default, answers come from your chatbot's name at `reply.sitespeak.ai`. To send answers from your own support address, contact us. We verify your domain and set it up for you.
+
+### Limits
+
+- Automatic emails, such as out-of-office replies, do not open a conversation.
+- A chatbot receives at most 200 emails a day on the support inbox.
+- Attachments are not shown. The Inbox notes how many the sender attached.
+
 ## Customizing escalation messages
 
 You can customize the messages shown to visitors during escalation in the **Localization** tab under Settings, including:
