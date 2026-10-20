@@ -125,7 +125,7 @@ A Cohere key never changes what a message costs: it only moves the reranking ste
   </Accordion>
 
   <Accordion title="What happens if my key becomes invalid?">
-    If your key is rejected by the provider (revoked, expired, or out of provider credit), SiteSpeakAI does not switch to platform keys. The steps that depend on that key stop working until you update it: if it is the key for your chatbot's main model, messages fail; if it is your OpenAI key while your chatbot answers with a Claude or Gemini model, the chatbot keeps talking but can no longer search your knowledge base. A failing Cohere key skips the reranking step, so answers keep flowing but search quality drops. Training stops as well: new sources and scheduled syncs fail until you update the key. Update or remove the key to restore normal service.
+    If your key is rejected by the provider (revoked, expired, or out of provider credit), SiteSpeakAI does not switch to platform keys. The steps that depend on that key stop working until you update it: if it is the key for your chatbot's main model, messages fail; if it is your OpenAI key while your chatbot answers with a Claude or Gemini model, the chatbot keeps talking but can no longer search your knowledge base. A failing Cohere key skips the reranking step, so answers keep flowing but search quality drops. If your OpenAI key is rejected, training stops as well: new sources and scheduled syncs fail until you update the key. Update or remove the key to restore normal service.
   </Accordion>
 
   <Accordion title="Can I use different keys for different chatbots?">
