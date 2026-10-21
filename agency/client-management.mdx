@@ -143,7 +143,7 @@ Key priority for a client chatbot: **chatbot key > workspace key > agency accoun
 
 ### Credits Still Count
 
-Messages from client chatbots always count against the client's message credits and your agency pool, no matter whose key served them. Per-client limits keep working with BYOK enabled. The provider usage itself is billed by the provider to whoever owns the key.
+Messages from client chatbots always count against the client's message credits and your agency pool, no matter whose key served them. Per-client limits keep working with BYOK enabled. The provider usage itself is billed by the provider to whoever owns the key. That includes training: when a client chatbot crawls pages or reads files and text, the embeddings are created with the OpenAI key selected for the chatbot, even if its main model is Claude or Gemini.
 
 ### Disabling BYOK
 
