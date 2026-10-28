@@ -259,10 +259,9 @@ With the support inbox on, emails to your support address (for example `support@
 
 ### How the support inbox works
 
-- Each new email subject gets its own conversation in your Inbox. A reply, or a new email from the same address with the same subject, goes into the same conversation.
+- Each new email subject gets its own conversation in your Inbox. A reply, or a new email from the same address with the same subject and the same people on it, goes into the same conversation.
 - SiteSpeakAI writes a draft answer from your knowledge base and puts it in the reply box, marked as an AI draft. Nothing is sent until you click send.
-- Your reply goes to the visitor by email at once, in the same email thread.
-- Your reply goes to everyone on the first email, as with "Reply all" in a mail program: the sender (or the Reply-To address, if the email has one), with a copy to the other To and Cc addresses. If you forward from Gmail or Google Workspace, your own support address does not get a copy.
+- Your reply goes by email at once, in the same email thread, to everyone on the first email, as with "Reply all" in a mail program. It goes to the sender (or the Reply-To address, if the email has one), with a copy to the other To and Cc addresses. If you forward from Gmail or Google Workspace, your own support address does not get a copy. With other providers, such as Outlook, it can get one.
 - Each AI draft uses one query credit from your monthly [MCP query allowance](/advanced/mcp-endpoint#rate-limits-and-query-credits). When the allowance is used up, emails still arrive, without a draft.
 
 ### Sending from your own address
@@ -273,6 +272,7 @@ By default, answers come from your chatbot's name at `reply.sitespeak.ai`. To se
 
 - Automatic emails, such as out-of-office replies, do not open a conversation.
 - A chatbot receives at most 200 emails a day on the support inbox.
+- A reply copies at most 10 people.
 - Attachments are not shown. The Inbox notes how many the sender attached.
 
 ## Customizing escalation messages
