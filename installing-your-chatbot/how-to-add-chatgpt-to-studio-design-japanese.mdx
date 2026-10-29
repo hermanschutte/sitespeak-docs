@@ -1,6 +1,6 @@
 ---
-title: "Studio.DesignにChatGPTチャットボットを追加する方法"
-description: "ChatGPT でトレーニングしたカスタム チャットボットを Studio.Design Web サイトに追加する方法。"
+title: "Studio.DesignにAIチャットボットを追加する方法"
+description: "カスタムトレーニングされた AI チャットボットを Studio.Design Web サイトに追加する方法。"
 sidebarTitle: "Studio.Design"
 icon: "pencil-ruler"
 tag: "JA"
@@ -8,111 +8,112 @@ tag: "JA"
 
 import Cta from '/snippets/cta.mdx';
 
-**Studio.Design** のウェブサイトページに、カスタムトレーニング済みのチャットボットを埋め込みたいとします。SiteSpeakAI を使用して ChatGPT を Studio.Design に追加する手順は次のとおりです。
+カスタム トレーニングを受けた AI サポート エージェントを **Studio.Design** Web サイト ページに埋め込みたいと考えています。 SiteSpeakAI を使用して ChatGPT を Studio.Design に追加する方法は次のとおりです。
 
-## Studio.Design のウェブ サイトにチャットボットを追加する
+## **Studio.Design**のウェブサイトにAIサポートエージェントを追加しましょう
 
-**[Studio.Design](https://studio.design/ja)** は、コードを一切使用せずに自由なビジュアルデザインを求めるデザイナー、クリエイター、中小企業向けに設計された、コード不要のウェブサイトビルダーです。洗練されたデザインと優れたパフォーマンスを兼ね備えたポートフォリオ、ランディングページ、ブランドウェブサイトの構築に特に人気があります。
+**[Studio.Design](https://studio.design/)** は、コードを一切触ることなく、完全なビジュアルの自由度を求めるデザイナーやクリエイター、小規模ビジネス向けに設計されたノーコード・ウェブサイトビルダーです。特に、洗練された見た目と優れたパフォーマンスを兼ね備えたポートフォリオ、ランディングページ、ブランドサイトの制作において高く評価されています。
 
-詳しくは、**[Studio.Design](https://studio.design/ja)** をご覧ください。
+**ウェブサイトURL:** [Studio.Design](https://studio.design/ja)
 
-### SiteSpeakAI の場合
+### SiteSpeakAIにおいて
 
-上部のドロップダウンメニューからチャットボットを選択し、サイドバーの「**チャットボットをインストール**」セクションをクリックして「**iFrame**」を選択し、「**コードをコピー**」ボタンをクリックしてコードスニペットをコピーします。
+上部のドロップダウンメニューからAIサポートエージェントを選択し、サイドバーの「チャットボットのインストール（Install Chatbot）」セクションをクリックします。次に「iFrame」を選択し、「コードをコピー（Copy Code）」ボタンをクリックして、コードスニペットをコピーしてください。
 
-![Copy iFrame code](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/0ZbAkCjMQ9tIYIqjQ45f0AQAc3S64eCeNORhyk1q.png)
+![Copy iFrame code](/images/installing-your-chatbot/Studio.Design/copy-iframe-code.png)
 
-### Studio.Design で
+### Studio.Designにて
 
-1. **Studio.Design** アカウントにログインし、ダッシュボードでウィジェットを追加したいプロジェクトにマウスオーバーして「**デザインエディター**」を選択します。
+1. **Studio.Design**アカウントにログインし、ダッシュボード上でウィジェットを追加したいプロジェクトにカーソルを合わせて、**Design Editor**を選択します。
 
-![Studio dashboard](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/FAMVe25l5Vi0tl4jjmS4oBcRwpsmeBSqkIWrBySP.png)
+![Dashboard](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/FAMVe25l5Vi0tl4jjmS4oBcRwpsmeBSqkIWrBySP.png)
 
 2. プロジェクトが編集モードで開き、デフォルトのページが表示されます。
 
-**注意**: Studio.Design では、JavaScript スニペットを使用してチャットボットボタンを追加することはできませんが、SiteSpeakAI チャットボットダイアログの iframe コード（このチュートリアルの冒頭でコピーしたもの）を含むポップアップモーダルページを作成し、これをウェブページ上のボタンにリンクすることは可能です。
+**注意**: Studio.Designでは、JavaScriptスニペットを使用してAIサポートエージェントのボタンを追加することはできません。ただし、SiteSpeakAIのAIサポートエージェント用ダイアログのiframeコード（本チュートリアルの冒頭でコピーしたもの）を組み込んだポップアップモーダルページを作成し、それをウェブページ上のボタンにリンクさせることは可能です。
 
-それでは、**モーダル** ページを作成しましょう。
+**モーダル**ページを作成しましょう。
 
-3. 左側のサイドバーで**ページ**オプションを選択します
+3. 左側のサイドバーで **[ページ]** オプションを選択します。
 
-![Select pages](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/7TgsnPvTFPvekigs5IruKIJDsRYmtLPWF3UTS1dT.png)
+![Select Pages](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/7TgsnPvTFPvekigs5IruKIJDsRYmtLPWF3UTS1dT.png)
 
-4. 「**ページ**」タブで「**追加**」をクリックしてページを追加します。これにより、**通常ページと動的ページ**、**通常モーダルと動的モーダル**、**リダイレクトページ**、**検索ページ**、**パスワードページ**を追加できます。ここでは**通常モーダル**ページを選択します。
+4. **[ページ]** タブで **[追加]** をクリックし、ページを追加します。ここでは、「通常のページ」および「動的ページ」、「通常のモーダル」および「動的モーダル」、「リダイレクトページ」、「検索ページ」、「パスワード保護ページ」を追加できます。今回は、**[通常のモーダル]** ページを選択します。
 
-![Add page](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/wzXkpy9EGdzbH7wZycIl1UInzTagIA2udtDq1EVy.png)
+![Select Add](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/wzXkpy9EGdzbH7wZycIl1UInzTagIA2udtDq1EVy.png)
 
-5. 「モーダル（通常）」を選択
+5. モーダル（通常）を選択
 
-![Select modal](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/b96K14ga1ESxQdycthcfYHj1Ku5RI8cyde87qMJm.png)
+![Select Modal (Regular)](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/b96K14ga1ESxQdycthcfYHj1Ku5RI8cyde87qMJm.png)
 
-6. 「ページ」に空のモーダルページが表示されます
+6. これで、空のモーダルページが「ページ」の下に一覧表示されます。
 
-![Blank modal](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/oSh7DX3tPXkbQfJLfdm293SURGhtOMgWRgRJTOY5.png)
+![Modal (Regular) created](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/oSh7DX3tPXkbQfJLfdm293SURGhtOMgWRgRJTOY5.png)
 
-7. **追加** を選択し、「**空白を埋め込む \</>**」ボックスをモーダルページにドラッグします。
+7. **[追加]** を選択し、**Embed Blank \</>** ボックスをモーダルページ内にドラッグします。
 
-![Add embed box](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/j09DLM3at5HRPa9cwORNyUlwhNNnjnXaBnB0KvpH.png)
+![Drag the Embed Blank box](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/j09DLM3at5HRPa9cwORNyUlwhNNnjnXaBnB0KvpH.png)
 
-8. 最初にコピーしたiframeコードを **\</>カスタム** ボックスに挿入します。モーダルページの埋め込みボックスにチャットボットが表示されます。次の手順でサイズを変更します。
 
-![Insert iframe](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/NXKnT9c2euEGEnICuzAtUKJ9EH3yboXKyWTZI1wd.png)
+8. 最初にコピーしておいたiframeコードを、「**\</> Custom**」ボックスに貼り付けます。モーダルページの埋め込みボックス（Embed Box）内にAIサポートエージェントが表示されます。これのサイズ調整は、次のステップで行います。
 
-9. 実際のiframeのサイズは幅450ピクセル、高さ600ピクセルです。iframeのコード属性で設定されているiframeのサイズに合わせて、モーダルページのサイズを設定してください。
+![iframe displayed](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/NXKnT9c2euEGEnICuzAtUKJ9EH3yboXKyWTZI1wd.png)
 
-![Set modal size](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/eLM6PBfNa8y5cTQDkNEHNMtNNyRD83my5y2MTDHs.png)
+9.  iframeの実際のサイズは、幅450px、高さ600pxです。モーダルページのサイズを、iframeのコード属性で指定されているiframeのサイズに合わせて設定してください。
 
-10. iframeを含む**埋め込みボックス**を選択し、モーダルページ全体に表示されるサイズを設定します。
+![Set the Modal size](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/eLM6PBfNa8y5cTQDkNEHNMtNNyRD83my5y2MTDHs.png)
 
-![Set embed size](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/W6sSeSbOzEKBIh6YYuuWeEpc8KE5p4ICwalLe21F.png)
+10. iframe を含む **埋め込みボックス** を選択し、モーダル ページを満たすサイズを設定します。
 
-11. モーダルページ設定オプションを選択します
+![Set the iframe size](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/W6sSeSbOzEKBIh6YYuuWeEpc8KE5p4ICwalLe21F.png)
 
-![Modal settings](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/y62fgGR4o3fgsG8y9oV5ZbpdzWvDLt5dLZ70U1D9.png)
+11. 「モーダルページ設定」オプションを選択します。
 
-12. **パスを使用** 設定を有効にします
+![Modal settings option](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/y62fgGR4o3fgsG8y9oV5ZbpdzWvDLt5dLZ70U1D9.png)
 
-![Enable use path](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/NO0K7HQbzaCXe1H2fMmRpKf1QMPoyOA7vOYvE5ZK.png)
+12. 「パスを使用」設定を有効にする
 
-チャットボットのダイアログを含むポップアップモーダルページを表示する**ボタン**をウェブページに追加します。ボタンはページフッターに追加するのが最適です。ページフッターがない場合は、ここで追加できます（このチュートリアルではフッターの追加方法については扱いませんので、Studio.Design ドキュメントをご確認ください）。
+![Enable the Use Path setting](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/NO0K7HQbzaCXe1H2fMmRpKf1QMPoyOA7vOYvE5ZK.png)
 
-13. チャットボットを追加したい**ページ**を選択します
+次に、AIサポートエージェントとの対話が表示されるポップアップモーダルを開くための「ボタン」を、Webページに追加します。このボタンは、ページフッターに配置するのが最適です。もしページフッターがない場合は、ここで追加してください（フッターの追加方法については本チュートリアルの範囲外となりますので、Studio.Designのドキュメントを参照してください）。
 
-![Select page](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/SzQcbJqBnF1y3K6TemkiJ1f6b9bb9XnxLl4xuPtK.png)
+13. AIサポートエージェントを追加する**ページ**を選択します。
 
-14. **ボックス**をページフッターにドラッグします
+![Select the page](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/SzQcbJqBnF1y3K6TemkiJ1f6b9bb9XnxLl4xuPtK.png)
 
-![Drag box to footer](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/4VDVG56nigfMasB16pB6oU0jm1O3W4U6Ypg0chjd.png)
+14. ページフッターに「ボックス」をドラッグします。
 
-15. **ボタン** をボックスにドラッグします
+![Drag a Box](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/4VDVG56nigfMasB16pB6oU0jm1O3W4U6Ypg0chjd.png)
 
-![Drag button](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/s5KYFFONfc9xqvJa8Kz8pQ28PR8z9K8dOmSki5Fw.png)
+15. **ボタン**をボックス内にドラッグします。
 
-**ご注意**: **Studio.Design** で使用するボタンにはアイコンを表示できないため、適切なテキストをボタンに追加します。この例では、「**サポート**」と入力しました。
+![Drag a Button](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/s5KYFFONfc9xqvJa8Kz8pQ28PR8z9K8dOmSki5Fw.png)
 
-![Button text](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/IHveKHfdNAGj9P9r6ZEfpCGK1WiQC9JSXvQqc3mX.png)
+**注意**: **Studio.Design**で使用するボタンにはアイコンを表示できないため、ボタンに適切なテキストを追加します。今回は「**Support**」というテキストを追加しました。
 
-16. ボタンのサイズ、余白、パディング、形状、塗りつぶし色を変更するには、ボタンボックスを選択し、上部のメニューの属性を使用して変更を加えます。この例では、デフォルトの黒いボタンの色をウェブページと一致する色に変更しました。
+![Change the Button text](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/IHveKHfdNAGj9P9r6ZEfpCGK1WiQC9JSXvQqc3mX.png)
 
-![Style button](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/HxscFVsSDz5fpmmBOqaeAvbCcHY3d7y7F9wlQXKl.png)
+16.  ボタンのサイズ、余白（マージン・パディング）、形状、塗りつぶしの色を変更するには、ボタンのボックスを選択し、上部メニューにある属性項目を使って設定を変更します。今回の例では、デフォルトの黒いボタンの色を、ウェブページに合わせた色に変更しました。
 
-17. ボタンをクリックしたときにモーダルがアクティブになるようにするには、作成したモーダルをボタンを含むボックスに**リンク**する必要があります。
+![Change the Button appearance](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/HxscFVsSDz5fpmmBOqaeAvbCcHY3d7y7F9wlQXKl.png)
 
-![Link modal](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/45QPYynZ4Fb6xb3RIX2coC3cb34tOAqEeu3nVQfi.png)
+17.  ボタンをクリックしたときにモーダルが起動するようにするには、作成したモーダルを、そのボタンが含まれているボックスに**リンク**させる必要があります。
 
-18. 選択**ライブプレビュー** でウェブページをプレビュー表示します
+![Link the Modal to the Box](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/45QPYynZ4Fb6xb3RIX2coC3cb34tOAqEeu3nVQfi.png)
 
-![Live preview](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/r7FPhOeIRcASJYfVfpGC1EvlaNdEDcxr3UjBYNIq.png)
+18. **ライブプレビュー**を選択して、Webページをプレビューします。
 
-19. **出来上がり！** ライブページにボタンが表示されます！
+![Select Live Preview](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/r7FPhOeIRcASJYfVfpGC1EvlaNdEDcxr3UjBYNIq.png)
 
-![Button on page](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/iLVggmeFh1BvrubdUSeQRelMjVEh4ewqRKsA1nF4.png)
+19. **ほら！** ライブページにボタンが表示されました！
 
-20. ボタンをクリックすると、チャットボットのダイアログが表示されます。
+![Your Button](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/iLVggmeFh1BvrubdUSeQRelMjVEh4ewqRKsA1nF4.png)
+
+20. ボタンをクリックすると、AIサポートエージェントの対話画面が表示されます。
 
 ![Chatbot dialogue](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/dO0WdxQBM5uy5TROFfLedNuIS3BaQGn9KEuEf1Bo.png)
 
-これで、**Studio.Design** ウェブサイトにチャットボットが追加され、お客様がチャットボットとやり取りできるようになりました。
+AIサポートエージェントが **Studio.Design** のウェブサイトに追加されました。これより、お客様がエージェントとやり取りできるようになります！
 
 <Cta />
 
