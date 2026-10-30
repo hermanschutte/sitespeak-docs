@@ -415,6 +415,18 @@
     {
       "source": "/quickstart",
       "destination": "/getting-started/create-your-chatbot"
+    },
+    {
+      "source": "/installing-your-chatbot/how-to-add-chatgpt-to-studio-japanese",
+      "destination": "/installing-your-chatbot/how-to-add-chatgpt-to-studio-design-japanese"
+    },
+    {
+      "source": "/installing-your-chatbot/how-to-add-a-chatgpt-chatbot-to-showit",
+      "destination": "/installing-your-chatbot/how-to-add-chatgpt-to-showit"
+    },
+    {
+      "source": "/installing-your-chatbot/how-to-add-chatgpt-chatbot-to-showit",
+      "destination": "/installing-your-chatbot/how-to-add-chatgpt-to-showit"
     }
   ]
 }
