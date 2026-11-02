@@ -146,14 +146,17 @@ The list covers auto-updating sitemaps, removing "Powered By", speech recognitio
 ### What Withholding Does
 
 - The client can no longer switch the feature on.
-- Features the client already uses are switched off on their agents: speech recognition and text-to-speech, and a hidden "Powered By" label. The label then shows the Powered By text you set under **Agency > Branding**. Agents on an xAI model move to the default model.
-- Auto-updating sources can no longer be added, and existing sitemap sources stop pulling in new pages. The pages they already added stay.
+- SiteSpeak switches off what the client already uses: speech recognition and text-to-speech, and a hidden "Powered By" label. The label then shows the Powered By text you set under **Agency > Branding**. If you have not set a Powered By text, the widget shows no label. SiteSpeak moves agents on an xAI model to GPT-5.6 Luna.
+- The client can no longer add auto-updating sources. Existing sitemap, website crawl, SharePoint, OneDrive and Confluence sources stop pulling in new pages and files. The pages and files they already added stay, and single pages keep their normal sync.
 - Inbox translation, inbox email drafts and the audit log stop at once.
-- Some things keep working so nothing breaks for the client: PII redaction stays on if it is on, a custom domain that is already set up keeps working, and existing API tokens keep working. The client cannot set up a new domain or create new tokens.
+- The client can no longer create API tokens in the dashboard. Tokens they already have keep working.
+- Some things keep working, so nothing breaks for the client: PII redaction stays on if it is on, and a custom domain that is already set up keeps working. The client cannot set up a new domain.
+
+Allowing a feature again lets the client switch it back on. SiteSpeak does not restore what it switched off: the client turns voice and the label back on and picks their model again.
 
 ### Via the API
 
-Send `enabled_features` on [Create](/api-reference/agency/create-client) or [Update](/api-reference/agency/update-client) Client Workspace as a list of keys: `auto_sitemaps`, `remove_powered_by`, `voice`, `inbox_translation`, `inbox_email_drafts`, `custom_domain`, `pii_redaction`, `audit_log`, `api_access`, `advanced_xai_models`. `null` means everything your plan includes; an empty list withholds all of them. Client responses echo the current value.
+Send `enabled_features` on [Create](/api-reference/agency/create-client) or [Update](/api-reference/agency/update-client) Client Workspace as a list of keys: `auto_sitemaps`, `remove_powered_by`, `voice`, `inbox_translation`, `inbox_email_drafts`, `custom_domain`, `pii_redaction`, `audit_log`, `api_access`, `advanced_xai_models`. `null` means everything your plan includes; an empty list withholds all of them. Client responses echo the current value. A list with all ten keys means the same as `null`, so SiteSpeak stores and returns it as `null`.
 
 Like the integrations, SiteSpeak stores the list per client. If you sell your own plans, send the list for the client's plan when you create the client and again on every plan change.
 
