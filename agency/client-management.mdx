@@ -131,6 +131,36 @@ If you sell your own plans, keep the list per plan on your side and send it when
   Your plan is still the ceiling. Ticking an integration your agency plan does not include does not unlock it.
 </Note>
 
+## Per-Client Features
+
+Your agency plan decides which features exist. Per client, you decide which of them the client may use, so you can sell plans with fewer features. New clients get everything your plan includes; untick a feature to keep it out of that client's workspace.
+
+### Setting Features
+
+1. Go to **Agency > Clients**
+2. Click the actions menu (three dots) next to the client and select **Edit Client**, or set them when you create the client
+3. Untick the features to withhold and save
+
+The list covers auto-updating sitemaps, removing "Powered By", speech recognition and text-to-speech, inbox translation, inbox email drafts, custom domain, PII redaction, audit log, API access and advanced xAI models.
+
+### What Withholding Does
+
+- The client can no longer switch the feature on.
+- Features the client already uses are switched off on their agents: speech recognition and text-to-speech, and a hidden "Powered By" label. The label then shows the Powered By text you set under **Agency > Branding**. Agents on an xAI model move to the default model.
+- Auto-updating sources can no longer be added, and existing sitemap sources stop pulling in new pages. The pages they already added stay.
+- Inbox translation, inbox email drafts and the audit log stop at once.
+- Some things keep working so nothing breaks for the client: PII redaction stays on if it is on, a custom domain that is already set up keeps working, and existing API tokens keep working. The client cannot set up a new domain or create new tokens.
+
+### Via the API
+
+Send `enabled_features` on [Create](/api-reference/agency/create-client) or [Update](/api-reference/agency/update-client) Client Workspace as a list of keys: `auto_sitemaps`, `remove_powered_by`, `voice`, `inbox_translation`, `inbox_email_drafts`, `custom_domain`, `pii_redaction`, `audit_log`, `api_access`, `advanced_xai_models`. `null` means everything your plan includes; an empty list withholds all of them. Client responses echo the current value.
+
+Like the integrations, SiteSpeak stores the list per client. If you sell your own plans, send the list for the client's plan when you create the client and again on every plan change.
+
+<Note>
+  Your plan is still the ceiling. Ticking a feature your agency plan does not include does not unlock it.
+</Note>
+
 ## Client API Keys (BYOK)
 
 You can let a client bring their own LLM API keys, so their chatbots run on the client's own provider accounts. This is off by default and is enabled per client with the `byok_enabled` field on the [Create](/api-reference/agency/create-client) and [Update](/api-reference/agency/update-client) Client Workspace API endpoints.
