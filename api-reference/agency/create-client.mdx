@@ -29,6 +29,7 @@ Use this endpoint to provision a client from your own billing system: create the
 | response_token_limit | Integer | Response length limit in tokens (50 to 10000) for this client's AI agents. Answers are shaped to fit, with a small allowance to finish the last sentence; `null` or omitted means no limit. |
 | byok_enabled | Boolean | When `true`, the client's workspace administrators can add their own LLM API keys. Defaults to `false`. Messages still count against the client's credits. See [Client API Keys (BYOK)](/agency/client-management#client-api-keys-byok). |
 | enabled_integrations | Array | Which integrations this client may use: any of `whatsapp`, `hubspot`, `slack`, `google_chat`, `telegram`, `discord`, `actions`. Omit or `null` to allow everything your agency plan includes. An empty array withholds all of them. See [Per-Client Integrations](/agency/client-management#per-client-integrations). |
+| enabled_features | Array | Which plan features this client may use: any of `auto_sitemaps`, `remove_powered_by`, `voice`, `inbox_translation`, `inbox_email_drafts`, `custom_domain`, `pii_redaction`, `audit_log`, `api_access`, `advanced_xai_models`. Omit or `null` to allow everything your agency plan includes. An empty array withholds all of them. A list with all ten keys comes back as `null`. See [Per-Client Features](/agency/client-management#per-client-features). |
 | chatbot | Object | Optionally create the client's first AI agent in the same call. |
 | chatbot.name* | String | The AI agent name. Required when `chatbot` is present. |
 | chatbot.website_url | String | A website URL to crawl and train the agent on. |
@@ -110,6 +111,7 @@ The `accept_url` is a signed link your client uses to create their login and joi
     "paused_at": null,
     "byok_enabled": false,
     "enabled_integrations": ["slack", "hubspot", "actions"],
+    "enabled_features": null,
     "limits": {
       "chatbots": 2,
       "sources": 50,
