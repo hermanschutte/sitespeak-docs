@@ -67,14 +67,45 @@ You can start with a free plan at sitespeak.ai.
 
 ![Block selector with Custom HTML selected](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/HqsvZPq4tkIsWeBQGbBEFoNqucz5h0udscXFpW1v.png)
 
-4. Paste the SiteSpeakAI code snippet
+4. Paste the SiteSpeakAI code snippet. If an **HTML** window opens, paste the snippet in the window and click **Update** in the window
 
 ![Custom HTML block with the SiteSpeakAI code snippet](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/DAn8bJEZY04jFtEplofxCtPmwuzsw2Y0lr7L0k1S.png)
 
-5. Click **Update** or **Save** to save the page
+5. Click **Save** at the top of the editor to save the page. In older WordPress versions, this button says **Update**
  
 Your AI support agent now shows on this page. To show it on more pages, add the Custom HTML block to each page.
 
-If you use Elementor Pro, you can add the agent to every page at once. See [How to add an AI chatbot to Elementor](/installing-your-chatbot/how-to-add-chatgpt-to-elementor).
+### Add the agent to every page
+
+To show the agent on every page of your site, use the free WPCode plugin. You paste the snippet one time, and WPCode adds it to each page.
+
+1. In WordPress, click **Plugins**, then **Add Plugin**
+
+2. Search for **WPCode**. On the **WPCode** plugin by Syed Balkhi, click **Install Now**, then **Activate**
+
+3. Click **Code Snippets**, then **Header & Footer**
+
+4. Paste the SiteSpeakAI code snippet in the **Header** box
+
+5. Click **Save Changes**
+
+Your AI support agent now shows on every page. If your site uses a cache plugin, clear the cache, so that all visitors get the agent.
+
+If you use Elementor Pro, you can also use its Custom Code option. See [How to add an AI chatbot to Elementor](/installing-your-chatbot/how-to-add-chatgpt-to-elementor).
+
+### If the chat button does not show
+
+<Warning>
+WordPress lets only some accounts add a script, such as the SiteSpeakAI code snippet. If your account cannot add one, WordPress removes the `<script>` tags when you save the page. The code then shows as text on your page, and the chat button does not show.
+</Warning>
+
+These WordPress accounts can add a script:
+
+- On a single site, Administrators and Editors can add it in a Custom HTML block. Only Administrators can use WPCode.
+- On a WordPress Multisite network, only a Super Admin can add it.
+
+A site can also turn scripts off for all accounts with the `DISALLOW_UNFILTERED_HTML` setting in `wp-config.php`. Your host can tell you if your site uses it.
+
+If you do not see **Code Snippets** in the menu, or WPCode says "Sorry, you only have read-only access to this page", your account cannot add the snippet with WPCode. Ask your site administrator or your host to add the snippet for you.
 
 <Cta />
