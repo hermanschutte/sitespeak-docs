@@ -67,11 +67,13 @@ You can start with a free plan at sitespeak.ai.
 
 ![Block selector with Custom HTML selected](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/HqsvZPq4tkIsWeBQGbBEFoNqucz5h0udscXFpW1v.png)
 
-4. Paste the SiteSpeakAI code snippet. If an **HTML** window opens, paste the snippet in the window and click **Update** in the window
+4. Click **Edit HTML** on the block. Paste the SiteSpeakAI code snippet in the **HTML** tab, then click **Update**. Do not paste it in the **JavaScript** tab, because the snippet does not work there. After you click **Update**, the block can look empty in the editor. This is normal.
 
-![Custom HTML block with the SiteSpeakAI code snippet](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/DAn8bJEZY04jFtEplofxCtPmwuzsw2Y0lr7L0k1S.png)
+   In older WordPress versions, the block has no **Edit HTML** button. Paste the snippet in the block
 
-5. Click **Save** at the top of the editor to save the page. In older WordPress versions, this button says **Update**
+![Custom HTML block with the SiteSpeakAI code snippet in an older WordPress version](https://nyc3.digitaloceanspaces.com/cdn.sitespeak.ai/uploads/help-center/images/DAn8bJEZY04jFtEplofxCtPmwuzsw2Y0lr7L0k1S.png)
+
+5. Click **Save** at the top of the editor to save the page. In older WordPress versions, this button says **Update**. If the page is a draft, click **Publish**, because visitors cannot see a draft
  
 Your AI support agent now shows on this page. To show it on more pages, add the Custom HTML block to each page.
 
@@ -79,11 +81,13 @@ Your AI support agent now shows on this page. To show it on more pages, add the 
 
 To show the agent on every page of your site, use the free WPCode plugin. You paste the snippet one time, and WPCode adds it to each page.
 
-1. In WordPress, click **Plugins**, then **Add Plugin**
+If you added the snippet to some pages with a Custom HTML block, remove those blocks first. If you do not, those pages load the agent two times.
+
+1. In WordPress, click **Plugins**, then **Add Plugin**. In older WordPress versions, this menu item says **Add New Plugin** or **Add New**
 
 2. Search for **WPCode**. On the **WPCode** plugin by Syed Balkhi, click **Install Now**, then **Activate**
 
-3. Click **Code Snippets**, then **Header & Footer**
+3. Click **Code Snippets**, then **Header & Footer**. If you do not see **Code Snippets**, click **Settings**, then **Header & Footer**
 
 4. Paste the SiteSpeakAI code snippet in the **Header** box
 
@@ -94,6 +98,8 @@ Your AI support agent now shows on every page. If your site uses a cache plugin,
 If you use Elementor Pro, you can also use its Custom Code option. See [How to add an AI chatbot to Elementor](/installing-your-chatbot/how-to-add-chatgpt-to-elementor).
 
 ### If the chat button does not show
+
+First, check where you pasted the snippet. It works only in a **Custom HTML** block or in WPCode. In another block, such as a **Paragraph** block, the chat button does not show. If your site uses the Classic Editor, paste the snippet in the **Text** tab, not the **Visual** tab.
 
 <Warning>
 WordPress lets only some accounts add a script, such as the SiteSpeakAI code snippet. If your account cannot add one, WordPress removes the `<script>` tags when you save the page. The code then shows as text on your page, and the chat button does not show.
@@ -106,6 +112,6 @@ These WordPress accounts can add a script:
 
 A site can also turn scripts off for all accounts with the `DISALLOW_UNFILTERED_HTML` setting in `wp-config.php`. Your host can tell you if your site uses it.
 
-If you do not see **Code Snippets** in the menu, or WPCode says "Sorry, you only have read-only access to this page", your account cannot add the snippet with WPCode. Ask your site administrator or your host to add the snippet for you.
+If you cannot find **Header & Footer** in either menu, or WPCode says "Sorry, you only have read-only access to this page", your account cannot add the snippet with WPCode. Ask your site administrator or your host to add the snippet for you.
 
 <Cta />
