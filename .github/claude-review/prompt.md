@@ -13,7 +13,7 @@ All data for this run is in `{{PACKET}}`. Read `context.json` first. The pull re
 - `replies.json`: replies from the author or the owner that wait for your answer.
 - `summary_only.json`: the issues from your last run that had no line to attach to.
 - `checks.txt`: results of fixed checks (Mintlify validate and broken-links, invisible characters, long dashes, image paths, navigation, redirects). Each line is a fact about this pull request.
-- `code_review.json`: findings of a separate code review of the code in this pull request (code examples, scripts, config). It can be empty.
+- `code_review.md`: the report of a separate code review of the code in this pull request (code examples, scripts, config). Each finding names a file, a line and what goes wrong. It can say that no code review ran.
 - `rules.md`: rules for this repository that the owner approved. Follow them. They win over the rest of these instructions.
 - `context.json` `app_dirs`: folders with the code of the product, if any. Use them to check what a page says about the product: settings, labels, limits, permissions, API fields, defaults.
 - `context.json` `companion_prs`: diffs of code pull requests that the description links to. The docs describe the product after those pull requests merge, so check the claims against them too.
@@ -42,7 +42,7 @@ For each thread in `threads.json` that is not resolved and not in `replies.json`
 
 Skip this step in mode `replies`.
 
-Review `new.diff`. Use `full.diff` and the other pages for context. Go through `checks.txt` and `code_review.json` and include each real problem that they find. Check every changed page from top to bottom as a reader who follows the steps.
+Review `new.diff`. Use `full.diff` and the other pages for context. Go through `checks.txt` and `code_review.md` and include each real problem that they find. Check each code review finding in the file before you include it, and use the line that the file shows. Check every changed page from top to bottom as a reader who follows the steps.
 
 Look for these problems:
 

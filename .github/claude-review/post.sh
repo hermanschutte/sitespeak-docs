@@ -27,6 +27,12 @@ author=$(ctx .author); owner=$(ctx .owner); url=$(ctx .url)
 reviews=$(ctx .reviews); summary_id=$(ctx .summary_id); had_label=$(ctx .had_label)
 reviewed=$(jq -r .reviewed <<<"$RESULT")
 
+# New rules go to a separate job that may write to the repository. Write them first, so that a
+# failed GitHub call below does not lose them.
+if [ -n "${GITHUB_OUTPUT:-}" ] && [ "$(jq '.add_rules | length' <<<"$RESULT")" -gt 0 ]; then
+  echo "rules=$(jq -c .add_rules <<<"$RESULT")" >> "$GITHUB_OUTPUT"
+fi
+
 # 1. New comments. A comment that GitHub refuses (its line is not in the diff) goes to the summary.
 failed='[]'; posted='[]'
 while IFS= read -r c; do
@@ -44,7 +50,7 @@ while IFS= read -r c; do
   if [ "${DRY_RUN:-}" = 1 ]; then
     write POST "repos/$REPO/pulls/$PR/comments" <<<"$payload"; resp='{"id": 0, "html_url": "#"}'
   elif ! resp=$(gh api -X POST "repos/$REPO/pulls/$PR/comments" --input - <<<"$payload"); then
-    echo "::warning::GitHub refused a comment on $(jq -r '"\(.path) line \(.line)"' <<<"$c"). It goes in the summary."
+    echo "::warning::GitHub refused a comment on $(jq -r '"\(.path) line \(.line)"' <<<"$c" | tr '\n\r' '  '). It goes in the summary."
     failed=$(jq -c --argjson c "$c" '. + [$c | {severity, security, title, path, body: "\(.body) (line \(.line))"}]' <<<"$failed")
     continue
   fi
@@ -56,7 +62,7 @@ done < <(jq -c '.comments[]' <<<"$RESULT")
 while IFS= read -r r; do
   [ -n "$r" ] || continue
   write POST "repos/$REPO/pulls/$PR/comments/$(jq -r .root_id <<<"$r")/replies" <<<"$(jq -c '{body}' <<<"$r")" \
-    || echo "::warning::Could not reply in thread $(jq -r .thread_id <<<"$r")."
+    || echo "::warning::Could not reply in thread $(jq -r .thread_id <<<"$r" | tr '\n\r' '  ')."
 done < <(jq -c '.replies[]' <<<"$RESULT")
 # A reply that Claude resolved without an answer stays the last comment, and each later run would answer it again.
 while IFS= read -r root; do
@@ -86,8 +92,14 @@ open_threads=$("$here/threads.sh" | jq -c --argjson res "$(jq -c .resolve <<<"$R
   | map(.root_id) as $seen
   | . + [$posted[] | select(.root_id as $id | $seen | index($id) | not)]
   | map(del(.root_id))')
-so=$(jq -c --argjson failed "$failed" '.summary_only + $failed' <<<"$RESULT")
-# A failed code review keeps the pull request open, but the next run does not carry it over.
+if [ "$reviewed" = true ]; then
+  so=$(jq -c --argjson failed "$failed" '.summary_only + $failed' <<<"$RESULT")
+else
+  # The review did not finish, so keep the issues of the last run.
+  so=$(jq -c --argjson failed "$failed" '. + $failed' "$OUT/summary_only.json")
+fi
+# A failed code review keeps the pull request open. The last reviewed commit stays as it
+# was (step 5), so the next run reviews the code again.
 shown=$so
 if [ -f "$OUT/code_review_failed" ]; then
   shown=$(jq -c '. + [{severity: "P2", security: false, title: "The code review did not finish", body: "Comment `@claude review` to run it again."}]' <<<"$so")
@@ -95,7 +107,7 @@ fi
 open=$(( $(jq length <<<"$open_threads") + $(jq length <<<"$shown") ))
 
 # 5. The summary comment. Its first line keeps the last reviewed commit for the next run.
-if [ "$reviewed" = true ]; then
+if [ "$reviewed" = true ] && [ ! -f "$OUT/code_review_failed" ]; then
   mark=$head
   [ "$mode" = replies ] || reviews=$((reviews + 1))
 else
@@ -159,13 +171,8 @@ else
   fi
 fi
 
-# New rules go to a separate job that may write to the repository.
-if [ -n "${GITHUB_OUTPUT:-}" ] && [ "$(jq '.add_rules | length' <<<"$RESULT")" -gt 0 ]; then
-  echo "rules=$(jq -c .add_rules <<<"$RESULT")" >> "$GITHUB_OUTPUT"
-fi
-
 echo "Open issues: $open."
 if [ "$reviewed" != true ]; then
-  echo "::error::The review did not finish: $(jq -r '.error // "no reason given"' <<<"$RESULT")"
+  echo "::error::The review did not finish: $(jq -r '.error // "no reason given"' <<<"$RESULT" | tr '\n\r' '  ')"
   exit 1
 fi

@@ -108,7 +108,7 @@ if [ "$mode" != replies ]; then
     code=true
   fi
 fi
-echo '[]' > "$OUT/code_review.json"
+echo "No code review ran on these commits." > "$OUT/code_review.md"
 
 # The app code, to check what the pages say about the product. Read-only.
 app_dirs='[]'

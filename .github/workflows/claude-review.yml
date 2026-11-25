@@ -122,49 +122,30 @@ jobs:
             --allowedTools "Read,Glob,Grep,Agent"
             --disallowedTools "Edit,Write,NotebookEdit,WebFetch,WebSearch"
 
-      - name: Save the code review findings
+      # The report of the code review goes to the main review as text. Its format changes
+      # between runs (a JSON list or a numbered list), so the workflow does not parse it.
+      - name: Save the code review report
         if: steps.prep.outputs.code == 'true'
         env:
           EXECUTION_FILE: ${{ steps.code.outputs.execution_file }}
           OUT: ${{ runner.temp }}/claude-review
         run: |
           set -u
-          r=$(jq -r '[.[] | select(.type == "result")] | last | .result // ""' "$EXECUTION_FILE" 2> /dev/null || true)
-          # The findings are the first JSON list of objects in the last message, with or
-          # without a fence. Text such as "returns []" can come first, so an empty list
-          # counts only when no other list follows.
-          if python3 -c '
-          import json, sys
-          t = sys.stdin.read()
-          found, i = [], 0
-          while i < len(t):
-              if t[i] == "[":
-                  try:
-                      v, end = json.JSONDecoder().raw_decode(t, i)
-                  except ValueError:
-                      v, end = None, i + 1
-                  if isinstance(v, list) and all(isinstance(x, dict) for x in v):
-                      found.append(v)
-                  i = end
-              else:
-                  i += 1
-          if not found:
-              sys.exit(1)
-          print(json.dumps(next((v for v in found if v), [])))
-          ' <<<"$r" > "$OUT/code_review.json"; then
-            echo "Code review findings: $(jq length "$OUT/code_review.json")"
+          r=$(jq -r '[.[] | select(.type == "result")] | last | select(.is_error | not) | .result // ""' "$EXECUTION_FILE" 2> /dev/null || true)
+          if [ -n "$r" ]; then
+            printf '%s\n' "$r" > "$OUT/code_review.md"
+            echo "The code review finished."
           else
-            echo '[{"note": "The code review did not finish, so it found nothing."}]' > "$OUT/code_review.json"
+            echo "The code review did not finish, so it found nothing." > "$OUT/code_review.md"
             touch "$OUT/code_review_failed"
-            echo "::warning::The code review did not finish. Its last message starts with: $(head -c 300 <<<"$r" | tr '\n' ' ')"
+            echo "::warning::The code review did not finish."
           fi
-          # The last message, the findings and the commands that dontAsk refused. Claude wrote
-          # this text, so GitHub must not read workflow commands (lines that start with ::) in it.
+          # The report and the commands that dontAsk refused. Claude wrote this text, so
+          # GitHub must not read workflow commands (lines that start with ::) in it.
           stop=$(openssl rand -hex 16)
-          echo "::group::Code review text"
+          echo "::group::Code review report"
           echo "::stop-commands::$stop"
-          printf '%s\n' "$r"
-          jq -r '.[] | "- \(.severity // "") \(.file // ""):\(.line // "") \(.summary // "" | .[0:200])"' "$OUT/code_review.json"
+          cat "$OUT/code_review.md"
           jq -r '[.[] | select(.type == "result")] | last | .permission_denials[]? | "Refused: \(.tool_name) \(.tool_input.command // (.tool_input | tostring) | .[0:200])"' "$EXECUTION_FILE" 2> /dev/null || true
           echo "::$stop::"
           echo "::endgroup::"
