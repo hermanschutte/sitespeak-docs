@@ -100,9 +100,11 @@ fi
 code=false
 if [ "$mode" != replies ]; then
   changed=$(git diff --name-only "$range" HEAD | grep -xFf "$OUT/files.txt" || true)
+  pages=$(grep -E '\.mdx?$' <<<"$changed" || true)
   if grep -E '^\.github/' <<<"$changed" > /dev/null \
      || grep -vE '\.(mdx|md|png|jpe?g|gif|svg|webp|ico)$|^docs\.json$|^$' <<<"$changed" > /dev/null \
-     || git diff "$range" HEAD -- '*.mdx' '*.md' | grep -E '^\+.*(```|<CodeGroup|<RequestExample|<ResponseExample)' > /dev/null; then
+     || { [ -n "$pages" ] && tr '\n' '\0' <<<"$pages" | xargs -0 git diff "$range" HEAD -- \
+          | grep -E '^\+.*(```|<CodeGroup|<RequestExample|<ResponseExample)' > /dev/null; }; then
     code=true
   fi
 fi

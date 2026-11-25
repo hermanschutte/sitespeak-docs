@@ -113,11 +113,13 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ github.token }}
           prompt: /code-review medium ${{ steps.prep.outputs.base }}...${{ steps.prep.outputs.head }}
-          # dontAsk: Claude can use only the tools in the list.
+          # dontAsk: Claude can use only the tools in the list, and the Bash commands
+          # that Claude Code finds read-only (git diff, git log, git show). Do not add
+          # Bash(git diff:*): that rule also allows git diff --output=FILE, which writes files.
           claude_args: |
             --model opus
             --permission-mode dontAsk
-            --allowedTools "Read,Glob,Grep,Agent,Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(git status:*),Bash(git merge-base:*),Bash(git rev-parse:*)"
+            --allowedTools "Read,Glob,Grep,Agent"
             --disallowedTools "Edit,Write,NotebookEdit,WebFetch,WebSearch"
 
       - name: Save the code review findings
@@ -128,28 +130,37 @@ jobs:
         run: |
           set -u
           r=$(jq -r '[.[] | select(.type == "result")] | last | .result // ""' "$EXECUTION_FILE" 2> /dev/null || true)
-          # The findings are the first JSON list of objects in the last message, with or without a fence.
+          # The findings are the first JSON list of objects in the last message, with or
+          # without a fence. Text such as "returns []" can come first, so an empty list
+          # counts only when no other list follows.
           if python3 -c '
           import json, sys
           t = sys.stdin.read()
-          for i, c in enumerate(t):
-              if c != "[":
-                  continue
-              try:
-                  v, _ = json.JSONDecoder().raw_decode(t[i:])
-              except ValueError:
-                  continue
-              if isinstance(v, list) and all(isinstance(x, dict) for x in v):
-                  print(json.dumps(v))
-                  sys.exit(0)
-          sys.exit(1)
+          found, i = [], 0
+          while i < len(t):
+              if t[i] == "[":
+                  try:
+                      v, end = json.JSONDecoder().raw_decode(t, i)
+                  except ValueError:
+                      v, end = None, i + 1
+                  if isinstance(v, list) and all(isinstance(x, dict) for x in v):
+                      found.append(v)
+                  i = end
+              else:
+                  i += 1
+          if not found:
+              sys.exit(1)
+          print(json.dumps(next((v for v in found if v), [])))
           ' <<<"$r" > "$OUT/code_review.json"; then
             echo "Code review findings: $(jq length "$OUT/code_review.json")"
+            jq -r '.[] | "- \(.severity // "") \(.file // ""):\(.line // "") \(.summary // "" | .[0:200])"' "$OUT/code_review.json"
           else
             echo '[{"note": "The code review did not finish, so it found nothing."}]' > "$OUT/code_review.json"
             touch "$OUT/code_review_failed"
             echo "::warning::The code review did not finish. Its last message starts with: $(head -c 300 <<<"$r" | tr '\n' ' ')"
           fi
+          # The commands that dontAsk refused. A refused git command can make the review miss problems.
+          jq -r '[.[] | select(.type == "result")] | last | .permission_denials[]? | "Refused: \(.tool_name) \(.tool_input.command // (.tool_input | tostring) | .[0:200])"' "$EXECUTION_FILE" 2> /dev/null || true
 
       # Claude gets read access to the files only. The workflow posts what it returns.
       - name: Review

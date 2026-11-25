@@ -53,6 +53,12 @@ while IFS= read -r r; do
   write POST "repos/$REPO/pulls/$PR/comments/$(jq -r .root_id <<<"$r")/replies" <<<"$(jq -c '{body}' <<<"$r")" \
     || echo "::warning::Could not reply in thread $(jq -r .thread_id <<<"$r")."
 done < <(jq -c '.replies[]' <<<"$RESULT")
+# A reply that Claude resolved without an answer stays the last comment, and each later run would answer it again.
+while IFS= read -r root; do
+  [ -n "$root" ] || continue
+  write POST "repos/$REPO/pulls/$PR/comments/$root/replies" <<<'{"body": "Thanks. I resolved this thread."}' \
+    || echo "::warning::Could not reply in the thread of comment $root."
+done < <(jq -r --argjson r "$RESULT" '.[] | select(.thread_id as $t | ($r.resolve | index($t)) and ([$r.replies[].thread_id] | index($t) | not)) | .root_id' "$OUT/replies.json")
 
 # 3. Resolve the threads that are fixed or that the author keeps.
 for t in $(jq -r '.resolve[]' <<<"$RESULT"); do
