@@ -115,6 +115,7 @@ jobs:
           prompt: /code-review medium ${{ steps.prep.outputs.base }}...${{ steps.prep.outputs.head }}
           # dontAsk: Claude can use only the tools in the list.
           claude_args: |
+            --model opus
             --permission-mode dontAsk
             --allowedTools "Read,Glob,Grep,Agent,Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(git status:*),Bash(git merge-base:*),Bash(git rev-parse:*)"
             --disallowedTools "Edit,Write,NotebookEdit,WebFetch,WebSearch"
@@ -127,15 +128,27 @@ jobs:
         run: |
           set -u
           r=$(jq -r '[.[] | select(.type == "result")] | last | .result // ""' "$EXECUTION_FILE" 2> /dev/null || true)
-          j=$(awk '/^```json/ {p = 1; next} /^```/ {if (p) exit} p' <<<"$r")
-          [ -n "$j" ] || j=$r
-          if jq -e 'type == "array"' <<<"$j" > /dev/null 2>&1; then
-            echo "$j" > "$OUT/code_review.json"
+          # The findings are the first JSON list of objects in the last message, with or without a fence.
+          if python3 -c '
+          import json, sys
+          t = sys.stdin.read()
+          for i, c in enumerate(t):
+              if c != "[":
+                  continue
+              try:
+                  v, _ = json.JSONDecoder().raw_decode(t[i:])
+              except ValueError:
+                  continue
+              if isinstance(v, list) and all(isinstance(x, dict) for x in v):
+                  print(json.dumps(v))
+                  sys.exit(0)
+          sys.exit(1)
+          ' <<<"$r" > "$OUT/code_review.json"; then
             echo "Code review findings: $(jq length "$OUT/code_review.json")"
           else
             echo '[{"note": "The code review did not finish, so it found nothing."}]' > "$OUT/code_review.json"
             touch "$OUT/code_review_failed"
-            echo "::warning::The code review did not finish."
+            echo "::warning::The code review did not finish. Its last message starts with: $(head -c 300 <<<"$r" | tr '\n' ' ')"
           fi
 
       # Claude gets read access to the files only. The workflow posts what it returns.
@@ -148,6 +161,7 @@ jobs:
           github_token: ${{ github.token }}
           prompt: ${{ steps.prep.outputs.prompt }}
           claude_args: |
+            --model opus
             --permission-mode dontAsk
             --allowedTools "Read,Glob,Grep"
             --disallowedTools "Bash,Edit,Write,NotebookEdit,WebFetch,WebSearch"
