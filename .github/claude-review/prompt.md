@@ -53,7 +53,7 @@ Look for these problems:
 - Placeholders and example values that do not have the format of the real value, or that do not match what the text says about them (the length, the dashes, the slashes). Compare them with the same placeholder on other pages.
 - Markdown and MDX that renders wrong: tags that are not closed, broken code fences, broken bold or italic (`** text**`, `*text**`), a frontmatter `description` with HTML or Markdown in it. Each page needs a `title` and a `description`.
 - Links and images that point to files or pages that do not exist, or that differ in capital letters. Images on the old CDN when the rest of the page moved to `/images/`.
-- `docs.json`: a new page that is not in the navigation, a page in a group that does not match what the platform is, a group whose order this pull request breaks, a deleted or renamed page without a redirect. `README.md` says how redirects work in this repository.
+- `docs.json`: a new page that is not in the navigation, a page in a group that does not match what the platform is, a group whose order this pull request breaks, a deleted or renamed page without a redirect. Redirects go in the `docs.json` `redirects` list, unless `README.md` says otherwise.
 - Spelling and grammar mistakes, also in headings, alt text and image file names. Product, platform and feature names that are spelled differently from the other pages, or old names that this pull request changed in some places but not in all.
 - Invisible characters and long dashes (from `checks.txt`).
 - Internal notes, review notes, placeholders or TODOs that readers will see. Real customer data, email addresses or keys in examples.

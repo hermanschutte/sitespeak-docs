@@ -28,7 +28,7 @@ reviews=$(ctx .reviews); summary_id=$(ctx .summary_id); had_label=$(ctx .had_lab
 reviewed=$(jq -r .reviewed <<<"$RESULT")
 
 # 1. New comments. A comment that GitHub refuses (its line is not in the diff) goes to the summary.
-failed='[]'
+failed='[]'; posted='[]'
 while IFS= read -r c; do
   [ -n "$c" ] || continue
   body=$(jq -r '
@@ -41,10 +41,15 @@ while IFS= read -r c; do
   payload=$(jq -c --arg head "$head" --arg body "$body" '
     {commit_id: $head, path, line, side: "RIGHT", body: $body}
     + (if (.start_line // 0) > 0 and .start_line < .line then {start_line, start_side: "RIGHT"} else {} end)' <<<"$c")
-  if ! write POST "repos/$REPO/pulls/$PR/comments" <<<"$payload"; then
+  if [ "${DRY_RUN:-}" = 1 ]; then
+    write POST "repos/$REPO/pulls/$PR/comments" <<<"$payload"; resp='{"id": 0, "html_url": "#"}'
+  elif ! resp=$(gh api -X POST "repos/$REPO/pulls/$PR/comments" --input - <<<"$payload"); then
     echo "::warning::GitHub refused a comment on $(jq -r '"\(.path) line \(.line)"' <<<"$c"). It goes in the summary."
     failed=$(jq -c --argjson c "$c" '. + [$c | {severity, security, title, path, body: "\(.body) (line \(.line))"}]' <<<"$failed")
+    continue
   fi
+  posted=$(jq -c --argjson c "$c" --argjson r "$resp" \
+    '. + [{root_id: $r.id, severity: $c.severity, security: ($c.security // false), title: $c.title, url: $r.html_url}]' <<<"$posted")
 done < <(jq -c '.comments[]' <<<"$RESULT")
 
 # 2. Replies in threads.
@@ -71,15 +76,16 @@ for t in $(jq -r '.resolve[]' <<<"$RESULT"); do
 done
 
 # 4. Count what is open now. The first line of each finding has its severity and title.
-open_threads=$("$here/threads.sh" | jq -c --argjson res "$(jq -c .resolve <<<"$RESULT")" '
+#    A comment from step 1 can be missing from the GraphQL answer for a moment, so it comes from $posted.
+open_threads=$("$here/threads.sh" | jq -c --argjson res "$(jq -c .resolve <<<"$RESULT")" --argjson posted "$posted" '
   [.[] | select((.resolved | not) and (.thread_id as $t | $res | index($t) | not))
    | (.comments[0].body | split("\n")[0]) as $first
    | ($first | capture("^\\*\\*(?<severity>P[0-2])\\*\\*(?<sec> · \\*\\*Security\\*\\*)? · \\*\\*(?<title>.+)\\*\\*$")
       // {severity: "P2", sec: null, title: ($first | .[0:80])}) as $m
-   | {severity: $m.severity, security: (($m.sec // "") != ""), title: $m.title, url}]')
-if [ "${DRY_RUN:-}" = 1 ]; then
-  open_threads=$(jq -c --argjson new "$(jq -c '[.comments[] | {severity, security, title, url: "#"}]' <<<"$RESULT")" '. + $new' <<<"$open_threads")
-fi
+   | {root_id, severity: $m.severity, security: (($m.sec // "") != ""), title: $m.title, url}]
+  | map(.root_id) as $seen
+  | . + [$posted[] | select(.root_id as $id | $seen | index($id) | not)]
+  | map(del(.root_id))')
 so=$(jq -c --argjson failed "$failed" '.summary_only + $failed' <<<"$RESULT")
 # A failed code review keeps the pull request open, but the next run does not carry it over.
 shown=$so

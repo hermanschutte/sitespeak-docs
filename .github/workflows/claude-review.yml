@@ -153,14 +153,21 @@ jobs:
           print(json.dumps(next((v for v in found if v), [])))
           ' <<<"$r" > "$OUT/code_review.json"; then
             echo "Code review findings: $(jq length "$OUT/code_review.json")"
-            jq -r '.[] | "- \(.severity // "") \(.file // ""):\(.line // "") \(.summary // "" | .[0:200])"' "$OUT/code_review.json"
           else
             echo '[{"note": "The code review did not finish, so it found nothing."}]' > "$OUT/code_review.json"
             touch "$OUT/code_review_failed"
             echo "::warning::The code review did not finish. Its last message starts with: $(head -c 300 <<<"$r" | tr '\n' ' ')"
           fi
-          # The commands that dontAsk refused. A refused git command can make the review miss problems.
+          # The last message, the findings and the commands that dontAsk refused. Claude wrote
+          # this text, so GitHub must not read workflow commands (lines that start with ::) in it.
+          stop=$(openssl rand -hex 16)
+          echo "::group::Code review text"
+          echo "::stop-commands::$stop"
+          printf '%s\n' "$r"
+          jq -r '.[] | "- \(.severity // "") \(.file // ""):\(.line // "") \(.summary // "" | .[0:200])"' "$OUT/code_review.json"
           jq -r '[.[] | select(.type == "result")] | last | .permission_denials[]? | "Refused: \(.tool_name) \(.tool_input.command // (.tool_input | tostring) | .[0:200])"' "$EXECUTION_FILE" 2> /dev/null || true
+          echo "::$stop::"
+          echo "::endgroup::"
 
       # Claude gets read access to the files only. The workflow posts what it returns.
       - name: Review

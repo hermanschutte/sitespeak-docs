@@ -108,7 +108,7 @@ git -c core.quotePath=false diff --name-status -M "$base" HEAD -- '*.mdx' | whil
   if [ -n "$old" ] && [ "${old#snippets/}" = "$old" ] \
      && [ "$(jq --arg s "/${old%.mdx}" '[.redirects[]?.source] | index($s) != null' docs.json)" = false ] \
      && ! grep -qF "\"${old%.mdx}\":" scripts/build_redirects.py 2> /dev/null; then
-    echo "$old:1: [removed-page] This page was deleted or renamed, and no redirect from /${old%.mdx} exists. Links to the old address break (README.md says how to add a redirect)." >> "$out"
+    echo "$old:1: [removed-page] This page was deleted or renamed, and no redirect from /${old%.mdx} exists. Links to the old address break." >> "$out"
   fi
 done
 
