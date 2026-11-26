@@ -60,10 +60,20 @@ jq --arg author "$author" --arg owner "$OWNER" '
    | {thread_id, root_id, path, line, resolved, from: (.comments | last | .author), reply: (.comments | last | .body)}]
 ' "$OUT/threads.json" > "$OUT/replies.json"
 
+# True when a merge after the last review changes files of this pull request. That merge brings
+# in code from other pull requests, so the review then checks the whole pull request.
+merge_changes_files() {
+  local m
+  [ -s "$OUT/files.txt" ] || return 1
+  for m in $(git rev-list --merges "$last"..HEAD); do
+    tr '\n' '\0' < "$OUT/files.txt" | xargs -0 git diff --quiet "$m^1" "$m" -- || return 0
+  done
+  return 1
+}
+
 # What to review: the commits after the last reviewed one, or the whole pull request.
-# A merge brings in code from other pull requests, so after a merge the review checks the whole pull request.
 if [ "$full" = 1 ] || [ -z "$last" ] || ! git cat-file -e "$last^{commit}" 2>/dev/null || ! git merge-base --is-ancestor "$last" HEAD \
-   || [ -n "$(git rev-list --merges "$last"..HEAD)" ]; then
+   || merge_changes_files; then
   mode=full
   cp "$OUT/full.diff" "$OUT/new.diff"
   range="$base"
