@@ -103,9 +103,10 @@ jobs:
             sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           fi
 
-      # The /code-review skill of Claude Code, on the code that the commits to review change
-      # (code examples, scripts, config). After a merge, it checks the whole pull request.
-      # Its findings go to the main review.
+      # The /code-review skill of Claude Code. It runs when the commits to review change code
+      # (code examples, scripts, config). After a merge, it reads the pull request from its base,
+      # so that its diff holds no code from main. The main review keeps only its findings on
+      # the lines that the commits to review change.
       - name: Code review
         id: code
         if: steps.prep.outputs.code == 'true' && steps.sandbox.outcome == 'success'
