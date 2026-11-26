@@ -53,6 +53,7 @@ jobs:
       MINTLIFY_TELEMETRY_DISABLED: "1"
     outputs:
       rules: ${{ steps.post.outputs.rules }}
+      resolve: ${{ steps.post.outputs.resolve }}
     steps:
       # Comments can come from a pull request in a fork or a draft. Skip those
       # before any code of the pull request runs.
@@ -89,9 +90,12 @@ jobs:
           COMMENT_ID: ${{ github.event_name == 'issue_comment' && github.event.comment.id || '' }}
         run: .github/claude-review/prepare.sh
 
-      # The code review runs commands in a sandbox that needs these tools.
+      # The code review runs commands in a sandbox that needs these tools. If the install
+      # fails, the code review does not run, and the pull request stays open (post.sh).
       - name: Install sandbox tools
+        id: sandbox
         if: steps.prep.outputs.code == 'true'
+        continue-on-error: true
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends bubblewrap socat
@@ -103,7 +107,7 @@ jobs:
       # (code examples, scripts, config). Its findings go to the main review.
       - name: Code review
         id: code
-        if: steps.prep.outputs.code == 'true'
+        if: steps.prep.outputs.code == 'true' && steps.sandbox.outcome == 'success'
         continue-on-error: true
         uses: anthropics/claude-code-action@v1
         env:
@@ -175,6 +179,26 @@ jobs:
           OUT: ${{ runner.temp }}/claude-review
           RESULT: ${{ steps.review.outputs.structured_output }}
         run: .github/claude-review/post.sh
+
+  # The review threads that are fixed or that the author keeps. GitHub resolves a thread
+  # only for a token with contents: write, so this job runs no code from the pull request.
+  resolve-threads:
+    needs: review
+    if: always() && needs.review.outputs.resolve != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RESOLVE: ${{ needs.review.outputs.resolve }}
+    steps:
+      - run: |
+          set -euo pipefail
+          for t in $(jq -r '.[]' <<<"$RESOLVE"); do
+            gh api graphql -f query='mutation($id: ID!) { resolveReviewThread(input: {threadId: $id}) { thread { isResolved } } }' -f id="$t" > /dev/null \
+              || echo "::warning::Could not resolve thread $t."
+          done
 
   # Rules that the author or the owner approved in a thread. Only this job may
   # write to the repository, and only to rules.md on the claude-review-rules branch.

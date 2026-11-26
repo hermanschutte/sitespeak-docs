@@ -27,10 +27,13 @@ author=$(ctx .author); owner=$(ctx .owner); url=$(ctx .url)
 reviews=$(ctx .reviews); summary_id=$(ctx .summary_id); had_label=$(ctx .had_label)
 reviewed=$(jq -r .reviewed <<<"$RESULT")
 
-# New rules go to a separate job that may write to the repository. Write them first, so that a
-# failed GitHub call below does not lose them.
-if [ -n "${GITHUB_OUTPUT:-}" ] && [ "$(jq '.add_rules | length' <<<"$RESULT")" -gt 0 ]; then
-  echo "rules=$(jq -c .add_rules <<<"$RESULT")" >> "$GITHUB_OUTPUT"
+# New rules and the threads to resolve go to separate jobs that may write to the repository
+# (GitHub resolves a thread only for a token with contents: write). Write them first, so that a
+# failed GitHub call below does not lose them. Claude may resolve only its own threads.
+resolve=$(jq -c --slurpfile th "$OUT/threads.json" '[.resolve[] | select(. as $t | $th[0] | map(.thread_id) | index($t))]' <<<"$RESULT")
+if [ -n "${GITHUB_OUTPUT:-}" ]; then
+  [ "$(jq '.add_rules | length' <<<"$RESULT")" = 0 ] || echo "rules=$(jq -c .add_rules <<<"$RESULT")" >> "$GITHUB_OUTPUT"
+  [ "$resolve" = '[]' ] || echo "resolve=$resolve" >> "$GITHUB_OUTPUT"
 fi
 
 # 1. New comments. A comment that GitHub refuses (its line is not in the diff) goes to the summary.
@@ -69,21 +72,14 @@ while IFS= read -r root; do
   [ -n "$root" ] || continue
   write POST "repos/$REPO/pulls/$PR/comments/$root/replies" <<<'{"body": "Thanks. I resolved this thread."}' \
     || echo "::warning::Could not reply in the thread of comment $root."
-done < <(jq -r --argjson r "$RESULT" '.[] | select(.thread_id as $t | ($r.resolve | index($t)) and ([$r.replies[].thread_id] | index($t) | not)) | .root_id' "$OUT/replies.json")
+done < <(jq -r --argjson r "$RESULT" --argjson res "$resolve" '.[] | select(.thread_id as $t | ($res | index($t)) and ([$r.replies[].thread_id] | index($t) | not)) | .root_id' "$OUT/replies.json")
 
-# 3. Resolve the threads that are fixed or that the author keeps.
-for t in $(jq -r '.resolve[]' <<<"$RESULT"); do
-  if [ "${DRY_RUN:-}" = 1 ]; then
-    echo "--- resolve $t" >&2
-  else
-    gh api graphql -f query='mutation($id: ID!) { resolveReviewThread(input: {threadId: $id}) { thread { isResolved } } }' -f id="$t" > /dev/null \
-      || echo "::warning::Could not resolve thread $t. It counts as closed."
-  fi
-done
+# 3. The threads that are fixed or that the author keeps. The resolve-threads job resolves them.
+if [ "${DRY_RUN:-}" = 1 ]; then jq -r '.[] | "--- resolve \(.)"' <<<"$resolve" >&2; fi
 
 # 4. Count what is open now. The first line of each finding has its severity and title.
 #    A comment from step 1 can be missing from the GraphQL answer for a moment, so it comes from $posted.
-open_threads=$("$here/threads.sh" | jq -c --argjson res "$(jq -c .resolve <<<"$RESULT")" --argjson posted "$posted" '
+open_threads=$("$here/threads.sh" | jq -c --argjson res "$resolve" --argjson posted "$posted" '
   [.[] | select((.resolved | not) and (.thread_id as $t | $res | index($t) | not))
    | (.comments[0].body | split("\n")[0]) as $first
    | ($first | capture("^\\*\\*(?<severity>P[0-2])\\*\\*(?<sec> · \\*\\*Security\\*\\*)? · \\*\\*(?<title>.+)\\*\\*$")
@@ -159,9 +155,11 @@ if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then echo "$body" >> "$GITHUB_STEP_SUMMARY
 has_label=$(gh api "repos/$REPO/issues/$PR/labels" --jq 'map(.name) | index("ready-to-merge") != null')
 if [ "$reviewed" = true ] && [ "$open" = 0 ]; then
   if [ "$has_label" = false ]; then
-    write POST "repos/$REPO/issues/$PR/labels" <<<'{"labels": ["ready-to-merge"]}'
+    write POST "repos/$REPO/issues/$PR/labels" <<<'{"labels": ["ready-to-merge"]}' \
+      || echo "::warning::Could not add the ready-to-merge label."
     if [ "$author" != "$owner" ]; then
-      write POST "repos/$REPO/pulls/$PR/requested_reviewers" <<<"$(jq -n --arg o "$owner" '{reviewers: [$o]}')"
+      write POST "repos/$REPO/pulls/$PR/requested_reviewers" <<<"$(jq -n --arg o "$owner" '{reviewers: [$o]}')" \
+        || echo "::warning::Could not ask $owner for a review."
     fi
   fi
 else

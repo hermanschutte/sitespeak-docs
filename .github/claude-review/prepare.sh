@@ -9,6 +9,8 @@
 # EVAL=1 (a local test: read the pull request, but no review state, and change nothing),
 # DRY_RUN=1 (read everything, change nothing).
 set -euo pipefail
+# Git writes file names with accents as they are, not as quoted escapes. checks.sh gets this too.
+export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.quotePath GIT_CONFIG_VALUE_0=false
 
 here=$(cd "$(dirname "$0")" && pwd)
 mkdir -p "$OUT"

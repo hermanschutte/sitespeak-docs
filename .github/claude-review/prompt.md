@@ -42,7 +42,7 @@ For each thread in `threads.json` that is not resolved and not in `replies.json`
 
 Skip this step in mode `replies`.
 
-Review `new.diff`. Use `full.diff` and the other pages for context. Go through `checks.txt` and `code_review.md` and include each real problem that they find. Check each code review finding in the file before you include it, and use the line that the file shows. Check every changed page from top to bottom as a reader who follows the steps.
+Review `new.diff`. Use `full.diff` and the other pages for context. Go through `checks.txt` and `code_review.md` and include each real problem that they find. Check each code review finding in the file before you include it, and use the line that the file shows. In mode `incremental`, include a code review finding only when it is about a line that `new.diff` changes. Check every changed page from top to bottom as a reader who follows the steps.
 
 Look for these problems:
 
