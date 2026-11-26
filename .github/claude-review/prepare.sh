@@ -70,6 +70,8 @@ else
   : > "$OUT/new.diff"
   if [ -s "$OUT/files.txt" ]; then tr '\n' '\0' < "$OUT/files.txt" | xargs -0 git diff --no-color "$last" HEAD -- > "$OUT/new.diff"; fi
   range="$last"
+  # A merge brings in code from other pull requests, so the code review then checks the whole pull request.
+  if [ -n "$(git rev-list --merges "$last"..HEAD)" ]; then range="$base"; fi
   if [ -s "$OUT/new.diff" ]; then mode=incremental; else mode=replies; fi
 fi
 
