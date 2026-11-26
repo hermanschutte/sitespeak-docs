@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "properties": {
+    "reviewed": { "type": "boolean" },
+    "error": { "type": "string" },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "start_line": { "type": "integer" },
+          "line": { "type": "integer" },
+          "severity": { "type": "string", "enum": ["P0", "P1", "P2"] },
+          "security": { "type": "boolean" },
+          "title": { "type": "string" },
+          "body": { "type": "string" },
+          "suggestion": { "type": "string" }
+        },
+        "required": ["path", "line", "severity", "security", "title", "body"]
+      }
+    },
+    "replies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "thread_id": { "type": "string" },
+          "root_id": { "type": "integer" },
+          "body": { "type": "string" }
+        },
+        "required": ["thread_id", "root_id", "body"]
+      }
+    },
+    "resolve": { "type": "array", "items": { "type": "string" } },
+    "add_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "thread_id": { "type": "string" },
+          "rule": { "type": "string" }
+        },
+        "required": ["thread_id", "rule"]
+      }
+    },
+    "summary_only": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": { "type": "string", "enum": ["P0", "P1", "P2"] },
+          "security": { "type": "boolean" },
+          "title": { "type": "string" },
+          "body": { "type": "string" },
+          "path": { "type": "string" }
+        },
+        "required": ["severity", "title", "body"]
+      }
+    },
+    "confidence": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "impact": { "type": "string", "enum": ["low", "medium", "high"] },
+    "verdict": { "type": "string" },
+    "overview": { "type": "string" },
+    "diagram": { "type": "string" }
+  },
+  "required": ["reviewed", "comments", "replies", "resolve", "add_rules", "summary_only", "confidence", "impact", "verdict", "overview", "diagram"]
+}

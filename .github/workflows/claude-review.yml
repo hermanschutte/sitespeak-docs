@@ -1,0 +1,243 @@
+name: Claude review
+
+# Reviews each pull request after each push, answers replies in its review
+# threads, and resolves the threads that are fixed. When no issues are open, it
+# adds the ready-to-merge label and asks the repository owner for a review.
+# A comment "@claude review" on the pull request starts a full review.
+# The scripts and the instructions are in .github/claude-review/.
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+  pull_request_review_comment:
+    types: [created]
+  issue_comment:
+    types: [created]
+
+jobs:
+  review:
+    if: >-
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       !github.event.pull_request.draft) ||
+      (github.event_name == 'pull_request_review_comment' &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       github.event.comment.in_reply_to_id &&
+       github.event.comment.user.type != 'Bot' &&
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)) ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.pull_request &&
+       github.event.comment.user.type != 'Bot' &&
+       contains(github.event.comment.body, '@claude review') &&
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association))
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # One run at a time for each pull request. Each run starts from the state on
+    # GitHub (the last reviewed commit, the open threads, the replies), so a
+    # waiting run that replaces another one also does that run's work. (A waiting
+    # "@claude review" that a later event replaces becomes a normal review.)
+    concurrency:
+      group: claude-review-${{ github.event.pull_request.number || github.event.issue.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    env:
+      REPO: ${{ github.repository }}
+      OWNER: ${{ github.repository_owner }}
+      PR: ${{ github.event.pull_request.number || github.event.issue.number }}
+      # The product code that the review checks the pages against (read-only).
+      APP_REPOS: hermanschutte/sitespeak-app hermanschutte/sitespeak-chatbot
+      MINTLIFY_DISABLE_AUTOUPDATE: "1"
+      MINTLIFY_TELEMETRY_DISABLED: "1"
+    outputs:
+      rules: ${{ steps.post.outputs.rules }}
+      resolve: ${{ steps.post.outputs.resolve }}
+    steps:
+      # Comments can come from a pull request in a fork or a draft. Skip those
+      # before any code of the pull request runs.
+      - name: Check the pull request
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          gh api "repos/$REPO/pulls/$PR" > "$RUNNER_TEMP/pr.json"
+          echo "ok=$(jq --arg repo "$REPO" '.state == "open" and (.draft | not) and .head.repo.full_name == $repo' "$RUNNER_TEMP/pr.json")" >> "$GITHUB_OUTPUT"
+          echo "head=$(jq -r .head.sha "$RUNNER_TEMP/pr.json")" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v6
+        if: steps.pr.outputs.ok == 'true'
+        with:
+          ref: ${{ steps.pr.outputs.head }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install the Mintlify CLI
+        if: steps.pr.outputs.ok == 'true'
+        run: npm install --global --no-audit --no-fund mint@4.3.14
+
+      - name: Prepare
+        id: prep
+        if: steps.pr.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APP_TOKEN: ${{ secrets.APP_REPO_TOKEN }}
+          APP_DIR: ${{ runner.temp }}/app
+          OUT: ${{ runner.temp }}/claude-review
+          FULL: ${{ github.event_name == 'issue_comment' && '1' || '0' }}
+          COMMENT_ID: ${{ github.event_name == 'issue_comment' && github.event.comment.id || '' }}
+        run: .github/claude-review/prepare.sh
+
+      # The code review runs commands in a sandbox that needs these tools. If the install
+      # fails, the code review does not run, and the pull request stays open (post.sh).
+      - name: Install sandbox tools
+        id: sandbox
+        if: steps.prep.outputs.code == 'true'
+        continue-on-error: true
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends bubblewrap socat
+          if [ -f /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+
+      # The /code-review skill of Claude Code. It runs when the commits to review change code
+      # (code examples, scripts, config). After a merge, it reads the pull request from its base,
+      # so that its diff holds no code from main. The main review keeps only its findings on
+      # the lines that the commits to review change.
+      - name: Code review
+        id: code
+        if: steps.prep.outputs.code == 'true' && steps.sandbox.outcome == 'success'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        env:
+          # The commands that Claude runs do not get the tokens.
+          CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: "1"
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: /code-review medium ${{ steps.prep.outputs.range }}...${{ steps.prep.outputs.head }}
+          # dontAsk: Claude can use only the tools in the list, and the Bash commands
+          # that Claude Code finds read-only (git diff, git log, git show). Do not add
+          # Bash(git diff:*): that rule also allows git diff --output=FILE, which writes files.
+          claude_args: |
+            --model opus
+            --permission-mode dontAsk
+            --allowedTools "Read,Glob,Grep,Agent"
+            --disallowedTools "Edit,Write,NotebookEdit,WebFetch,WebSearch"
+
+      # The report of the code review goes to the main review as text. Its format changes
+      # between runs (a JSON list or a numbered list), so the workflow does not parse it.
+      - name: Save the code review report
+        if: steps.prep.outputs.code == 'true'
+        env:
+          EXECUTION_FILE: ${{ steps.code.outputs.execution_file }}
+          OUT: ${{ runner.temp }}/claude-review
+        run: |
+          set -u
+          r=$(jq -r '[.[] | select(.type == "result")] | last | select(.is_error | not) | .result // ""' "$EXECUTION_FILE" 2> /dev/null || true)
+          if [ -n "$r" ]; then
+            printf '%s\n' "$r" > "$OUT/code_review.md"
+            echo "The code review finished."
+          else
+            echo "The code review did not finish, so it found nothing." > "$OUT/code_review.md"
+            touch "$OUT/code_review_failed"
+            echo "::warning::The code review did not finish."
+          fi
+          # The report and the commands that dontAsk refused. Claude wrote this text, so
+          # GitHub must not read workflow commands (lines that start with ::) in it.
+          stop=$(openssl rand -hex 16)
+          echo "::group::Code review report"
+          echo "::stop-commands::$stop"
+          cat "$OUT/code_review.md"
+          jq -r '[.[] | select(.type == "result")] | last | .permission_denials[]? | "Refused: \(.tool_name) \(.tool_input.command // (.tool_input | tostring) | .[0:200])"' "$EXECUTION_FILE" 2> /dev/null || true
+          echo "::$stop::"
+          echo "::endgroup::"
+
+      # Claude gets read access to the files only. The workflow posts what it returns.
+      - name: Review
+        id: review
+        if: steps.prep.outputs.skip == 'false'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: ${{ steps.prep.outputs.prompt }}
+          claude_args: |
+            --model opus
+            --permission-mode dontAsk
+            --allowedTools "Read,Glob,Grep"
+            --disallowedTools "Bash,Edit,Write,NotebookEdit,WebFetch,WebSearch"
+            ${{ steps.prep.outputs.add_dirs }}
+            --json-schema '${{ steps.prep.outputs.schema }}'
+
+      - name: Post the review
+        id: post
+        if: always() && steps.prep.outcome == 'success' && steps.prep.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OUT: ${{ runner.temp }}/claude-review
+          RESULT: ${{ steps.review.outputs.structured_output }}
+        run: .github/claude-review/post.sh
+
+  # The review threads that are fixed or that the author keeps. GitHub resolves a thread
+  # only for a token with contents: write, so this job runs no code from the pull request.
+  resolve-threads:
+    needs: review
+    if: always() && needs.review.outputs.resolve != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RESOLVE: ${{ needs.review.outputs.resolve }}
+    steps:
+      # The summary counts these threads as closed, so a failed resolve fails the job.
+      - run: |
+          set -euo pipefail
+          failed=0
+          for t in $(jq -r '.[]' <<<"$RESOLVE"); do
+            gh api graphql -f query='mutation($id: ID!) { resolveReviewThread(input: {threadId: $id}) { thread { isResolved } } }' -f id="$t" > /dev/null \
+              || { echo "::error::Could not resolve thread $t."; failed=1; }
+          done
+          exit "$failed"
+
+  # Rules that the owner approved in a thread. Only this job may
+  # write to the repository, and only to rules.md on the claude-review-rules branch.
+  save-rules:
+    needs: review
+    if: always() && needs.review.outputs.rules != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number || github.event.issue.number }}
+      RULES: ${{ needs.review.outputs.rules }}
+    steps:
+      - run: |
+          set -euo pipefail
+          new=$(jq -r --arg pr "$PR" '.[] | "- \(.) (PR #\($pr))"' <<<"$RULES")
+          if ! gh api "repos/$REPO/branches/claude-review-rules" > /dev/null 2>&1; then
+            # The first rule starts the branch, with rules.md as its only file.
+            text=$(printf '# Claude review rules\n\nThe Claude review reads this file on each run and follows each rule. Edit it on this branch to add, change or remove a rule. The review adds a rule here when the owner says yes to a rule that it proposes.\n\n%s\n' "$new")
+            tree=$(jq -n --arg c "$text" '{tree: [{path: "rules.md", mode: "100644", type: "blob", content: $c}]}' | gh api -X POST "repos/$REPO/git/trees" --input - --jq .sha)
+            commit=$(jq -n --arg t "$tree" '{message: "Start the review rules", tree: $t, parents: []}' | gh api -X POST "repos/$REPO/git/commits" --input - --jq .sha)
+            gh api -X POST "repos/$REPO/git/refs" -f ref=refs/heads/claude-review-rules -f sha="$commit" > /dev/null
+            exit 0
+          fi
+          for attempt in 1 2 3; do
+            cur=$(gh api "repos/$REPO/contents/rules.md?ref=claude-review-rules")
+            text=$(jq -r .content <<<"$cur" | base64 -d)
+            if jq -n --arg m "Add review rules from PR #$PR" --arg c "$(printf '%s\n%s\n' "$text" "$new" | base64 -w0)" \
+                 --arg sha "$(jq -r .sha <<<"$cur")" '{message: $m, content: $c, sha: $sha, branch: "claude-review-rules"}' \
+               | gh api -X PUT "repos/$REPO/contents/rules.md" --input - > /dev/null; then
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
