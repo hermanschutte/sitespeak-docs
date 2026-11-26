@@ -89,7 +89,7 @@ if [ "$mode" != replies ] && [ "$had_label" = true ] && [ "$changes" = true ]; t
   gh api -X DELETE "repos/$REPO/issues/$PR/labels/ready-to-merge" > /dev/null || true
 fi
 
-# Rules that the author or the owner approved. They live on their own branch, so a learned rule
+# Rules that the owner approved. They live on their own branch, so a learned rule
 # does not need a commit to main.
 if [ -n "${RULES_FILE:-}" ]; then
   cp "$RULES_FILE" "$OUT/rules.md"
@@ -152,7 +152,7 @@ jq -n \
 out skip false
 out mode "$mode"
 out code "$code"
-out base "$base"
+out range "$range"
 out head "$head"
 if [ -n "${GITHUB_OUTPUT:-}" ]; then
   d="EOF_$(od -An -N8 -tx1 /dev/urandom | tr -d ' \n')"

@@ -33,7 +33,17 @@
       }
     },
     "resolve": { "type": "array", "items": { "type": "string" } },
-    "add_rules": { "type": "array", "items": { "type": "string" } },
+    "add_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "thread_id": { "type": "string" },
+          "rule": { "type": "string" }
+        },
+        "required": ["thread_id", "rule"]
+      }
+    },
     "summary_only": {
       "type": "array",
       "items": {

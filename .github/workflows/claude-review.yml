@@ -103,7 +103,7 @@ jobs:
             sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           fi
 
-      # The /code-review skill of Claude Code, on the code in the pull request
+      # The /code-review skill of Claude Code, on the code that the commits to review change
       # (code examples, scripts, config). Its findings go to the main review.
       - name: Code review
         id: code
@@ -116,7 +116,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ github.token }}
-          prompt: /code-review medium ${{ steps.prep.outputs.base }}...${{ steps.prep.outputs.head }}
+          prompt: /code-review medium ${{ steps.prep.outputs.range }}...${{ steps.prep.outputs.head }}
           # dontAsk: Claude can use only the tools in the list, and the Bash commands
           # that Claude Code finds read-only (git diff, git log, git show). Do not add
           # Bash(git diff:*): that rule also allows git diff --output=FILE, which writes files.
@@ -193,14 +193,17 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       RESOLVE: ${{ needs.review.outputs.resolve }}
     steps:
+      # The summary counts these threads as closed, so a failed resolve fails the job.
       - run: |
           set -euo pipefail
+          failed=0
           for t in $(jq -r '.[]' <<<"$RESOLVE"); do
             gh api graphql -f query='mutation($id: ID!) { resolveReviewThread(input: {threadId: $id}) { thread { isResolved } } }' -f id="$t" > /dev/null \
-              || echo "::warning::Could not resolve thread $t."
+              || { echo "::error::Could not resolve thread $t."; failed=1; }
           done
+          exit "$failed"
 
-  # Rules that the author or the owner approved in a thread. Only this job may
+  # Rules that the owner approved in a thread. Only this job may
   # write to the repository, and only to rules.md on the claude-review-rules branch.
   save-rules:
     needs: review
@@ -219,7 +222,7 @@ jobs:
           new=$(jq -r --arg pr "$PR" '.[] | "- \(.) (PR #\($pr))"' <<<"$RULES")
           if ! gh api "repos/$REPO/branches/claude-review-rules" > /dev/null 2>&1; then
             # The first rule starts the branch, with rules.md as its only file.
-            text=$(printf '# Claude review rules\n\nThe Claude review reads this file on each run and follows each rule. Edit it on this branch to add, change or remove a rule. The review adds a rule here when the pull request author or the owner says yes to a rule that it proposes.\n\n%s\n' "$new")
+            text=$(printf '# Claude review rules\n\nThe Claude review reads this file on each run and follows each rule. Edit it on this branch to add, change or remove a rule. The review adds a rule here when the owner says yes to a rule that it proposes.\n\n%s\n' "$new")
             tree=$(jq -n --arg c "$text" '{tree: [{path: "rules.md", mode: "100644", type: "blob", content: $c}]}' | gh api -X POST "repos/$REPO/git/trees" --input - --jq .sha)
             commit=$(jq -n --arg t "$tree" '{message: "Start the review rules", tree: $t, parents: []}' | gh api -X POST "repos/$REPO/git/commits" --input - --jq .sha)
             gh api -X POST "repos/$REPO/git/refs" -f ref=refs/heads/claude-review-rules -f sha="$commit" > /dev/null

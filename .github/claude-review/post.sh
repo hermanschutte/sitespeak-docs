@@ -29,10 +29,20 @@ reviewed=$(jq -r .reviewed <<<"$RESULT")
 
 # New rules and the threads to resolve go to separate jobs that may write to the repository
 # (GitHub resolves a thread only for a token with contents: write). Write them first, so that a
-# failed GitHub call below does not lose them. Claude may resolve only its own threads.
-resolve=$(jq -c --slurpfile th "$OUT/threads.json" '[.resolve[] | select(. as $t | $th[0] | map(.thread_id) | index($t))]' <<<"$RESULT")
+# failed GitHub call below does not lose them. Only a finished review resolves threads or adds
+# rules. Claude may resolve only its own threads. Only the owner can approve a rule: a rule counts
+# only from a thread where the owner wrote the reply.
+resolve='[]'; rules='[]'
+if [ "$reviewed" = true ]; then
+  resolve=$(jq -c --slurpfile th "$OUT/threads.json" '[.resolve[] | select(. as $t | $th[0] | map(.thread_id) | index($t))]' <<<"$RESULT")
+  rules=$(jq -c --slurpfile rp "$OUT/replies.json" --arg owner "$owner" \
+    '[.add_rules[] | select(.thread_id as $t | $rp[0] | any(.thread_id == $t and .from == $owner)) | .rule]' <<<"$RESULT")
+  if [ "$(jq length <<<"$rules")" != "$(jq '.add_rules | length' <<<"$RESULT")" ]; then
+    echo "::warning::A rule did not come from a reply of $owner, so it was not added."
+  fi
+fi
 if [ -n "${GITHUB_OUTPUT:-}" ]; then
-  [ "$(jq '.add_rules | length' <<<"$RESULT")" = 0 ] || echo "rules=$(jq -c .add_rules <<<"$RESULT")" >> "$GITHUB_OUTPUT"
+  [ "$rules" = '[]' ] || echo "rules=$rules" >> "$GITHUB_OUTPUT"
   [ "$resolve" = '[]' ] || echo "resolve=$resolve" >> "$GITHUB_OUTPUT"
 fi
 
@@ -61,12 +71,12 @@ while IFS= read -r c; do
     '. + [{root_id: $r.id, severity: $c.severity, security: ($c.security // false), title: $c.title, url: $r.html_url}]' <<<"$posted")
 done < <(jq -c '.comments[]' <<<"$RESULT")
 
-# 2. Replies in threads.
+# 2. Replies in threads, only in the review's own threads.
 while IFS= read -r r; do
   [ -n "$r" ] || continue
   write POST "repos/$REPO/pulls/$PR/comments/$(jq -r .root_id <<<"$r")/replies" <<<"$(jq -c '{body}' <<<"$r")" \
     || echo "::warning::Could not reply in thread $(jq -r .thread_id <<<"$r" | tr '\n\r' '  ')."
-done < <(jq -c '.replies[]' <<<"$RESULT")
+done < <(jq -c --slurpfile th "$OUT/threads.json" '.replies[] | select(.root_id as $id | $th[0] | any(.root_id == $id))' <<<"$RESULT")
 # A reply that Claude resolved without an answer stays the last comment, and each later run would answer it again.
 while IFS= read -r root; do
   [ -n "$root" ] || continue
