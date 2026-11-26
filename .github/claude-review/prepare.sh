@@ -164,6 +164,9 @@ jq -n \
 out skip false
 out mode "$mode"
 out code "$code"
+# After a merge, a diff from the last reviewed commit also holds code from main, so the code
+# review then checks this pull request from its base. Its findings on older lines are dropped.
+if [ "$mode" != full ] && [ -n "$(git rev-list --merges "$last"..HEAD)" ]; then range="$base"; fi
 out range "$range"
 out head "$head"
 if [ -n "${GITHUB_OUTPUT:-}" ]; then
