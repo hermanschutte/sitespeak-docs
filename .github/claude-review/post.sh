@@ -76,7 +76,7 @@ while IFS= read -r r; do
   [ -n "$r" ] || continue
   write POST "repos/$REPO/pulls/$PR/comments/$(jq -r .root_id <<<"$r")/replies" <<<"$(jq -c '{body}' <<<"$r")" \
     || echo "::warning::Could not reply in thread $(jq -r .thread_id <<<"$r" | tr '\n\r' '  ')."
-done < <([ "$reviewed" != true ] || jq -c --slurpfile th "$OUT/threads.json" '.replies[] | . as $r | select($th[0] | any(.root_id == $r.root_id and .thread_id == $r.thread_id))' <<<"$RESULT")
+done < <([ "$reviewed" != true ] || jq -c --slurpfile th "$OUT/threads.json" '.replies[] | . as $r | first($th[0][] | select(.thread_id == $r.thread_id)) | {root_id, body: $r.body, thread_id}' <<<"$RESULT")
 # A reply that Claude resolved without an answer stays the last comment, and each later run would answer it again.
 while IFS= read -r root; do
   [ -n "$root" ] || continue

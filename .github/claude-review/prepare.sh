@@ -61,7 +61,9 @@ jq --arg author "$author" --arg owner "$OWNER" '
 ' "$OUT/threads.json" > "$OUT/replies.json"
 
 # What to review: the commits after the last reviewed one, or the whole pull request.
-if [ "$full" = 1 ] || [ -z "$last" ] || ! git cat-file -e "$last^{commit}" 2>/dev/null || ! git merge-base --is-ancestor "$last" HEAD; then
+# A merge brings in code from other pull requests, so after a merge the review checks the whole pull request.
+if [ "$full" = 1 ] || [ -z "$last" ] || ! git cat-file -e "$last^{commit}" 2>/dev/null || ! git merge-base --is-ancestor "$last" HEAD \
+   || [ -n "$(git rev-list --merges "$last"..HEAD)" ]; then
   mode=full
   cp "$OUT/full.diff" "$OUT/new.diff"
   range="$base"
@@ -70,8 +72,6 @@ else
   : > "$OUT/new.diff"
   if [ -s "$OUT/files.txt" ]; then tr '\n' '\0' < "$OUT/files.txt" | xargs -0 git diff --no-color "$last" HEAD -- > "$OUT/new.diff"; fi
   range="$last"
-  # A merge brings in code from other pull requests, so the code review then checks the whole pull request.
-  if [ -n "$(git rev-list --merges "$last"..HEAD)" ]; then range="$base"; fi
   if [ -s "$OUT/new.diff" ]; then mode=incremental; else mode=replies; fi
 fi
 
