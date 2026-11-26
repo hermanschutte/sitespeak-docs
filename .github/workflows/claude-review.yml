@@ -104,7 +104,8 @@ jobs:
           fi
 
       # The /code-review skill of Claude Code, on the code that the commits to review change
-      # (code examples, scripts, config). Its findings go to the main review.
+      # (code examples, scripts, config). After a merge, it checks the whole pull request.
+      # Its findings go to the main review.
       - name: Code review
         id: code
         if: steps.prep.outputs.code == 'true' && steps.sandbox.outcome == 'success'
